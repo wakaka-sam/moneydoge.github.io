@@ -1,37 +1,41 @@
-## Welcome to GitHub Pages
+# 目录
+- [1.About（项目规划）](page/about.md)
+- [2.Team profile（团队组建）](page/team_profile.md)
+- [3.Investigation（项目前期调研）](page/Investigation.md)
+- [4.Vision（项目愿景）](page/vision.md)
+- [5.Product Backlog （产品特性）](page/product_backlog)
+- [6.Requirement specification（需求规格说明）](page/product_requirement.md)
+  - 6.1 Usecase Diagram（用例图）
+  - 6.2 Use Cases（用例+活动图）
+  - 6.3 Domain Model（领域模型）
+  - 6.4 State Model（状态模型）
+  - 6.5 System Sequence Diagram（功能模型）
+  - 6.6 Supplementary Requirements（补充需求）
+- 7.Design（设计）
+  - 7.1 UI design（界面设计）
+  - 7.2 Database design（数据库设计）
+  - 7.3 Interface API design（接口 API 设计）
+  - 7.4 Architecture design（架构设计）
+  - 7.5 Usecase design（用例设计）
+- 8.生产规范与指南
+  - 8.1 XX 代码规范
 
-You can use the [editor on GitHub](https://github.com/moneydoge/moneydoge.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+  - 8.2 REST API 设计规范
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+  - 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
 
-### Markdown
+  - 8.4 部署说明
+- 9.资料分享链接
+  - [GitHub上创建组织](https://www.cnblogs.com/haore147/p/4219673.html)
+  - [微信小程序开发相关技术博客视频链接](page/technique_learning.md)
+- 10.贡献率计算
+  - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
+- 11.成品展示
+- X1 meeting-records
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/moneydoge/moneydoge.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+  - [inception meeting(2019/03/22)](page/inception_meeting.md)
+  - [inception meeting_2(2019/03/29)](page/meeting_record_2.md)
+- X2 [kanban](https://github.com/ljhnhlh/ljhnhlh.github.io/projects)
+- X3 auditing-records
+- X4 Tech/Work Report
+- X5 Final Report
