@@ -35,7 +35,9 @@
 
   - [inception meeting(2019/03/22)](page/inception_meeting.md)
   - [inception meeting_2(2019/03/29)](page/meeting_record_2.md)
+  - [inception meeting_3(2019/04/03)](page/meeting_record_3.md)
 - X2 [kanban](https://github.com/ljhnhlh/ljhnhlh.github.io/projects)
 - X3 auditing-records
 - X4 Tech/Work Report
+  - [16340303-zdx](page/zdx_note.md)
 - X5 Final Report
