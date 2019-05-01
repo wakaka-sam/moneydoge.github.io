@@ -3,14 +3,13 @@ package backend1.demo;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @RequestMapping("/Create")
 @RestController
@@ -27,9 +26,9 @@ public class CreateController {
         String appid = "wx08dea5e778f278de&";
         String secret = "77fc034ff68fe7799e4e8723466a50d7&";
         String Url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid
-                    +"&secret="+ secret
-                    + "&js_code=" + code
-                    + "&grant_type=authorization_code";
+                +"&secret="+ secret
+                + "&js_code=" + code
+                + "&grant_type=authorization_code";
         JSONObject jsonObject = new JSONObject();
 
         JSONObject res = restTemplate.getForObject("",JSONObject.class);
@@ -61,15 +60,14 @@ public class CreateController {
         jsonObject.put("errcode",errcode);
         jsonObject.put("errmsg",res.getString("errmsg"));
         jsonObject.put("SessionId",SessionId);
-        jsonObject.put("expireTime","");
+        jsonObject.put("expireTime",60);
 
 
         JSONObject RedisSession = new JSONObject();
         RedisSession.put("openid",openid);
         RedisSession.put("session_key",session_key);
-        RedisSession.put("expireTime",1);
         //存入Redis
-        stringRedisTemplate.opsForValue().set(SessionId,RedisSession.toString());
+        stringRedisTemplate.opsForValue().set(SessionId,RedisSession.toString(),60, TimeUnit.MINUTES);
         return  jsonObject;//retrn SessionId
     }
 
@@ -80,15 +78,15 @@ public class CreateController {
 
     @ResponseBody
     @RequestMapping(value = "/For_help",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
-    public int CreateFor_help(@RequestParam("title") String title,@RequestParam ("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("working_time") Date working_time,@RequestParam("pay") int pay){
-         return createService.CreateFor_help(title,phone,wechat,working_time,pay);
+    public int CreateFor_help(@RequestParam("title") String title,@RequestParam ("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("ending_time") Date ending_time,@RequestParam("pay") int pay){
+        return createService.CreateFor_help(title,phone,wechat,ending_time,pay);
     }
     @PostMapping("/Errand")
-    public  int CreateErrand(@RequestParam("title") String title,@RequestParam("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("working_time") Date working_time,@RequestParam("pay") int pay){
-        return createService.CreateErrand(title,phone,wechat,working_time,pay);
+    public  int CreateErrand(@RequestParam("title") String title,@RequestParam("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("ending_time") Date ending_time,@RequestParam("pay") int pay){
+        return createService.CreateErrand(title,phone,wechat,ending_time,pay);
     }
     @PostMapping("/Second_hand")
-    public  int CreateSecond_hand(@RequestParam("object_name") String object_name,@RequestParam("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("working_time") Date working_time,@RequestParam("pay") int pay,@RequestParam("photo_url") String photo_url){
-       return createService.CreateSecond_hand(object_name,phone,wechat,working_time,pay,photo_url);
+    public  int CreateSecond_hand(@RequestParam("object_name") String object_name,@RequestParam("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("ending_time") Date ending_time,@RequestParam("pay") int pay,@RequestParam("photo_url") String photo_url){
+        return createService.CreateSecond_hand(object_name,phone,wechat,ending_time,pay,photo_url);
     }
 }
