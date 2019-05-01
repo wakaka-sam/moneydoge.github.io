@@ -12,30 +12,32 @@ public class IssueInfoImpl implements IssueInfoMapper{
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public String CreateExpressage(String express_loc, Date arrive_time,String loc,int num,int pay,String remark,String phone,String wechat){
-        String id = "001";
-        jdbcTemplate.update("INSERT  into moneydoge.expressage(uid1,express_loc,arrive_time,loc,num,pay,remark,phone,wechat)values (?,?,?,?,?,?,?,?,?)" ,id,express_loc,arrive_time,loc,num,pay,remark,phone,wechat);
+    public int  CreateUser(String openid,String nickName,String avatarUrl,String gender){
+        return jdbcTemplate.update("insert into moneydog.user(openid,nikname,avatarUrl,gender,state)values (?,?,?,?,0)",openid,nickName,avatarUrl,gender);
 
-        return  "1";
     }
     @Override
-    public String CreateFor_help(String title,String phone,String wechat,Date working_time,int pay){
+    public int CreateExpressage(String express_loc, Date arrive_time,String loc,int num,int pay,String remark,String phone,String wechat){
         String id = "001";
-        int t =   jdbcTemplate.update("insert into moneydoge.for_help(uid1,title,phone,wechat,working_time,pay) values (?,?,?,?,?,?)",id,title,phone,wechat,working_time,pay);
-        System.out.println(t);
+        return jdbcTemplate.update("INSERT  into moneydog.expressage(uid1,express_loc,arrive_time,loc,num,pay,remark,phone,wechat)values (?,?,?,?,?,?,?,?,?)" ,id,express_loc,arrive_time,loc,num,pay,remark,phone,wechat);
+    }
+    @Override
+    public int CreateFor_help(String title,String phone,String wechat,Date working_time,int pay){
+        String id = "001";
+        return jdbcTemplate.update("insert into moneydog.for_help(uid1,title,phone,wechat,working_time,pay) values (?,?,?,?,?,?)",id,title,phone,wechat,working_time,pay);
 
-        return  "1";
+
+
     }
     @Override
-    public String CreateErrand(String title,String phone,String wechat,Date working_time,int pay){
+    public int CreateErrand(String title,String phone,String wechat,Date working_time,int pay){
         String id = "001";
-        jdbcTemplate.update("insert into moneydoge.errand(uid1,title,phone,wechat,working_time,pay) values (?,?,?,?,?,?)",id,title,phone,wechat,working_time,pay);
-        return  "1";
+        return jdbcTemplate.update("insert into moneydog.errand(uid1,title,phone,wechat,working_time,pay) values (?,?,?,?,?,?)",id,title,phone,wechat,working_time,pay);
+
     }
     @Override
-    public String CreateSecond_hand(String object_name,String phone,String wechat,Date working_time,int pay,String photo_url){
+    public int CreateSecond_hand(String object_name,String phone,String wechat,Date working_time,int pay,String photo_url){
         String id = "001";
-        jdbcTemplate.update("insert into moneydoge.errand(uid1,object_name,phone,wechat,working_time,pay,photo_url) values (?,?,?,?,?,?,?)",id,object_name,phone,wechat,working_time,pay,photo_url);
-        return  "1";
+        return jdbcTemplate.update("insert into moneydog.errand(uid1,object_name,phone,wechat,working_time,pay,photo_url) values (?,?,?,?,?,?,?)",id,object_name,phone,wechat,working_time,pay,photo_url);
     }
 }
