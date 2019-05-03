@@ -1,6 +1,5 @@
-package backend1.demo;
+package Load;
 
-import java.util.Date;
 import java.util.List;
 
 public interface LoadMapper {

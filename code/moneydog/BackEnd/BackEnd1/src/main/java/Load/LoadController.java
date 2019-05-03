@@ -1,5 +1,6 @@
-package backend1.demo;
+package Load;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,23 +12,24 @@ import java.util.List;
 @RestController
 public class LoadController {
 
+    @Autowired
     private LoadSerivce loadSerivce;
 
     @RequestMapping(method = RequestMethod.GET,value = "/downLoadExpressage")
-    public List<expressage> downLoadExpressage(@RequestParam("pid") int pid ){
+    public List<expressage> downLoadExpressage(@RequestParam("id") int pid ){
         return loadSerivce.downLoadExpressage(pid);
     }
 
     @RequestMapping(method = RequestMethod.GET,value = "/downLoadErrands")
-    public List<errand> downLoadErrands(@RequestParam("rid")int rid){
+    public List<errand> downLoadErrands(@RequestParam("id")int rid){
         return  loadSerivce.downLoadErrands(rid);
     }
     @RequestMapping(method = RequestMethod.GET,value = "/downLoadFor_help")
-    public List<for_help> downLoadFor_help(@RequestParam("fid")int fid){
+    public List<for_help> downLoadFor_help(@RequestParam("id")int fid){
         return loadSerivce.downLoadFor_help(fid);
     }
     @RequestMapping(method = RequestMethod.GET,value = "/downLoadSecond_hand")
-    public List<second_hand> downLoadSecond_hand(@RequestParam("sid") int sid){
+    public List<second_hand> downLoadSecond_hand(@RequestParam("id") int sid){
         return loadSerivce.downLoadSecond_hand(sid);
     }
 
@@ -44,7 +46,7 @@ public class LoadController {
         return loadSerivce.OnLoadFor_help();
     }
     @RequestMapping(method = RequestMethod.GET,value = "/OnLoadSecond_hand")
-    public List<second_hand> OnLoadSecond_hand(){
+    public List<second_hand>OnLoadSecond_hand(){
         return loadSerivce.OnLoadSecond_hand();
     }
 }

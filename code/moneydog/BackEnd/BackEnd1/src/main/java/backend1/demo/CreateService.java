@@ -18,14 +18,14 @@ public class CreateService {
         return  issueInfoMapper.CreateExpressage(express_loc,arrive_time,loc,num,pay,remark,phone,wechat);
     }
     //    state 初始为0，到后面再添加
-    public int CreateFor_help(String title,String phone,String wechat,Date ending_time,int pay){
-        return   issueInfoMapper.CreateFor_help(title,phone,wechat,ending_time,pay);
+    public int CreateFor_help(String title,String content,String phone,String wechat,Date ending_time,int pay){
+        return   issueInfoMapper.CreateFor_help(title,content,phone,wechat,ending_time,pay);
     }
-    public int CreateErrand(String title,String phone,String wechat,Date ending_time,int pay){
-        return   issueInfoMapper.CreateErrand(title,phone,wechat,ending_time,pay);
+    public int CreateErrand(String title,String content,String phone,String wechat,Date ending_time,int pay){
+        return   issueInfoMapper.CreateErrand(title,content,phone,wechat,ending_time,pay);
     }
-    public int CreateSecond_hand(String object_name,String phone,String wechat,Date ending_time,int pay,String photo_url){
-        return  issueInfoMapper.CreateSecond_hand(object_name,phone,wechat,ending_time,pay,photo_url);
+    public int CreateSecond_hand(String object_name,String content,String phone,String wechat,Date ending_time,int pay,String photo_url){
+        return  issueInfoMapper.CreateSecond_hand(object_name,content,phone,wechat,ending_time,pay,photo_url);
     }
 
 

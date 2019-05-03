@@ -1,9 +1,11 @@
-package backend1.demo;
+package Load;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LoadSerivce {
     @Autowired
     LoadMapper loadMapper;
@@ -15,22 +17,22 @@ public class LoadSerivce {
         return loadMapper.downLoadErrands(rid);
     }
     public List<for_help> downLoadFor_help(int fid){
-        return downLoadFor_help(fid);
+        return loadMapper.downLoadFor_help(fid);
     }
     public List<second_hand> downLoadSecond_hand(int sid){
-        return downLoadSecond_hand(sid);
+        return  loadMapper.downLoadSecond_hand(sid);
     }
 
     public List<expressage> OnLoadExpressage(){
-        return OnLoadExpressage();
+        return loadMapper.OnLoadExpressage();
     }
     public List<errand> OnLoadErrands(){
-        return OnLoadErrands();
+        return loadMapper.OnLoadErrands();
     }
     public List<for_help> OnLoadFor_help(){
-        return OnLoadFor_help();
+        return loadMapper.OnLoadFor_help();
     }
     public List<second_hand> OnLoadSecond_hand(){
-        return OnLoadSecond_hand();
+        return loadMapper.OnLoadSecond_hand();
     }
 }

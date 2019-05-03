@@ -15,4 +15,4 @@ spring:
 server:
   port: 8080
   servlet:
-    context-path: /boy
+    context-path: /

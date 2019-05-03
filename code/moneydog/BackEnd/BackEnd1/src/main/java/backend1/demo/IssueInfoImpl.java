@@ -22,22 +22,22 @@ public class IssueInfoImpl implements IssueInfoMapper{
         return jdbcTemplate.update("INSERT  into moneydog.expressage(uid1,express_loc,arrive_time,loc,num,pay,remark,phone,wechat)values (?,?,?,?,?,?,?,?,?)" ,id,express_loc,arrive_time,loc,num,pay,remark,phone,wechat);
     }
     @Override
-    public int CreateFor_help(String title,String phone,String wechat,Date ending_time,int pay){
+    public int CreateFor_help(String title,String content,String phone,String wechat,Date ending_time,int pay){
         String id = "001";
-        return jdbcTemplate.update("insert into moneydog.for_help(uid1,title,phone,wechat,ending_time,pay) values (?,?,?,?,?,?)",id,title,phone,wechat,ending_time,pay);
+        return jdbcTemplate.update("insert into moneydog.for_help(uid1,title,content,phone,wechat,ending_time,pay) values (?,?,?,?,?,?,?)",id,title,content,phone,wechat,ending_time,pay);
 
 
 
     }
     @Override
-    public int CreateErrand(String title,String phone,String wechat,Date ending_time,int pay){
+    public int CreateErrand(String title,String content ,String phone,String wechat,Date ending_time,int pay){
         String id = "001";
-        return jdbcTemplate.update("insert into moneydog.errand(uid1,title,phone,wechat,ending_time,pay) values (?,?,?,?,?,?)",id,title,phone,wechat,ending_time,pay);
+        return jdbcTemplate.update("insert into moneydog.errand(uid1,title,content,phone,wechat,ending_time,pay) values (?,?,?,?,?,?,?)",id,title,content,phone,wechat,ending_time,pay);
 
     }
     @Override
-    public int CreateSecond_hand(String object_name,String phone,String wechat,Date ending_time,int pay,String photo_url){
+    public int CreateSecond_hand(String object_name,String content,String phone,String wechat,Date ending_time,int pay,String photo_url){
         String id = "001";
-        return jdbcTemplate.update("insert into moneydog.second_hand(uid1,object_name,phone,wechat,ending_time,pay,photo_url) values (?,?,?,?,?,?,?)",id,object_name,phone,wechat,ending_time,pay,photo_url);
+        return jdbcTemplate.update("insert into moneydog.second_hand(uid1,object_name,content,phone,wechat,ending_time,pay,photo_url) values (?,?,?,?,?,?,?,?)",id,object_name,content,phone,wechat,ending_time,pay,photo_url);
     }
 }
