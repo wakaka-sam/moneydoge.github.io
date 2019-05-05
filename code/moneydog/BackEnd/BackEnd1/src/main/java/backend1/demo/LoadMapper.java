@@ -1,4 +1,6 @@
-package Load;
+package backend1.demo;
+
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 
@@ -12,5 +14,9 @@ public interface LoadMapper {
     List<errand> OnLoadErrands();
     List<for_help> OnLoadFor_help();
     List<second_hand> OnLoadSecond_hand();
+    JSONObject LoadMyCreation(String openid);
+    JSONObject LoadMyReceiving(String openid);
+
+
 
 }

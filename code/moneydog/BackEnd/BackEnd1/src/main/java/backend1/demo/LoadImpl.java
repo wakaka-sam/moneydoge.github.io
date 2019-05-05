@@ -1,5 +1,6 @@
-package Load;
+package backend1.demo;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,7 +33,7 @@ public class LoadImpl implements LoadMapper {
     }
     @Override
     public List<second_hand> downLoadSecond_hand(int sid){
-        List<second_hand> temp =  jdbcTemplate.query("select sid,object_name,content,pay,ending_time from moneydog.second_hand where sid <= ? order by size desc limit 15 ;",new Object[]{sid},new BeanPropertyRowMapper(second_hand.class));
+        List<second_hand> temp =  jdbcTemplate.query("select sid,object_name,content,pay,ending_time from moneydog.second_hand where sid <= ? order by sid desc limit 15 ;",new Object[]{sid},new BeanPropertyRowMapper(second_hand.class));
         System.out.println(temp.toString());
         return  temp;
     }
@@ -47,6 +48,7 @@ public class LoadImpl implements LoadMapper {
     public List<errand> OnLoadErrands(){
         int id = jdbcTemplate.queryForObject("SELECT COUNT(rid) AS NumberOfProducts FROM errand;",int.class);
         List<errand> temp =  jdbcTemplate.query("select rid,title,content,pay,ending_time from moneydog.errand where rid <= ? order by rid desc limit 15 ; ",new Object[]{id},new BeanPropertyRowMapper(errand.class));
+
         return  temp;
     }
     @Override
@@ -69,7 +71,48 @@ public class LoadImpl implements LoadMapper {
             System.out.println(temp.toString());
             return  temp;
         }
-        List<second_hand> t = new ArrayList<second_hand>();
-        return  t;
+        return  null;
+    }
+    @Override
+    public JSONObject LoadMyCreation(String openid){
+        JSONObject jsonObject = new JSONObject();
+
+        String expressageSql = "select pid,loc,state from moneydog.expression where uid1 == ?";
+        String errandSql = "select rid,title,content,state from moneydog.errand where uid1 == ?";
+        String second_handSql = "select sid,object_name,content,state from moneydog.second_hand where uid1 == ?";
+        String for_helpSql = "select fid,title,content,state from moneydog.for_help where uid1 == ?";
+
+        List<expressage> expressages = jdbcTemplate.query(expressageSql ,new Object[]{openid},new BeanPropertyRowMapper(expressage.class));
+        List<errand> errands = jdbcTemplate.query(errandSql,new Object[]{openid},new BeanPropertyRowMapper(errand.class));
+        List<for_help> for_helps = jdbcTemplate.query(for_helpSql,new Object[]{openid},new BeanPropertyRowMapper(for_help.class));
+        List<second_hand> second_hands = jdbcTemplate.query(second_handSql,new Object[]{openid},new BeanPropertyRowMapper(second_hand.class));
+
+        jsonObject.put("expressages",expressages);
+        jsonObject.put("errands",errands);
+        jsonObject.put("for_helps",for_helps);
+        jsonObject.put("second_hands",second_hands);
+
+        return  jsonObject;
+    }
+
+    @Override
+    public JSONObject LoadMyReceiving(String openid) {
+        JSONObject jsonObject = new JSONObject();
+
+        String expressageSql = "select pid,loc,state from moneydog.expression where uid2 == ?";
+        String errandSql = "select rid,title,content,state from moneydog.errand where uid3 == ?";
+        String second_handSql = "select sid,object_name,content,state from moneydog.second_hand where uid3 == ?";
+        String for_helpSql = "select fid,title,content,state from moneydog.for_help where uid3 == ?";
+
+        List<expressage> expressages = jdbcTemplate.query(expressageSql ,new Object[]{openid},new BeanPropertyRowMapper(expressage.class));
+        List<errand> errands = jdbcTemplate.query(errandSql,new Object[]{openid},new BeanPropertyRowMapper(errand.class));
+        List<for_help> for_helps = jdbcTemplate.query(for_helpSql,new Object[]{openid},new BeanPropertyRowMapper(for_help.class));
+        List<second_hand> second_hands = jdbcTemplate.query(second_handSql,new Object[]{openid},new BeanPropertyRowMapper(second_hand.class));
+
+        jsonObject.put("expressages",expressages);
+        jsonObject.put("errands",errands);
+        jsonObject.put("for_helps",for_helps);
+        jsonObject.put("second_hands",second_hands);
+        return  jsonObject;
     }
 }

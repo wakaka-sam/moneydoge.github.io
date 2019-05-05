@@ -1,5 +1,6 @@
-package Load;
+package backend1.demo;
 
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,5 +35,11 @@ public class LoadSerivce {
     }
     public List<second_hand> OnLoadSecond_hand(){
         return loadMapper.OnLoadSecond_hand();
+    }
+    public JSONObject LoadMyCreation(String openid){
+        return loadMapper.LoadMyCreation(openid);
+    }
+    public JSONObject LoadMyReceiving(String openid){
+        return loadMapper.LoadMyReceiving(openid);
     }
 }
