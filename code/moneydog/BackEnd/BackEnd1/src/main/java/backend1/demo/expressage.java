@@ -57,7 +57,8 @@ public class expressage {
     public String getLoc() {
         return loc;
     }
-    expressage(){
+
+    expressage() {
 
     }
 }

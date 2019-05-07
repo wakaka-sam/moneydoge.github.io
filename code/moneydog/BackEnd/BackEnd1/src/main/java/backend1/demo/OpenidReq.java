@@ -8,7 +8,8 @@ public class OpenidReq {
     public String unionid;
     public int errcode;
     public String errmsg;
-    OpenidReq(String openid,String session_key,String unionid,int errcode,String errmsg){
+
+    OpenidReq(String openid, String session_key, String unionid, int errcode, String errmsg) {
         this.openid = openid;
         this.session_key = session_key;
         this.unionid = unionid;

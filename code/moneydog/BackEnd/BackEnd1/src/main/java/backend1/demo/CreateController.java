@@ -24,8 +24,7 @@ public class CreateController {
     private StringRedisTemplate stringRedisTemplate;
 
 
-
-    private JSONObject GetOpenId(String code){
+    private JSONObject GetOpenId(String code) {
         //得到完整的
         //{
         // errcode,
@@ -37,7 +36,7 @@ public class CreateController {
         String appid = "wx08dea5e778f278de&";
         String secret = "77fc034ff68fe7799e4e8723466a50d7&";
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid
-                +"&secret="+ secret
+                + "&secret=" + secret
                 + "&js_code=" + code
                 + "&grant_type=authorization_code";
         JSONObject jsonObject = new JSONObject();
@@ -45,109 +44,114 @@ public class CreateController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
-        String strbody = restTemplate.exchange(url, HttpMethod.GET,entity,String.class).getBody();
-        JSONObject res = JSONObject.parseObject(strbody,JSONObject.class);
+        String strbody = restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
+        JSONObject res = JSONObject.parseObject(strbody, JSONObject.class);
         int errcode = 0;
         String errmsg = "";
-        try{
+        try {
             errcode = res.getInteger("errcode");
             errmsg = res.getString("errmsg");
             //若出错，则仅返回errcode
-            if(errcode != 0){
-                jsonObject.put("errcode",errcode);
-                jsonObject.put("errmsg",errmsg);
+            if (errcode != 0) {
+                jsonObject.put("errcode", errcode);
+                jsonObject.put("errmsg", errmsg);
                 return jsonObject;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
         }
-        String openid = "" ;
+        String openid = "";
         String session_key = "";
         try {
             openid = res.getString("openid");
             session_key = res.getString("session_key");
 
-        }catch (Exception e) {
+        } catch (Exception e) {
         }
         jsonObject.put("errcode", errcode);
         jsonObject.put("errmsg", errmsg);
-        jsonObject.put("openid",openid);
-        jsonObject.put("session_key",session_key);
-            return  jsonObject;
+        jsonObject.put("openid", openid);
+        jsonObject.put("session_key", session_key);
+        return jsonObject;
     }
-    private JSONObject setSessionId(JSONObject res){
+
+    private JSONObject setSessionId(JSONObject res) {
         JSONObject RedisSession = new JSONObject();
 
         //用json存储
         String openid = res.getString("openid");
         String session_key = res.getString("session_key");
-        RedisSession.put("openid",openid);
-        RedisSession.put("session_key",session_key);
+        RedisSession.put("openid", openid);
+        RedisSession.put("session_key", session_key);
 
-        if(createService.Login(openid) == 1){
+        if (createService.Login(openid) == 1) {
             //生成sessionId
             String SessionId = UUID.randomUUID().toString();
             //存入redis
-            stringRedisTemplate.opsForValue().set(SessionId,RedisSession.toString(),60, TimeUnit.MINUTES);
+            stringRedisTemplate.opsForValue().set(SessionId, RedisSession.toString(), 60, TimeUnit.MINUTES);
 
             //返回sessionId
             JSONObject time = new JSONObject();
-            time.put("SessionId",SessionId);
-            time.put("expireTime",60);
+            time.put("SessionId", SessionId);
+            time.put("expireTime", 60);
             return time;
         }
-        return  null;
+        return null;
 
     }
+
     @PostMapping("/User")
-    public JSONObject CreateUser(@RequestParam("code") String code,@RequestParam("nickName") String nickName,@RequestParam("avatarUrl") String avatarUrl,@RequestParam("gender") String gender){
+    public JSONObject CreateUser(@RequestParam("code") String code, @RequestParam("nickName") String nickName, @RequestParam("avatarUrl") String avatarUrl, @RequestParam("gender") String gender) {
         JSONObject res = GetOpenId(code);
         System.out.println(res);
-        if(res.getInteger("errcode") != 0)
-            return  res;
+        if (res.getInteger("errcode") != 0)
+            return res;
 
         String openid = res.getString("openid");
         String session_key = res.getString("session_key");
 
-        int t = createService.CreateUser(openid,nickName,avatarUrl,gender);
-        if(t <= 0){
-            res.put("errcode",-1);
-            res.put("errmsg","create user failed");
-            return  res;
+        int t = createService.CreateUser(openid, nickName, avatarUrl, gender);
+        if (t <= 0) {
+            res.put("errcode", -1);
+            res.put("errmsg", "create user failed");
+            return res;
         }
         JSONObject session = setSessionId(res);
-        res.put("SessionId",session.getString("SessionId"));
-        res.put("expireTime",session.getInteger("expireTime"));
-        return  res;
+        res.put("SessionId", session.getString("SessionId"));
+        res.put("expireTime", session.getInteger("expireTime"));
+        return res;
     }
 
-    @RequestMapping(method = RequestMethod.GET,value = "/Login")
-    public JSONObject Login(@RequestParam("code")String code){
+    @RequestMapping(method = RequestMethod.GET, value = "/Login")
+    public JSONObject Login(@RequestParam("code") String code) {
 
         JSONObject res = GetOpenId(code);
-        if(res.getInteger("errcode") != 0)
-            return  res;
+        if (res.getInteger("errcode") != 0)
+            return res;
 
         JSONObject session = setSessionId(res);
         //retrn SessionId
-        return  session;
+        return session;
 
     }
+
     @PostMapping("/Expressage")
-    public JSONObject CreateExpressage(@RequestParam("express_loc") String express_loc,@RequestParam("arrive_time") Date arrive_time,@RequestParam("loc") String loc,@RequestParam("num") int num,@RequestParam("pay") int pay,@RequestParam("remark") String remark,@RequestParam("phone") String phone,@RequestParam("wechat") String wechat){
-        return   createService.CreateExpressage(express_loc,arrive_time,loc,num,pay,remark,phone,wechat);
+    public JSONObject CreateExpressage(@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
+        return createService.CreateExpressage(express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
     }
 
     @ResponseBody
-    @RequestMapping(value = "/For_help",method = RequestMethod.POST,produces = "application/json;charset=UTF-8")
-    public JSONObject CreateFor_help(@RequestParam("title") String title,@RequestParam("content") String content, @RequestParam ("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("ending_time") Date ending_time,@RequestParam("pay") int pay){
-        return createService.CreateFor_help(title,content,phone,wechat,ending_time,pay);
+    @RequestMapping(value = "/For_help", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    public JSONObject CreateFor_help(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
+        return createService.CreateFor_help(title, content, phone, wechat, ending_time, pay);
     }
+
     @PostMapping("/Errand")
-    public  JSONObject CreateErrand(@RequestParam("title") String title,@RequestParam("content") String content,@RequestParam("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("ending_time") Date ending_time,@RequestParam("pay") int pay){
-        return createService.CreateErrand(title,content,phone,wechat,ending_time,pay);
+    public JSONObject CreateErrand(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
+        return createService.CreateErrand(title, content, phone, wechat, ending_time, pay);
     }
+
     @PostMapping("/Second_hand")
-    public  JSONObject CreateSecond_hand(@RequestParam("object_name") String object_name,@RequestParam("content") String content,@RequestParam("phone") String phone,@RequestParam("wechat") String wechat,@RequestParam("ending_time") Date ending_time,@RequestParam("pay") int pay,@RequestParam("photo_url") String photo_url){
-        return createService.CreateSecond_hand(object_name,content,phone,wechat,ending_time,pay,photo_url);
+    public JSONObject CreateSecond_hand(@RequestParam("object_name") String object_name, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay, @RequestParam("photo_url") String photo_url) {
+        return createService.CreateSecond_hand(object_name, content, phone, wechat, ending_time, pay, photo_url);
     }
 }

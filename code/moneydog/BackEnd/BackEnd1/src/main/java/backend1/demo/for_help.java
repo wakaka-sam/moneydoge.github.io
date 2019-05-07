@@ -6,7 +6,7 @@ public class for_help {
     public int fid;
     public String title;
     public String content;
-    public Date  ending_time;
+    public Date ending_time;
     public int pay;
 
     public String getTitle() {
@@ -48,7 +48,8 @@ public class for_help {
     public void setPay(int pay) {
         this.pay = pay;
     }
-    for_help(){
+
+    for_help() {
 
     }
 }
