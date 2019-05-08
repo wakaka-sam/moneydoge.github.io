@@ -2,7 +2,7 @@ package file.load.demo;
 
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,8 +19,10 @@ import java.util.UUID;
 @RequestMapping("/File")
 public class fileController {
 
-    private String filePath = "I:/study13/image/";
+//    private String filePath = "/image/";
 
+    @Value("${web.upload-path}")
+    private String filePath;
 
     @RequestMapping(value = "/Upload",method = RequestMethod.POST)
     public JSONObject UpLoadImage(@RequestParam(value = "img")MultipartFile file) throws RuntimeException{
@@ -35,6 +37,7 @@ public class fileController {
             return jsonObject;
         }
         String imageName = UUID.randomUUID().toString() + file.getOriginalFilename();
+        System.out.println(filePath + imageName);
         File dir = new File(filePath + imageName);
         if(!dir.getParentFile().exists()){
             dir.getParentFile().mkdirs();
@@ -54,8 +57,9 @@ public class fileController {
         return jsonObject;
     }
 
-    @RequestMapping(value = "Download",method = RequestMethod.GET)
+    @RequestMapping(value = "/Download",method = RequestMethod.GET)
     public void DownLoadImage(@RequestParam(value = "img") String imageUrl, HttpServletRequest request, HttpServletResponse response) throws  RuntimeException{
+
         JSONObject jsonObject = new JSONObject();
         File file = new  File(imageUrl);
         String imgName =file.getName();

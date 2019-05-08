@@ -100,7 +100,9 @@ public class CreateController {
     }
 
     @PostMapping("/User")
-    public JSONObject CreateUser(@RequestParam("code") String code, @RequestParam("nickName") String nickName, @RequestParam("avatarUrl") String avatarUrl, @RequestParam("gender") String gender) {
+    public JSONObject CreateUser(@RequestParam(value = "nickName") String nickName, @RequestParam(value = "code") String code, @RequestParam(value = "avatarUrl") String avatarUrl, @RequestParam(value = "gender") String gender) {
+//        code = "081HSn7U0N9ZA02TG44U0K157U0HSn7M"
+        System.out.println(code);
         JSONObject res = GetOpenId(code);
         System.out.println(res);
         if (res.getInteger("errcode") != 0)
@@ -149,6 +151,10 @@ public class CreateController {
     public JSONObject CreateErrand(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
         return createService.CreateErrand(title, content, phone, wechat, ending_time, pay);
     }
+//        @PostMapping("/Errand")
+//        public JSONObject CreateErrand(@RequestBody String title, @RequestBody String content, @RequestBody String phone, @RequestBody String wechat, @RequestBody Date ending_time, @RequestBody int pay) {
+//            return createService.CreateErrand(title, content, phone, wechat, ending_time, pay);
+//        }
 
     @PostMapping("/Second_hand")
     public JSONObject CreateSecond_hand(@RequestParam("object_name") String object_name, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay, @RequestParam("photo_url") String photo_url) {
