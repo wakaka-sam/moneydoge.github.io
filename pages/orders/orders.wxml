@@ -1,0 +1,7 @@
+<!--orders.wxml-->
+<view class="container">
+  <view class='button-area'>
+    <label class="{{isSelected1?'is_selected':'normal'}}" bindtap='select1'>我的发布</label>
+    <label class="{{isSelected2?'is_selected':'normal'}}" bindtap='select2'>我的接单</label>
+  </view>
+</view>

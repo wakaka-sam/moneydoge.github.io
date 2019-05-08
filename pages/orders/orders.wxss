@@ -1,0 +1,22 @@
+.button-area {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+}
+
+.is_selected {
+  width: 50%;
+  border-radius: 0px;
+  text-align: center;
+  background-color: #87CEFA;
+  padding: 15rpx;
+}
+
+.normal {
+  width: 50%;
+  border-radius: 0px;
+  text-align: center;
+  padding: 15rpx;
+}

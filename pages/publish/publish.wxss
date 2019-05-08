@@ -1,0 +1,85 @@
+/* pages/publish.wxss */
+.input{
+    padding-left: 10px;
+    height: 44px;
+    width: 130px;
+    text-align-last: justify;
+}
+.inputView{
+    /*边界：大小1px, 为固体，为绿色*/
+    border:  1px solid gray;
+    /*边界角的弧度*/
+    border-radius: 0px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 0px;
+}
+.section{
+    /*边界：大小1px, 为固体，为绿色*/
+    /* border:  1px solid green;*/
+    /*边界角的弧度*/
+    /* background-color: #D3D3D3;*/
+    border-radius: 0px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.section2{
+    /*边界：大小1px, 为固体，为绿色*/
+    /* border:  1px solid green;*/
+    /*边界角的弧度*/
+    border-radius: 0px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.section3{
+    /*边界：大小1px, 为固体，为绿色*/
+    /* border:  1px solid green;*/
+    /*边界角的弧度*/
+    /* background-color: #C0C0C0;*/
+    border-radius: 0px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.title{
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top:10px;
+    margin-bottom: 10px; 
+    display: flex;
+    flex-direction: row;
+}
+.title_pic{
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    display: flex;
+}
+.choose_btn{
+    height: 150px;
+    width: 150px;
+    display:flex;                 
+    justify-content: center;        
+
+}
+.btn_no_border{
+    border: none;
+}
+.input_width{
+   width: 120px; /*不知道为什么照片那里多出来了10px，所以为了对齐特意为这个照片的label减了10px*/
+   text-align-last: justify;/*文本两端对齐*/
+}
