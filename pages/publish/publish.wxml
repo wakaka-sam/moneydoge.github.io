@@ -11,31 +11,31 @@
     <view style="display:flex;">
     <label class = "input">快递点</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入快递点！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入快递点！" bindinput='k_express_locInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">快递件数</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入快递件数！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入快递件数！" bindinput='k_numInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">送达地址</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入送达地址！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入送达地址！" bindinput='k_locInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">送达时间</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入送达时间！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入送达时间！" bindinput='k_arrive_timeInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">报酬</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入报酬！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入报酬！" bindinput='k_payInput' auto-focus/>
   </view>
 
 </view>
@@ -48,21 +48,21 @@
   <text>发布人信息</text>
 </view>
     <view style="display:flex;">
-    <label class = "input">姓名</label>
+    <label class = "input">微信号</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入姓名！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入微信号！" bindinput='k_wechatInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">联系方式</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入联系方式！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入联系方式！" bindinput='k_phoneInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">备注</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入备注！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入备注！" bindinput='k_remarkInput' auto-focus/>
   </view>
 </view>
 </view>
