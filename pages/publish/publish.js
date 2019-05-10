@@ -49,7 +49,7 @@ Page({
    */
   onLoad: function (options) {
     var that=this;
-    var date = new Date('2018/01/30 11:00:00');
+    var date = new Date('2018/05/11 11:00:00');
     that.setData({
       id:options.id,
       src_of_pic: '../../images/upload.png',
@@ -219,25 +219,35 @@ Page({
   
   //快递的属性值上传
   gotoupload: function () {
+    var that = this;
     wx.request({
       url: "http://172.18.32.138:8080/Create/Expressage",
       method: "POST",
       data: {
-        express_loc: k_express_loc,
+        express_loc: that.data.k_express_loc,
        // arrive_time: '2018/01/30 11:00:00',保留此行是为了保留date格式的时间
-        arrive_time:k_arrive_time,
-        loc: k_loc,
-        num: k_num,
-        pay: k_pay,
-        remark: k_remark,
-        phone: k_phone,
-        wechat: k_wechat,
+        arrive_time: that.data.k_arrive_time,
+        loc: that.data.k_loc,
+        num: that.data.k_num,
+        pay: that.data.k_pay,
+        remark: that.data.k_remark,
+        phone: that.data.k_phone,
+        wechat: that.data.k_wechat,
       },
       header: {
         "Content-Type": "application/x-www-form-urlencoded"
       },
       success: function (res) {
         console.log(res.data);
+        console.log(that.data.k_express_loc);
+        console.log(that.data.k_num);
+        console.log(that.data.k_loc);
+        console.log(that.data.k_arrive_time);
+        console.log(that.data.k_pay);
+        console.log(that.data.k_wechat);
+        console.log(that.data.k_phone);
+        console.log(that.data.k_remark);
+
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
         })
