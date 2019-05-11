@@ -2,13 +2,17 @@ package backend1.demo;
 
 import java.util.Date;
 
-public class expressage {
+public class expressage_detail {
     public String express_loc;
     public Date arrive_time;
     public int num;
     public int pay;
     public String loc;
     public int pid;
+    public String uid1;
+    public String uid2;
+    public String phone;
+    public String wechat;
     public String remark;
     public Date issue_time;
     public int state;
@@ -17,21 +21,29 @@ public class expressage {
         this.state = state;
     }
 
-    public int getState() {
-        return state;
-    }
-
     public void setIssue_time(Date issue_time) {
         this.issue_time = issue_time;
     }
 
-
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public void setRemark(String remark) {
         this.remark = remark;
     }
 
+    public void setUid1(String uid1) {
+        this.uid1 = uid1;
+    }
 
+    public void setUid2(String uid2) {
+        this.uid2 = uid2;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
 
     public void setPay(int pay) {
         this.pay = pay;
@@ -85,9 +97,27 @@ public class expressage {
         return issue_time;
     }
 
+    public String getPhone() {
+        return phone;
+    }
 
     public String getRemark() {
         return remark;
     }
 
+    public String getUid1() {
+        return uid1;
+    }
+
+    public String getUid2() {
+        return uid2;
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public int getState() {
+        return state;
+    }
 }
