@@ -1,0 +1,44 @@
+<view class = "top-block">
+    <view>
+      <text>账户余额（闲币）</text>
+    </view>
+    <view class = "s-num">
+      <text style="font-size:100rpx">{{money}}</text>
+    </view>
+</view>
+
+
+<view class = "mid-block">
+  <view class = "line-item">
+    <view>
+      <image src = "../../../images/balance_his.png" class = "l-icon"></image>
+    </view>
+    <view class = "s-text">
+      <text>余额明细</text>
+    </view>
+    <view>
+      <image src = "../../../images/arrows_right.png" class = "r-icon_1" ></image>
+    </view>
+  </view>
+
+  <view class = "line-item">
+    <view>
+      <image src = "../../../images/my_card.png" class = "l-icon"></image>
+    </view>
+    <view class = "s-text">
+      <text>银行卡</text>
+    </view>
+    <view>
+      <image src = "../../../images/arrows_right.png" class = "r-icon_2" ></image>
+    </view>
+  </view> 
+</view>
+
+<view class = "bottom-block ">
+  <view  bindtap='add_money'>
+    <button class = "l-button">充值</button>
+  </view>
+  <view bindtap='sub_money'>
+    <button class = "r-button">提现</button>
+  </view> 
+</view>
