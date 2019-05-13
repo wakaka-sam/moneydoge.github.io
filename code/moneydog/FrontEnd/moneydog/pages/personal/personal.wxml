@@ -1,2 +1,60 @@
-<!--pages/index4/index4.wxml-->
-<text>个人信息页面</text>
+<view class="top-block">
+
+  <view>
+    <image class ="s-image;" src = "{{user_img}}"></image>
+  </view>
+
+  <view class = "per_info">
+    <view>
+      <text class = "name">{{nickname}}</text>
+    </view>
+    <view>     
+      <text>{{phone}}</text>
+    </view>
+  </view>
+
+</view>
+
+<view class = "mid-block">
+  <view class = "list-item" bindtap='goTo_info'>
+    <view>
+      <image class = "l-icon" src = "../../images/yonghu.png"></image>
+    </view>
+    <view>
+      <text>个人信息</text>
+    </view>
+    <view>
+      <image class = "r-icon" src = "../../images/arrows_right.png"></image>
+    </view>
+  </view>
+
+  <view class="divLine"></view>
+  
+  <view class = "list-item" bindtap='goTo_balance'>
+    <view>
+      <image class = "l-icon" src = "../../images/balance.png"></image>
+    </view>
+    <view>
+      <text>我的余额</text>
+    </view>
+    <view>
+      <image class = "r-icon" src ="../../images/arrows_right.png"></image>
+    </view>
+  </view>
+
+  <view class="divLine"></view>
+
+
+  <view class = "list-item" bindtap='goTo_service'>
+    <view>
+      <image class = "l-icon" src = "../../images/service.png"></image>
+    </view>
+    <view>
+      <text>联系客服</text>
+    </view>
+    <view>
+      <image class = "r-icon" src = "../../images/arrows_right.png"></image>
+    </view>
+  </view>
+
+</view>

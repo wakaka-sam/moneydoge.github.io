@@ -1,0 +1,5 @@
+<view class = "buju">
+  <view>
+    <image src = "../../../images/WechatIMG1.jpeg" class = "imag"></image>
+  </view>
+</view>
