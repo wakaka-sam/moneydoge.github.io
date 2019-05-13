@@ -41,10 +41,12 @@
 .ques-tab {
   display: flex;
   flex-direction: row;
-  position: absolute;
+  position: fixed;
   bottom: 0rpx;
   height: 100rpx;
   width: 100%;
+  background-color: white;
+  z-index: 99;
 }
 
 .ques-tab label {
@@ -109,26 +111,31 @@
   margin: 10rpx;
 }
 
-#noshowSCQ {
-  display: none;
+#question-area {
+  background-color: gainsboro;
+  width: 100%;
 }
 
-#showSCQ {
-  display: block;
+.question-view {
+  width: 100%;
+  text-align: left;
+  padding: 10rpx 5% 10rpx 5%;
+  margin-bottom: 10rpx;
+  background-color: white;
 }
 
-#noshowMCQ {
-  display: none;
+.radio-group{
+  display: flex;
+  flex-direction: column;
 }
 
-#showMCQ {
-  display: block;
+ .checkbox-group {
+  display: flex;
+  flex-direction: column;
 }
 
-#noshowCompletion {
-  display: none;
-}
-
-#showCompletion {
-  display: block;
+.question-view input {
+  width: 90%;
+  height: 150rpx;
+  border: 2rpx solid gray;
 }

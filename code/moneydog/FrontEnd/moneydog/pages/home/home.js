@@ -77,5 +77,35 @@ Page({
       hasUserInfo: true
     })
     wx.showTabBar({})
+    if (app.globalData.code) {
+      // ------ 发送凭证 ------
+      var t = {
+        code: app.globalData.code,
+        nickName: e.detail.userInfo.nickName,
+        avatarUrl: e.detail.userInfo.avatarUrl,
+        gender: "1"//e.detail.userInfo.gender
+      }
+      console.log(t)
+      wx.request({
+        url: 'http://172.18.32.138:8080/Create/User',
+        data: t,
+        method: 'POST',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        success: function (res) {
+          console.log(res)
+          if (res.statusCode == 200) {
+            console.log("获取到的openid为：" + res.data)
+            app.globalData.openid = res.data
+            wx.setStorageSync('openid', res.data)
+          } else {
+            console.log('结果：' + res.errMsg)
+          }
+        },
+      })
+    } else {
+      console.log('获取用户登录失败：' + res.errMsg);
+    }
   }
 })
