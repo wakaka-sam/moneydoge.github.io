@@ -8,7 +8,24 @@ public class errand {
     public String content;
     public int pay;
     public Date ending_time;
+    public int state;
+    public Date issue_time;
 
+    public int getState() {
+        return state;
+    }
+
+    public Date getIssue_time() {
+        return issue_time;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public void setIssue_time(Date issue_time) {
+        this.issue_time = issue_time;
+    }
     public int getRid() {
         return rid;
     }

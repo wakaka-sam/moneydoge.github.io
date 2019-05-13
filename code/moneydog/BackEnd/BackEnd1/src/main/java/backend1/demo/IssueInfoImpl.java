@@ -1,16 +1,9 @@
 package backend1.demo;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 
@@ -35,12 +28,12 @@ public class IssueInfoImpl implements IssueInfoMapper {
     }
 
     @Override
-    public JSONObject CreateExpressage(String express_loc, Date arrive_time, String loc, int num, int pay, String remark, String phone, String wechat) {
-        String id = "001";
+    public JSONObject CreateExpressage(String openid,String express_loc, Date arrive_time, String loc, int num, int pay, String remark, String phone, String wechat) {
+        String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("INSERT  into moneydog.expressage(uid1,express_loc,arrive_time,loc,num,pay,remark,phone,wechat)values (?,?,?,?,?,?,?,?,?)", id, express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
+        t = jdbcTemplate.update("INSERT  into moneydog.expressage(uid1,express_loc,arrive_time,loc,num,pay,remark,phone,wechat,state)values (?,?,?,?,?,?,?,?,?,0)", id, express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
@@ -50,12 +43,12 @@ public class IssueInfoImpl implements IssueInfoMapper {
     }
 
     @Override
-    public JSONObject CreateFor_help(String title, String content, String phone, String wechat, Date ending_time, int pay) {
-        String id = "001";
+    public JSONObject CreateFor_help(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay) {
+        String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("insert into moneydog.for_help(uid1,title,content,phone,wechat,ending_time,pay) values (?,?,?,?,?,?,?)", id, title, content, phone, wechat, ending_time, pay);
+        t = jdbcTemplate.update("insert into moneydog.for_help(uid1,title,content,phone,wechat,ending_time,pay,state) values (?,?,?,?,?,?,?,0)", id, title, content, phone, wechat, ending_time, pay);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
@@ -67,12 +60,12 @@ public class IssueInfoImpl implements IssueInfoMapper {
     }
 
     @Override
-    public JSONObject CreateErrand(String title, String content, String phone, String wechat, Date ending_time, int pay) {
-        String id = "001";
+    public JSONObject CreateErrand(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay) {
+        String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("insert into moneydog.errand(uid1,title,content,phone,wechat,ending_time,pay) values (?,?,?,?,?,?,?)", id, title, content, phone, wechat, ending_time, pay);
+        t = jdbcTemplate.update("insert into moneydog.errand(uid1,title,content,phone,wechat,ending_time,pay,state) values (?,?,?,?,?,?,?,0)", id, title, content, phone, wechat, ending_time, pay);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
@@ -82,12 +75,12 @@ public class IssueInfoImpl implements IssueInfoMapper {
     }
 
     @Override
-    public JSONObject CreateSecond_hand(String object_name, String content, String phone, String wechat, Date ending_time, int pay, String photo_url) {
-        String id = "001";
+    public JSONObject CreateSecond_hand(String openid,String object_name, String content, String phone, String wechat, Date ending_time, int pay, String photo_url) {
+        String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("insert into moneydog.second_hand(uid1,object_name,content,phone,wechat,ending_time,pay,photo_url) values (?,?,?,?,?,?,?,?)", id, object_name, content, phone, wechat, ending_time, pay, photo_url);
+        t = jdbcTemplate.update("insert into moneydog.second_hand(uid1,object_name,content,phone,wechat,ending_time,pay,photo_url,state) values (?,?,?,?,?,?,?,?,0)", id, object_name, content, phone, wechat, ending_time, pay, photo_url);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }

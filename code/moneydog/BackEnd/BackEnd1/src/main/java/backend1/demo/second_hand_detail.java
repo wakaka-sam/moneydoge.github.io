@@ -2,16 +2,15 @@ package backend1.demo;
 
 import java.util.Date;
 
-public class second_hand {
+public class second_hand_detail {
     private int sid;
+    private String uid1;
+    private String uid2;
     private String object_name;
     private String content;
-    private Date ending_time;
-    private String photo_url;
-    private int pay;
-    private int state;
 
-    private Date issue_time;
+    private int pay;
+    private Date ending_time;
 
     public int getSid() {
         return sid;
@@ -53,31 +52,8 @@ public class second_hand {
         this.ending_time = ending_time;
     }
 
-    public second_hand() {
+    public second_hand_detail() {
 
     }
 
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public Date getIssue_time() {
-        return issue_time;
-    }
-
-    public void setIssue_time(Date issue_time) {
-        this.issue_time = issue_time;
-    }
-
-    public String getPhoto_url() {
-        return photo_url;
-    }
-
-    public void setPhoto_url(String photo_url) {
-        this.photo_url = photo_url;
-    }
 }
