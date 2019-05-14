@@ -86,25 +86,25 @@
     <view style="display:flex;">
     <label class = "input">标题</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入标题！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入标题！" bindinput='q_titleInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">具体内容</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入具体内容！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入具体内容！" bindinput='q_contentInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">截止时间</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入截止时间！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入截止时间！" bindinput='q_endinng_timeInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">报酬</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入报酬！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入报酬！" bindinput='q_payInput' auto-focus/>
   </view>
 
 </view>
@@ -119,19 +119,19 @@
     <view style="display:flex;">
     <label class = "input">姓名</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入姓名！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入微信号！" bindinput='q_wechatInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">联系方式</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入联系方式！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入联系方式！" bindinput='q_phoneInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">备注</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入备注！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入备注！" bindinput='q_remarkInput' auto-focus/>
   </view>
 </view>
 </view>

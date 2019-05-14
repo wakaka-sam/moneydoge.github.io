@@ -151,8 +151,8 @@ Page({
       success: function (res) {
         // success
         var _tempFilePaths = res.tempFilePaths;
-        _this.setData({ src_of_pic: _tempFilePaths })
-       
+        _this.setData({ src_of_pic: _tempFilePaths[0] })
+        console.log(_tempFilePaths[0]);
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         console.log(JSON.stringify(res));
       },
@@ -254,18 +254,101 @@ Page({
       },
     })
   },
+
+  //获取求助输入的信息标题
+  k_titleInput: function (e) {
+    this.setData({
+      k_title: e.detail.value
+    })
+  },
+  //获取求助输入的信息内容
+  q_contentInput: function (e) {
+    this.setData({
+      q_content: e.detail.value
+    })
+  },
+  //获取求助输入的信息截止时间
+  q_endinng_timeInput: function (e) {
+    this.setData({
+      q_endinng_time: e.detail.value
+    })
+  },
+  //获取求助输入的报酬信息
+  q_payInput: function (e) {
+    this.setData({
+      q_pay: e.detail.value
+    })
+  },
+  //获取求助输入的发布人微信号
+  q_wechatInput: function (e) {
+    this.setData({
+      q_wechat: e.detail.value
+    })
+  },
+  //获取求助输入的发布人手机号
+  q_phoneInput: function (e) {
+    this.setData({
+      q_phone: e.detail.value
+    })
+  },
+
+  //求助的属性值上传
+  gotoupload: function () {
+    var that = this;
+    wx.request({
+      url: "http://172.18.32.138:8080/Create/For_help",
+      method: "POST",
+      data: {
+        express_loc: that.data.k_express_loc,
+        // arrive_time: '2018/01/30 11:00:00',保留此行是为了保留date格式的时间
+        arrive_time: that.data.k_arrive_time,
+        loc: that.data.k_loc,
+        num: that.data.k_num,
+        pay: that.data.k_pay,
+        remark: that.data.k_remark,
+        phone: that.data.k_phone,
+        wechat: that.data.k_wechat,
+      },
+      header: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      success: function (res) {
+        console.log(res.data);
+        console.log(that.data.k_express_loc);
+        console.log(that.data.k_num);
+        console.log(that.data.k_loc);
+        console.log(that.data.k_arrive_time);
+        console.log(that.data.k_pay);
+        console.log(that.data.k_wechat);
+        console.log(that.data.k_phone);
+        console.log(that.data.k_remark);
+
+        wx.navigateBack({
+          delta: 1  //小程序关闭当前页面返回上一页面
+        })
+      },
+    })
+  },
+
 //以下是闲置的物品的数据上传
   gotodeupload4: function () {
     var that = this;
-   /*
+   
     wx.uploadFile({
-      url: '',
-      filePath: '',
-      name: '',
-    },success(res){
-    url = yumig  res.imageUrl;
+      url: "http://119.23.218.7:8080/File/Upload",
+      filePath:that.data.src_of_pic,
+      name: "src_of_image",
+      header:{
+        "Content-Type": "multipart/form-data",
+      },
+      formData:{
+        "user":"test"
+      },
+      success:function (res){
+        console.log(that.data.src_of_pic);
+      }
     })
-   */ 
+   
     wx.request({
       url: "http://172.18.32.138:8080/Create/Second_hand",
       method: "POST",
@@ -282,7 +365,7 @@ Page({
         "Content-Type": "application/x-www-form-urlencoded"
       },
       success: function (res) {
-        console.log(res.data);
+       // console.log(res.data);
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
         })
