@@ -65,12 +65,12 @@
 
         <view class='button-row'>
           <!--快递发布-->
-          <button class='publish-button1' bindtap='goToPublishPage'>
+          <button class='publish-button1' bindtap='goToPublishPage1'>
             <image class='receipt-buttonIcon' src="../../images/kuaidi.png"></image>
             <view class='receipt-text'>快递</view>
           </button>
           <!--求助发布-->
-          <button class='publish-button2' bindtap='goToPublishPage'>
+          <button class='publish-button2' bindtap='goToPublishPage2'>
             <image class='receipt-buttonIcon' src="../../images/qiuzhu.png"></image>
             <view class='receipt-text'>求助</view>
           </button>
@@ -78,12 +78,12 @@
 
         <view class='button-row'>
           <!--跑腿发布-->
-          <button class='publish-button3' bindtap='goToPublishPage'>
+          <button class='publish-button3' bindtap='goToPublishPage3'>
             <image class='receipt-buttonIcon' src="../../images/paotui.png"></image>
             <view class='receipt-text'>跑腿</view>
           </button>
           <!--闲置发布-->
-          <button class='publish-button4' bindtap='goToPublishPage'>
+          <button class='publish-button4' bindtap='goToPublishPage4'>
             <image class='receipt-buttonIcon' src="../../images/xianzhi.png"></image>
             <view class='receipt-text'>闲置</view>
           </button>
