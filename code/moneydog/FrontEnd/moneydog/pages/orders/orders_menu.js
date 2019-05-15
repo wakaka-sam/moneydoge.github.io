@@ -8,6 +8,12 @@ Page({
 
   },
 
+  goToExpressage_ordersPage: function () {
+    wx.navigateTo({
+      url: './orders_list/orders_list',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

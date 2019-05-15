@@ -15,16 +15,58 @@ Page({
       url: '../logs/logs'
     })
   },
-  //跳转到快递代拿接单界面（可编辑删除）
-  goToReceiptPage: function() {
+  //跳转到快递代拿接单界面
+  goToReceiptPage1: function() {
     wx.navigateTo({
-      url: '../receipt/receipt',
+      url: '../receipt/receipt?id=1',
     })
   },
-  //跳转到快递代拿发布界面（可编辑删除）
-  goToPublishPage: function() {
+  //跳转到跑腿接单界面
+  goToReceiptPage2: function () {
     wx.navigateTo({
-      url: '../publish/publish',
+      url: '../receipt/receipt?id=2',
+    })
+  },
+  //跳转到求助接单界面
+  goToReceiptPage3: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=3',
+    })
+  },
+  //跳转到闲置接单界面
+  goToReceiptPage4: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=4',
+    })
+  },
+  //跳转到问卷接单界面
+  goToReceiptPage5: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=5',
+    })
+  },
+  //跳转到快递代拿发布界面
+  goToPublishPage1: function() {
+    wx.navigateTo({
+      url: '../publish/publish?id=1',
+    })
+  },
+  //跳转到求助发布界面
+  goToPublishPage2: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=2',
+    })
+  },
+  //跳转到跑腿发布界面
+  goToPublishPage3: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=3',
+    })
+  },
+  //跳转到闲置发布界面
+  goToPublishPage4: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=4',
     })
   },
   goToWenjuanPage: function() {

@@ -31,6 +31,7 @@
         </view>
     </view>
 </block>
+
 <label>跑腿</label>
 <block wx:for='{{tradeList}}'>
     <view class='singleTrade' hover-class='item-press' catchtap='showTradeDetail' data-id='{{item.goodsId}}'>
@@ -98,4 +99,5 @@
         </view>
     </view>
 </block>
+
 </view>
