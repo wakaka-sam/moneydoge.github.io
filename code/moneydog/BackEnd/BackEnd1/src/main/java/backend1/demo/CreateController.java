@@ -1,6 +1,7 @@
 package backend1.demo;
 
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -136,20 +137,29 @@ public class CreateController {
 
     }
 
+    private String getOpenidFromSession(String sessionId){
+        String key =  stringRedisTemplate.opsForValue().get(sessionId);
+        JSONObject temp = (JSONObject) JSON.parse(key);
+        String openid = temp.getString("openid");
+        return openid;
+    }
     @PostMapping("/Expressage")
-    public JSONObject CreateExpressage(@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
-        return createService.CreateExpressage(express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
+    public JSONObject CreateExpressage(@RequestHeader("sessionId")String sessionId,@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
+        String openid = getOpenidFromSession(sessionId);
+        return createService.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
     }
 
     @ResponseBody
     @RequestMapping(value = "/For_help", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public JSONObject CreateFor_help(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
-        return createService.CreateFor_help(title, content, phone, wechat, ending_time, pay);
+    public JSONObject CreateFor_help(@RequestHeader("sessionId")String sessionId,@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
+        String openid = getOpenidFromSession(sessionId);
+        return createService.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay);
     }
 
     @PostMapping("/Errand")
-    public JSONObject CreateErrand(@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
-        return createService.CreateErrand(title, content, phone, wechat, ending_time, pay);
+    public JSONObject CreateErrand(@RequestHeader("sessionId")String sessionId,@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
+        String openid = getOpenidFromSession(sessionId);
+        return createService.CreateErrand(openid,title, content, phone, wechat, ending_time, pay);
     }
 //        @PostMapping("/Errand")
 //        public JSONObject CreateErrand(@RequestBody String title, @RequestBody String content, @RequestBody String phone, @RequestBody String wechat, @RequestBody Date ending_time, @RequestBody int pay) {
@@ -157,7 +167,8 @@ public class CreateController {
 //        }
 
     @PostMapping("/Second_hand")
-    public JSONObject CreateSecond_hand(@RequestParam("object_name") String object_name, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay, @RequestParam("photo_url") String photo_url) {
-        return createService.CreateSecond_hand(object_name, content, phone, wechat, ending_time, pay, photo_url);
+    public JSONObject CreateSecond_hand(@RequestHeader("sessionId")String sessionId,@RequestParam("object_name") String object_name, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay, @RequestParam("photo_url") String photo_url) {
+        String openid = getOpenidFromSession(sessionId);
+        return createService.CreateSecond_hand(openid,object_name, content, phone, wechat, ending_time, pay, photo_url);
     }
 }

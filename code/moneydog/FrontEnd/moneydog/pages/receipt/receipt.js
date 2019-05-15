@@ -162,6 +162,9 @@ Page({
           that.setData({lastId1: exTradeList[exTradeList.length-1].pid})
         }
         resolve()
+      },
+      fail: function(res) {
+        console.log('fail to onload',res)
       }
     }))
     // console.log('load expressage')
@@ -356,4 +359,5 @@ Page({
   onShareAppMessage: function () {
 
   }
+
 })

@@ -1,23 +1,24 @@
-// pages/index4/index4.js
-Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
 
-  },
 
-  /**
-   * 组件的初始数据
-   */
+Page({
   data: {
-
+    nickname: "小明",
+    phone: 15167496318,
+    user_img: "http://img.52z.com/upload/news/image/20180213/20180213062641_35687.jpg"
   },
-
-  /**
-   * 组件的方法列表
-   */
-  methods: {
-
+  goTo_info: function () {
+    wx.navigateTo({
+      url: 'my_info/my_info',
+    })
+  },
+  goTo_balance: function () {
+    wx.navigateTo({
+      url: 'my_balance/my_balance',
+    })
+  },
+  goTo_service: function () {
+    wx.navigateTo({
+      url: 'service/service',
+    })
   }
 })
