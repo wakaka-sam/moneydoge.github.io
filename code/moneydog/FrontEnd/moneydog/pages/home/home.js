@@ -22,11 +22,27 @@ Page({
     })
   },
   //跳转到快递代拿发布界面（可编辑删除）
-  goToPublishPage: function() {
+  goToPublishPage1: function () {
     wx.navigateTo({
-      url: '../publish/publish',
+      url: '../publish/publish?id=1',//跳转的时候传值，在跳转到的页面的js的page处理id
     })
   },
+  goToPublishPage2: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=2',//跳转的时候传值，在跳转到的页面的js的page处理id
+    })
+  },
+  goToPublishPage3: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=3',//跳转的时候传值，在跳转到的页面的js的page处理id
+    })
+  },
+  goToPublishPage4: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=4',//跳转的时候传值，在跳转到的页面的js的page处理id
+    })
+  },
+
   goToWenjuanPage: function() {
     wx.navigateTo({
       url: '../questionnaire/questionnaire',

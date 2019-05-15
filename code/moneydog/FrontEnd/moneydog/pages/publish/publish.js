@@ -337,7 +337,7 @@ Page({
     wx.uploadFile({
       url: "http://119.23.218.7:8080/File/Upload",
       filePath:that.data.src_of_pic,
-      name: "src_of_image",
+      name: "img",
       header:{
         "Content-Type": "multipart/form-data",
       },
