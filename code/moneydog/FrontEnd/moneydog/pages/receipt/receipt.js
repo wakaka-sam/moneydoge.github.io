@@ -8,8 +8,8 @@ Page({
     selctShow: false,//控制下拉列表的显示隐藏，false隐藏、true显示
     selectData: ['薪酬筛选（从高到低）', '薪酬筛选（从低到高）'],//下拉列表的数据
     index: 0,//选择的下拉列表下标
-    isSelected1: false,//默认快递
-    isSelected2: true,//跑腿
+    isSelected1: true,//默认快递
+    isSelected2: false,//跑腿
     isSelected3: false,//求助
     isSelected4: false,//闲置
     isSelected5: false,//问卷
@@ -25,7 +25,10 @@ Page({
         "num":4,
         "pay":10,
         "loc":"至善园2号666",
-        "pid":4
+        "pid":4,
+        "remark":"none",
+        "issue_time":"2019-05-3",
+        "state":0
       },
       {
         "express_loc": "明德园6号",
@@ -33,7 +36,10 @@ Page({
         "num": 1,
         "pay": 15,
         "loc": "至善园2号666",
-        "pid": 5
+        "pid": 5,
+        "remark": "none",
+        "issue_time": "2019-05-4",
+        "state": 0
       }],
     erTradeList: [],
     heTradeList: [],
@@ -156,6 +162,9 @@ Page({
           that.setData({lastId1: exTradeList[exTradeList.length-1].pid})
         }
         resolve()
+      },
+      fail: function(res) {
+        console.log('fail to onload',res)
       }
     }))
     // console.log('load expressage')
@@ -270,7 +279,21 @@ Page({
 
   //跳转详情页面
   showDetail: function(e) {
+    var trade = e.currentTarget.dataset
+    var json = trade.json
+    var id = trade.id
+    console.log(id, json)
+    wx.navigateTo({
+      url: './../details/details?id=' + id + '&json=' + JSON.stringify(json),
+    })
+  },
 
+  //点击接单按钮
+  receiptOrder: function(e) {
+    var options = e.currentTarget.dataset
+    console.log(options)
+    var url = 'http://172.18.32.138:8080/Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
+    console.log(url)
   },
 
   /**
@@ -336,4 +359,5 @@ Page({
   onShareAppMessage: function () {
 
   }
+
 })

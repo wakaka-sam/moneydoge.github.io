@@ -8,9 +8,11 @@
     "pages/publish/publish",
     "pages/receipt/receipt",
     "pages/questionnaire/questionnaire",
+    "pages/details/details",
     "pages/personal/my_info/my_info",
     "pages/personal/my_balance/my_balance",
-    "pages/personal/service/service"
+    "pages/personal/service/service",
+    "pages/orders/menu"
   ],
   "window": {
     "backgroundTextStyle": "light",
