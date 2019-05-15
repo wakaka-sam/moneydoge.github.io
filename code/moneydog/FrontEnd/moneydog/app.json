@@ -7,7 +7,8 @@
     "pages/personal/personal",
     "pages/publish/publish",
     "pages/receipt/receipt",
-    "pages/questionnaire/questionnaire"
+    "pages/questionnaire/questionnaire",
+    "pages/details/details"
   ],
   "window": {
     "backgroundTextStyle": "light",

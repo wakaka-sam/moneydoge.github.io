@@ -25,12 +25,12 @@
 <view wx:if='{{isSelected1}}' class='expressageList'>
 <block wx:for='{{exTradeList}}'>
   <!-- 1.快递 data-*属性在触发事件时获取  -->
-  <view class='exTrade' catchtap='showDetail' data-id='{{item.pid}}'>
+  <view class='exTrade' catchtap='showDetail' data-id='1' data-json='{{item}}'>
     <text>快递点：  {{item.express_loc}}</text>
     <text>到达时间：{{item.arrive_time}}</text>
     <text>快递数量：{{item.num}}</text>
     <text>价格：    {{item.pay}}</text>
-    <button>接单</button>
+    <button catchtap='receiptOrder' data-type='0' data-id='{{item.pid}}'>接单</button>
   </view>
 </block>
 <view wx:if="{{lastId1==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
@@ -39,12 +39,12 @@
 <view wx:if='{{isSelected2}}' class='errandList'>
 <block wx:for='{{erTradeList}}'>
   <!-- 2.跑腿 data-*属性在触发事件时获取  -->
-  <view class='erTrade' catchtap='showDetail' data-id='{{item.rid}}'>
+  <view class='erTrade' catchtap='showDetail' data-id='2' data-json='{{item}}'>
     <text>title:   {{item.title}}</text>
     <text>跑腿内容：{{item.content}}</text>
     <text>截止时间：{{item.ending_time}}</text>
     <text>价格：    {{item.pay}}</text>
-    <button>接单</button>
+    <button catchtap='receiptOrder' data-type='1' data-id='{{item.rid}}'>接单</button>
   </view>
 </block>
 <view wx:if="{{lastId2==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
@@ -54,12 +54,12 @@
 <!--由于seekhelp和secondhand开头相同，为了避免混淆，下面用he代表求助，se代表闲置-->
 <block wx:for='{{heTradeList}}'>
   <!-- 3.求助 data-*属性在触发事件时获取  -->
-  <view class='heTrade' catchtap='showDetail' data-id='{{item.fid}}'>
+  <view class='heTrade' catchtap='showDetail' data-id='3' data-json='{{item}}'>
     <text>title：  {{item.title}}</text>
     <text>求助内容：{{item.content}}</text>
     <text>截止时间：{{item.ending_time}}</text>
     <text>价格：    {{item.pay}}</text>
-    <button>接单</button>
+    <button catchtap='receiptOrder' data-type='2' data-id='{{item.fid}}'>接单</button>
   </view>
 </block>
 <view wx:if="{{lastId3==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
@@ -68,12 +68,12 @@
 <view wx:if='{{isSelected4}}' class='secondhandList'>
 <block wx:for='{{seTradeList}}'>
   <!-- 4.闲置 data-*属性在触发事件时获取  -->
-  <view class='seTrade' catchtap='showDetail' data-id='{{item.sid}}'>
+  <view class='seTrade' catchtap='showDetail' data-id='4' data-json='{{item}}'>
     <text>物品名称：{{item.object_name}}</text>
     <text>备注内容：{{item.content}}</text>
     <text>截止时间：{{item.ending_time}}</text>
     <text>价格：    {{item.pay}}</text>
-    <button>接单</button>
+    <button catchtap='receiptOrder' data-type='3' data-id='{{item.sid}}'>接单</button>
   </view>
 </block>
 <view wx:if="{{lastId4==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
@@ -82,7 +82,7 @@
 <view wx:if='{{isSelected5}}' class='questionnaireList'>
 <block wx:for='{{quTradeList}}'>
   <!-- 5.问卷 问卷的id待定，先用qid代替-->
-  <view class='quTrade' catchtap='showDetail' data-id='{{item.qid}}'>
+  <view class='quTrade' catchtap='showDetail' data-id='5' data-json='{{item}}'>
     <text>问卷标题：{{item.title}}</text>
     <text>备注内容：{{item.content}}</text>
     <text>截止时间：{{item.ending_time}}</text>
