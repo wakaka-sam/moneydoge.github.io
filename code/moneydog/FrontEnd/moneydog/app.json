@@ -2,16 +2,17 @@
   "pages": [
     "pages/home/home",
     "pages/logs/logs",
-    "pages/orders/orders",
+    "pages/orders/orders_menu",
+    "pages/orders/orders_list/orders_list",
     "pages/confession/confession",
     "pages/personal/personal",
     "pages/publish/publish",
     "pages/receipt/receipt",
     "pages/questionnaire/questionnaire",
+    "pages/details/details",
     "pages/personal/my_info/my_info",
     "pages/personal/my_balance/my_balance",
-    "pages/personal/service/service",
-    "pages/orders/menu"
+    "pages/personal/service/service"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -34,7 +35,7 @@
       {
         "selectedIconPath": "images/订单-selected.png",
         "iconPath": "images/订单.png",
-        "pagePath": "pages/orders/orders",
+        "pagePath": "pages/orders/orders_menu",
         "text": "订单"
       },
       {

@@ -1,34 +1,30 @@
-//获取应用实例
-const app = getApp()
+var app = getApp();
 
 Page({
   data: {
-    isSelected1: true,
-    isSelected2: false,
     selctShow: false,//控制下拉列表的显示隐藏，false隐藏、true显示
     selectData: ['薪酬筛选（从高到低）', '薪酬筛选（从低到高）'],//下拉列表的数据
     index: 0//选择的下拉列表下标
   },
-  select1: function() {
+  // 点击下拉显示框
+  selectTap() {
     this.setData({
-      isSelected1: true,
-      isSelected2: false
-    }) 
+      selectShow: !this.data.selectShow
+    });
   },
-  select2: function () {
+  // 点击下拉列表
+  optionTap(e) {
+    let Index = e.currentTarget.dataset.index;//获取点击的下拉列表的下标
     this.setData({
-      isSelected1: false,
-      isSelected2: true
-    })
+      index: Index,
+      selectShow: !this.data.selectShow
+    });
   },
   onLoad: function () {
     this.setData({
       tradeList: [
         { goodsId: "9876", name: '书', price: 1, deliveryp: '天桥下', deliveryn: 1, deliveryt: "04.06.13:00" },
-        { goodsId: "9876", name: '书', price: 1, deliveryp: '天桥下', deliveryn: 1, deliveryt: "04.06.13:00" }
-      ],
-      tradeList1: [
-        { goodsId: "9876", img_src: '../../images/pulldown.png', name: '蓝牙鼠标', price: 49, info: '九成新华硕蓝牙鼠标便宜卖', deadline: "04.06.13:00" }
+        { goodsId: "9876", name: '衣服', price: 2, deliveryp: '天桥下', deliveryn: 1, deliveryt: "04.06.13:00" }
       ]
     });
     var tradeList = this.data.tradeList

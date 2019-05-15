@@ -3,10 +3,7 @@ package file.load.demo;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistration;
 
@@ -23,6 +20,12 @@ public class fileController {
 
     @Value("${web.upload-path}")
     private String filePath;
+
+    @RequestMapping(value = "/boy",method = RequestMethod.GET)
+    public String say()
+    {
+        return "hello";
+    }
 
     @RequestMapping(value = "/Upload",method = RequestMethod.POST)
     public JSONObject UpLoadImage(@RequestParam(value = "img")MultipartFile file) throws RuntimeException{

@@ -1,18 +1,23 @@
-// pages/orders/menu.js
+// pages/details.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    id: 0,//1:快递 2:跑腿 3:求助 4:闲置 5:问卷
+    json: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      id: options.id,
+      json: JSON.parse(options.json)
+    })
+    console.log(this.data)
   },
 
   /**

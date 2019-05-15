@@ -28,3 +28,25 @@
   - 在地址后要加上**?serverTimezone=UTC&characterEncoding=utf8&useUnicode=true&useSSL=false** 原因是8.0要求要有时区，以及一些证书要求，所以需要加上后缀。
 
 - 大致上跟着教程就能做出一个比较简单的RESTful API了
+
+
+
+#### 关于数据库查询方法
+
+2019.5.13
+
+- 由于在最新的数据库中，QueryForInt和QueryForLong的方法已经失效了，所以我们要使用QueryForObject来替代
+
+- queryForObject(String sql, Object[] args, Class<T> requiredType)
+
+- 其中，第一个参数使用sql语句，第二个为参数，第三个是返回变量的类型，例：
+
+  - ```
+    count = jdbcTemplate.queryForObject(sql,new Object[] {openid},int.class);; 
+    
+    ```
+
+- 值得注意的是，如果需要返回值是List形式的，使用queryForList即可。
+
+
+
