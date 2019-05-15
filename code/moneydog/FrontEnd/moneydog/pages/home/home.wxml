@@ -1,0 +1,95 @@
+<!--index.wxml-->
+<view class="container">
+  <!--获取微信用户信息-->
+  <button class='getInfoButton' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+  <block wx:else>
+  <view class="search">
+    <input style='width:510rpx;' placeholder="search" maxlength='20'/>
+    <image class='search-icon' src="../../images/search-icon.png"></image>
+  </view>
+
+  <view class="userinfo">
+    <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  </view>
+  <!--跳转到接单页面的几个按钮-->
+  <view class='button-area'>
+    <view class='button-row'>
+      <!--快递接单-->
+      <button class='publish-button' bindtap='goToReceiptPage'>
+        <image class='publish-buttonIcon' src="../../images/kuaidi.png"></image>
+        <view class='publish-text'>快递</view>
+      </button>
+      <!--求助接单-->
+      <button class='publish-button' bindtap='goToReceiptPage'>
+        <image class='publish-buttonIcon' src="../../images/qiuzhu.png"></image>
+        <view class='publish-text'>求助</view>
+      </button>
+    </view>
+    <view class='button-row'>
+      <!--跑腿接单-->
+      <button class='publish-button' bindtap='goToReceiptPage'>
+        <image class='publish-buttonIcon' src="../../images/paotui.png"></image>
+        <view class='publish-text'>跑腿</view>
+      </button>
+      <!--闲置接单-->
+      <button class='publish-button' bindtap='goToReceiptPage'>
+        <image class='publish-buttonIcon' src="../../images/xianzhi.png"></image>
+        <view class='publish-text'>闲置</view>
+      </button>
+    </view>
+    <view class='button-row'>
+        <button class='publish-button' bindtap='goToReceiptPage'>
+          <image class='publish-buttonIcon' src="../../images/wenjuan.png"></image>
+          <view class='publish-text'>问卷</view>
+        </button>
+    </view>
+  </view>
+  <!--底部一键发布按钮-->
+  <view>
+    <button class='popup-button' bindtap="toggleDialog">
+      <image id='send-img' src="../../images/send.png"></image>
+      <view>一键发布</view>
+    </button>
+  </view>
+
+  <!--点击一键发布后的弹窗，有进入发布页面的几个按钮-->
+  <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
+    <view class="zan-dialog__mask" bindtap="toggleDialog" />
+    <view class="zan-dialog__container">
+      <view class='button-area'>
+        <cover-view class='wenjuan-button' bindtap='goToWenjuanPage'>
+            <cover-image class='receipt-buttonIcon' src="../../images/kuaidi.png"/>
+            <cover-view class='receipt-text'>问卷</cover-view>
+        </cover-view>
+
+        <view class='button-row'>
+          <!--快递发布-->
+          <button class='publish-button1' bindtap='goToPublishPage'>
+            <image class='receipt-buttonIcon' src="../../images/kuaidi.png"></image>
+            <view class='receipt-text'>快递</view>
+          </button>
+          <!--求助发布-->
+          <button class='publish-button2' bindtap='goToPublishPage'>
+            <image class='receipt-buttonIcon' src="../../images/qiuzhu.png"></image>
+            <view class='receipt-text'>求助</view>
+          </button>
+        </view>
+
+        <view class='button-row'>
+          <!--跑腿发布-->
+          <button class='publish-button3' bindtap='goToPublishPage'>
+            <image class='receipt-buttonIcon' src="../../images/paotui.png"></image>
+            <view class='receipt-text'>跑腿</view>
+          </button>
+          <!--闲置发布-->
+          <button class='publish-button4' bindtap='goToPublishPage'>
+            <image class='receipt-buttonIcon' src="../../images/xianzhi.png"></image>
+            <view class='receipt-text'>闲置</view>
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+  </block>
+</view>
