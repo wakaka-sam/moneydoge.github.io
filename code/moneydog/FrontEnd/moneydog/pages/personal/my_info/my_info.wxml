@@ -1,0 +1,71 @@
+<view class = "top-block">
+    <view>
+      <image src = "{{user_img}}" class = "s-image"></image>
+    </view>    
+</view>
+
+<view class = "mid-block">
+  <view class = "list-item">
+
+    <view>
+      <image src = "../../../images/nick_name.png" class = "s-icon"></image>
+    </view>
+
+    <view>
+      <input placeholder='请输入昵称' bindinput='setNickname'></input>
+    </view>
+
+  </view>
+
+  <view class = "divLine"></view>
+
+  <view class = "list-item">
+    <view> 
+      <image src = "../../../images/user_name.png" class = "s-icon"></image>
+    </view>
+    <view class = "input">
+      <input placeholder='请输入姓名' bindinput='setName'></input>
+    </view>
+  </view>
+
+  <view class = "divLine"></view>
+
+  <view class = "list-item">
+    <view>
+      <image src = "../../../images/school.png" class = "s-icon"></image>
+    </view>
+    <view class = "input">
+      <input placeholder='请输入学校' bindinput='setSchool'></input>
+    </view>
+  </view>
+
+  <view class = "divLine"></view>
+
+  <view class = "list-item">
+    <view>
+      <image src = "../../../images/phone.png" class = "s-icon"></image>
+    </view>
+    <view class = "input">
+      <input placeholder='请输入手机号' bindinput='setPhone'></input>
+    </view>
+  </view>
+  <view class = "divLine"></view>
+
+</view>
+
+<view class = "bottom-block">
+
+  <view  bindtap='up_schoolcard'>
+    <image src = "{{imageUrl}}" class = "size-card"></image>
+  </view>
+
+  <view>
+  <text>上传校园卡</text>
+  </view>
+</view>
+
+<view>
+<button class = "ident-info" bindtap='change_info'>确认信息</button>
+</view>
+
+

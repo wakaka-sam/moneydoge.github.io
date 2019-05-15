@@ -1,0 +1,101 @@
+<!--orders.wxml-->
+<view class="container">
+  <view class='button-area'>
+    <label class="{{isSelected1?'is_selected':'normal'}}" bindtap='select1'>我的发布</label>
+    <label class="{{isSelected2?'is_selected':'normal'}}" bindtap='select2'>我的接单</label>
+  </view>
+
+  <label>快递</label>
+  <block wx:for='{{tradeList}}'>
+    <view class='singleTrade' hover-class='item-press' catchtap='showTradeDetail' data-id='{{item.goodsId}}'>
+        <view class="single-top">
+            <view class='a'>
+                <view class='name'>{{item.name}}</view>
+                <view class='price'>￥{{item.price}}</view>
+            </view>
+            <view class='b'>
+                <view class="left-container">
+                    <view>快递点</view>
+                    <view>快递数量</view>
+                    <view>送达时间</view>            
+                </view>
+                <view class="right-container">
+                    <view>{{item.deliveryp}}</view>
+                    <view>{{item.deliveryn}}</view>
+                    <view>{{item.deliveryt}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="single-bottom">
+            <button class='accept-button'>接单</button>
+        </view>
+    </view>
+</block>
+<label>跑腿</label>
+<block wx:for='{{tradeList}}'>
+    <view class='singleTrade' hover-class='item-press' catchtap='showTradeDetail' data-id='{{item.goodsId}}'>
+        <view class="single-top">
+            <view class='a'>
+                <view class='name'>{{item.name}}</view>
+                <view class='price'>￥{{item.price}}</view>
+            </view>
+            <view class='b'>
+                <view class="left-container">
+                    <view>跑腿内容</view>
+                    <view>备注</view>
+                    <view>送达时间</view>            
+                </view>
+                <view class="right-container">
+                    <view>{{item.deliveryp}}</view>
+                    <view>{{item.deliveryn}}</view>
+                    <view>{{item.deliveryt}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="single-bottom">
+            <button class='accept-button'>接单</button>
+        </view>
+    </view>
+</block>
+<label>求助</label>
+<block wx:for='{{tradeList}}'>
+    <view class='singleTrade' hover-class='item-press' catchtap='showTradeDetail' data-id='{{item.goodsId}}'>
+        <view class="single-top">
+            <view class='a'>
+                <view class='name'>{{item.name}}</view>
+                <view class='price'>￥{{item.price}}</view>
+            </view>
+            <view class='b'>
+                <view class="left-container">
+                    <view>求助内容</view>
+                    <view>备注</view>
+                    <view>截止时间</view>            
+                </view>
+                <view class="right-container">
+                    <view>{{item.deliveryp}}</view>
+                    <view>{{item.deliveryn}}</view>
+                    <view>{{item.deliveryt}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="single-bottom">
+            <button class='accept-button'>接单</button>
+        </view>
+    </view>
+</block>
+
+<label>闲置</label>
+<block wx:for='{{tradeList1}}'>
+    <view class='singleTrade' hover-class='item-press' catchtap='showTradeDetail' data-id='{{item.goodsId}}'>
+        <view class="a">
+            <view class='name'>{{item.name}}</view>
+            <view class="price">￥{{item.price}}</view>
+        </view>
+          <image class='goods_img' src='{{item.img_src}}'></image>
+        <view>
+            <view class='info'>{{item.info}}</view>
+            <button class='accept-button'>接单</button>
+        </view>
+    </view>
+</block>
+</view>
