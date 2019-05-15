@@ -1,8 +1,11 @@
 package backend1.demo;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,7 +18,20 @@ public class LoadController {
     private LoadSerivce loadSerivce;
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
+    @RequestMapping(method = RequestMethod.GET,value = "/Contact_way")
+    public List<Contact> getContact(@RequestParam("type") int type,@RequestParam("id")int id){
+        String sql = "";
+        switch (type){
+            case 0:sql = "select phone,wechat from moneydog.expressage where pid = ? ";break;//快递
+            case 1:sql = "select phone,wechat from moneydog.errand where rid = ? ";break;//跑腿
+            case 2:sql = "select phone,wechat from moneydog.for_help where fid = ? ";break;//求助
+            case 3:sql = "select phone,wechat from moneydog.second_hand where sid = ? ";break;//二手
+        }
+        return jdbcTemplate.query(sql,new Object[]{id},new BeanPropertyRowMapper(Contact.class));
+    }
     @RequestMapping(method = RequestMethod.GET, value = "/downLoadExpressage")
     public List<expressage> downLoadExpressage(@RequestParam("id") int pid) {
         return loadSerivce.downLoadExpressage(pid);
@@ -56,11 +72,10 @@ public class LoadController {
         return loadSerivce.OnLoadSecond_hand();
     }
 
-
     @RequestMapping(method = RequestMethod.GET, value = "/Creation")
-    JSONObject LoadMyCreation(@RequestHeader("sessionId") String sessionId) {
+    JSONObject LoadMyCreation( @RequestHeader("sessionId") String sessionId) {
         String temp = stringRedisTemplate.opsForValue().get(sessionId);
-        JSONObject jsonObject = JSONObject.parseObject(temp, JSONObject.class);
+        JSONObject jsonObject = (JSONObject)JSON.parse(temp);
         String openid = jsonObject.getString("openid");
         return loadSerivce.LoadMyCreation(openid);
     }
@@ -68,7 +83,7 @@ public class LoadController {
     @RequestMapping(method = RequestMethod.GET, value = "/Receiving")
     JSONObject LoadMyReceiving(@RequestHeader("sessionId") String sessionId) {
         String temp = stringRedisTemplate.opsForValue().get(sessionId);
-        JSONObject jsonObject = JSONObject.parseObject(temp, JSONObject.class);
+        JSONObject jsonObject = (JSONObject)JSON.parse(temp);
         String openid = jsonObject.getString("openid");
         return loadSerivce.LoadMyReceiving(openid);
     }

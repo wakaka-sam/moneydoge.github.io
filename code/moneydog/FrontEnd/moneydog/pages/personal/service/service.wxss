@@ -1,0 +1,9 @@
+.imag{
+  height: 700rpx;
+  width: 700rpx;
+}
+.buju{
+  display: flex;
+  align-content: center;
+  justify-content: center
+}

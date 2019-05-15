@@ -7,7 +7,10 @@
     "pages/personal/personal",
     "pages/publish/publish",
     "pages/receipt/receipt",
-    "pages/questionnaire/questionnaire"
+    "pages/questionnaire/questionnaire",
+    "pages/personal/my_info/my_info",
+    "pages/personal/my_balance/my_balance",
+    "pages/personal/service/service"
   ],
   "window": {
     "backgroundTextStyle": "light",

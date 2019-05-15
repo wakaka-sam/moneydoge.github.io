@@ -9,6 +9,29 @@ public class expressage {
     public int pay;
     public String loc;
     public int pid;
+    public String remark;
+    public Date issue_time;
+    public int state;
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setIssue_time(Date issue_time) {
+        this.issue_time = issue_time;
+    }
+
+
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+
 
     public void setPay(int pay) {
         this.pay = pay;
@@ -58,7 +81,13 @@ public class expressage {
         return loc;
     }
 
-    expressage() {
-
+    public Date getIssue_time() {
+        return issue_time;
     }
+
+
+    public String getRemark() {
+        return remark;
+    }
+
 }

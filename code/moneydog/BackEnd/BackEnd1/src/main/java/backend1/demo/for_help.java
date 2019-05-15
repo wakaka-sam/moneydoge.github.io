@@ -8,6 +8,24 @@ public class for_help {
     public String content;
     public Date ending_time;
     public int pay;
+    public int state;
+    public Date issue_time;
+
+    public void setIssue_time(Date issue_time) {
+        this.issue_time = issue_time;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public Date getIssue_time() {
+        return issue_time;
+    }
 
     public String getTitle() {
         return title;
