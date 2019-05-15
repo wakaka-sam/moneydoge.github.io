@@ -16,30 +16,30 @@
   <view class='button-area'>
     <view class='button-row'>
       <!--快递接单-->
-      <button class='publish-button' bindtap='goToReceiptPage'>
+      <button class='publish-button' bindtap='goToReceiptPage1'>
         <image class='publish-buttonIcon' src="../../images/kuaidi.png"></image>
         <view class='publish-text'>快递</view>
       </button>
       <!--求助接单-->
-      <button class='publish-button' bindtap='goToReceiptPage'>
+      <button class='publish-button' bindtap='goToReceiptPage3'>
         <image class='publish-buttonIcon' src="../../images/qiuzhu.png"></image>
         <view class='publish-text'>求助</view>
       </button>
     </view>
     <view class='button-row'>
       <!--跑腿接单-->
-      <button class='publish-button' bindtap='goToReceiptPage'>
+      <button class='publish-button' bindtap='goToReceiptPage2'>
         <image class='publish-buttonIcon' src="../../images/paotui.png"></image>
         <view class='publish-text'>跑腿</view>
       </button>
       <!--闲置接单-->
-      <button class='publish-button' bindtap='goToReceiptPage'>
+      <button class='publish-button' bindtap='goToReceiptPage4'>
         <image class='publish-buttonIcon' src="../../images/xianzhi.png"></image>
         <view class='publish-text'>闲置</view>
       </button>
     </view>
     <view class='button-row'>
-        <button class='publish-button' bindtap='goToReceiptPage'>
+        <button class='publish-button' bindtap='goToReceiptPage5'>
           <image class='publish-buttonIcon' src="../../images/wenjuan.png"></image>
           <view class='publish-text'>问卷</view>
         </button>
