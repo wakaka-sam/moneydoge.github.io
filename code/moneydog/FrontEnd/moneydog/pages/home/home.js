@@ -126,7 +126,8 @@ Page({
   goToPublishPage4: function () {
     wx.navigateTo({
       url: '../publish/publish?id=4',
-=======
+    })
+  },
   //跳转到快递代拿发布界面（可编辑删除）
   goToPublishPage1: function () {
     wx.navigateTo({
