@@ -13,10 +13,6 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
-<<<<<<< HEAD
-=======
-	"appid": "wx2b05af5f1d0c579c",
->>>>>>> refs/remotes/origin/master
 	"projectname": "money%20dog",
 	"debugOptions": {
 		"hidedInDevtools": []
