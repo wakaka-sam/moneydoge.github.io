@@ -1,6 +1,7 @@
+const app = getApp()
+const baseUrl = '172.18.32.138'
 // pages/receipt/receipt.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -154,7 +155,7 @@ Page({
   OnLoadExpressage: function(){
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadExpressage',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadExpressage',
       success: function(res) {
         that.setData({exTradeList:res.data})
         var exTradeList = that.data.exTradeList
@@ -172,7 +173,7 @@ Page({
   OnLoadErrand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadErrands',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadErrands',
       success: function (res) {
         that.setData({ erTradeList: res.data })
         var erTradeList = that.data.erTradeList
@@ -187,7 +188,7 @@ Page({
   OnLoadSeekhelp: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadFor_help',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadFor_help',
       success: function (res) {
         that.setData({ heTradeList: res.data })
         var heTradeList = that.data.heTradeList
@@ -202,7 +203,7 @@ Page({
   OnLoadSecondhand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadSecond_hand',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadSecond_hand',
       success: function (res) {
         that.setData({ seTradeList: res.data })
         var seTradeList = that.data.seTradeList
@@ -217,7 +218,7 @@ Page({
   //下拉加载
   downloadEx: function(){
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadExpressage?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadExpressage?id='
     tempUrl += String(this.data.lastId1)
     wx.request({
       url: tempUrl,
@@ -233,7 +234,7 @@ Page({
   },
   downloadEr: function () {
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadErrands?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadErrands?id='
     tempUrl += String(this.data.lastId2)
     wx.request({
       url: tempUrl,
@@ -248,7 +249,7 @@ Page({
   },
   downloadHe: function () {
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadFor_help?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadFor_help?id='
     tempUrl += String(this.data.lastId3)
     wx.request({
       url: tempUrl,
@@ -263,7 +264,7 @@ Page({
   },
   downloadSe: function () {
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadSecond_hand?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadSecond_hand?id='
     tempUrl += String(this.data.lastId4)
     wx.request({
       url: tempUrl,
@@ -292,7 +293,7 @@ Page({
   receiptOrder: function(e) {
     var options = e.currentTarget.dataset
     console.log(options)
-    var url = 'http://172.18.32.138:8080/Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
+    var url = 'http://' + baseUrl + ':8080/Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
     console.log(url)
   },
 
