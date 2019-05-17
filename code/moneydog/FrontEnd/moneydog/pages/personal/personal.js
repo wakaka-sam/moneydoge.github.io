@@ -1,5 +1,4 @@
-
-
+var app = getApp()
 Page({
   data: {
     nickname: "小明",

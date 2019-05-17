@@ -1,5 +1,4 @@
-
-
+var app = getApp()
 Page({
   data: {
     money: 100

@@ -1,12 +1,11 @@
-
-
+var app = getApp()
 Page({
   data: {
-    money:100
+    power:100
   },
   add_money:function(){
     this.setData({
-      money:this.data.money + 100
+      power:this.data.power + 100
     }
     )
     this.update_money()
@@ -14,21 +13,21 @@ Page({
   sub_money: function () {
     if (this.data.money > 0)
     this.setData({
-      money: this.data.money - 100
+      power: this.data.power - 100
     }
     )
     this.update_money()
   },
   update_money:function(){
     var that = this
-    sessionID = app.globalData.sessionID
+    
     wx.request({
-      url: '',
+      url: 'http://119.23.218.7:6666/User/getPower',
       method: 'POST',
       data:{
-        money: that.data.money
+        power: that.data.power
       },
-      header:{sessionID:sessionID}
+      header:{}
     })
   },
   showCard:function(){

@@ -10,7 +10,8 @@
     "pages/questionnaire/questionnaire",
     "pages/personal/my_info/my_info",
     "pages/personal/my_balance/my_balance",
-    "pages/personal/service/service"
+    "pages/personal/service/service",
+    "pages/personal/bill/bill"
   ],
   "window": {
     "backgroundTextStyle": "light",
