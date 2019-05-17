@@ -2,7 +2,7 @@
 
 Page({
   data: {
-    user_img:     "http://img.52z.com/upload/news/image/20180213/20180213062641_35687.jpg",
+    user_img:     'http://img.52z.com/upload/news/image/20180213/20180213062641_35687.jpg',
     nickname:'小明',
     name:'张小凡',
     school:'中山大学',
@@ -33,7 +33,8 @@ Page({
   var that = this
   sessionID = app.globalData.sessionID
   wx.request({
-    url: 'http://172.18.32.138:8080/Change/Info',
+    url: '',
+    method:'POST',
     data: {
       user_img:that.data.user_img,
       nickname: that.data.nickname,
@@ -43,7 +44,6 @@ Page({
       imageUrl:that.data.imageUrl
     },
     header: {
-      'content-type': 'application/json', // 默认值
       sessionID:sessionID
     },
     success: function (res) {
@@ -70,7 +70,7 @@ Page({
       success:function(res){
         var t = JSON.parse(res.data);
         consloe.log(t.imageUrl)
-        var url = 'http://172.18.32.138:8080' + t.imageUrl;
+        var url = '' + t.imageUrl;
         that.setData({
           imageUrl:url
         })
