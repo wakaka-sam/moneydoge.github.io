@@ -6,6 +6,7 @@ Page({
    */
   data: {
     /*命名时，为了方便记忆以及避免名字冲突，我将在快递，求助，跑腿，闲置的属性加上k,q,p,x的前缀*/
+    sessionID:'',/*注意与用户有关的交互都需要sessionID*/
     id: '',
     x_src_of_pic: '../../images /upload.png',/*这个是选择闲置物品图片后，将闲置物品图片替换原按钮图片*/
     /*以下是快递需要上传的属性*/
@@ -49,8 +50,10 @@ Page({
    */
   onLoad: function (options) {
     var that=this;
+    var app = getApp();
     var date = new Date('2018/05/11 11:00:00');
     that.setData({
+      sessionID: app.globalData.sessionID,
       id:options.id,
       src_of_pic: '../../images/upload.png',
       /*以下是快递需要上传的属性*/
@@ -222,6 +225,7 @@ Page({
     var that = this;
     wx.request({
       url: "http://172.18.32.138:8080/Create/Expressage",
+      header:{sessionId:that.data.sessionID},//请求时要加上sessionID
       method: "POST",
       data: {
         express_loc: that.data.k_express_loc,
@@ -297,6 +301,7 @@ Page({
     var that = this;
     wx.request({
       url: "http://172.18.32.138:8080/Create/For_help",
+      header: { sessionId: that.data.sessionID },//请求时要加上sessionID
       method: "POST",
       data: {
         title: that.data.q_title,
@@ -367,6 +372,7 @@ Page({
     var that = this;
     wx.request({
       url: "http://172.18.32.138:8080/Create/Errand",
+      header: { sessionId: that.data.sessionID },//请求时要加上sessionID
       method: "POST",
       data: {
         title: that.data.p_title,
@@ -404,6 +410,7 @@ Page({
       filePath:that.data.src_of_pic,
       name: "img",
       header:{
+        sessionId: that.data.sessionID,
         "Content-Type": "multipart/form-data",
       },
       formData:{
@@ -416,6 +423,7 @@ Page({
    
     wx.request({
       url: "http://172.18.32.138:8080/Create/Second_hand",
+      header: { sessionId: that.data.sessionID },//请求时要加上sessionID
       method: "POST",
       data: {
         object_name: '自走车',
