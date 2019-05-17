@@ -42,7 +42,6 @@ Page({
     x_pay:'',
     x_phone:'',
     x_wechat:'',
-    x_wechat:''
   },
 
   /**
@@ -50,7 +49,7 @@ Page({
    */
   onLoad: function (options) {
     var that=this;
-    var app = getApp();
+    var app = getApp();//要先getApp（）1  
     var date = new Date('2018/05/11 11:00:00');
     that.setData({
       sessionID: app.globalData.sessionID,
@@ -89,7 +88,6 @@ Page({
       x_pay: '',
       x_phone: '',
       x_wechat: '',
-      x_wechat: ''
     })
     console.log(that.data.id)
   },
@@ -401,6 +399,44 @@ Page({
     })
   },
 
+  //获取闲置输入的物品名称
+  x_object_nameInput: function (e) {
+    this.setData({
+      x_object_name: e.detail.value
+    })
+  },
+  //获取闲置输入的具体描述
+  x_contentInput: function (e) {
+    this.setData({
+      x_content: e.detail.value
+    })
+  },
+  //获取跑腿输入的信息截止时间
+  x_ending_timeInput: function (e) {
+    this.setData({
+      x_ending_time: e.detail.value
+    })
+  },
+  //获取跑腿输入的报酬信息
+  x_payInput: function (e) {
+    this.setData({
+      x_pay: e.detail.value
+    })
+  },
+  //获取跑腿输入的发布人微信号
+  x_wechatInput: function (e) {
+    this.setData({
+      x_wechat: e.detail.value
+    })
+  },
+  //获取跑腿输入的发布人手机号
+  x_phoneInput: function (e) {
+    this.setData({
+      x_phone: e.detail.value
+    })
+  },
+
+
 //以下是闲置的物品的数据上传
   gotodeupload4: function () {
     var that = this;
@@ -418,32 +454,33 @@ Page({
       },
       success:function (res){
         console.log(that.data.src_of_pic);
+        wx.request({
+          url: "http://172.18.32.138:8080/Create/Second_hand",
+          header: { sessionId: that.data.sessionID },//请求时要加上sessionID
+          method: "POST",
+          data: {
+            object_name: that.data.x_object_name,
+            content: that.data.x_content,
+            ending_time: that.data.x_ending_time,
+            pay: that.data.x_pay,
+            phone: that.data.x_phone,
+            wechat: that.data.x_wechat,
+            photo_url: that.data.src_of_pic
+          },
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          success: function (res) {
+            // console.log(res.data);
+            wx.navigateBack({
+              delta: 1  //小程序关闭当前页面返回上一页面
+            })
+          },
+        })
       }
     })
    
-    wx.request({
-      url: "http://172.18.32.138:8080/Create/Second_hand",
-      header: { sessionId: that.data.sessionID },//请求时要加上sessionID
-      method: "POST",
-      data: {
-        object_name: '自走车',
-        content: '你说啥？',
-        ending_time: '2018/01/30 11:00:00',
-        pay: '10',
-        phone: '12334456',
-        wechat: 'dsbasd',
-        photo_url:that.data.src_of_pic
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      success: function (res) {
-       // console.log(res.data);
-        wx.navigateBack({
-          delta: 1  //小程序关闭当前页面返回上一页面
-        })
-      },
-    })
+    
   }
 
 })

@@ -225,25 +225,25 @@
     <view style="display:flex;">
     <label class = "input">物品名称</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入物品名称！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入物品名称！" bindinput='x_object_nameInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">具体描述</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入具体描述！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入具体描述！" bindinput='x_contentInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">截止时间</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入截止时间！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入截止时间！" bindinput='x_ending_timeInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">价格</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入价格！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入价格！" bindinput='x_payInput' auto-focus/>
   </view>
   
   <view style="display:flex;">
@@ -266,13 +266,13 @@
     <view style="display:flex;">
     <label class = "input">姓名</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入姓名！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入姓名！" bindinput='x_wechatInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
     <label class = "input">联系方式</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入联系方式！" auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入联系方式！" bindinput='x_phoneInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
