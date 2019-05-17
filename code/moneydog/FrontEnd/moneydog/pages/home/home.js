@@ -128,15 +128,7 @@ Page({
       url: '../publish/publish?id=4',
     })
   },
-  //跳转到快递代拿发布界面（可编辑删除）
-  goToPublishPage1: function () {
-    wx.navigateTo({
-      url: '../publish/publish?id=1',//跳转的时候传值，在跳转到的页面的js的page处理id
-
-    })
-  },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
@@ -149,9 +141,9 @@ Page({
         code: app.globalData.code,
         nickName: e.detail.userInfo.nickName,
         avatarUrl: e.detail.userInfo.avatarUrl,
-        gender: "1"//e.detail.userInfo.gender
+        gender: e.detail.userInfo.gender
       }
-      console.log(t)
+      console.log('code is ' + app.globalData.code)
       wx.request({
         url: 'http://172.18.32.138:8080/Create/User',
         data: t,
@@ -160,13 +152,11 @@ Page({
           "Content-Type": "application/x-www-form-urlencoded"
         },
         success: function (res) {
-          console.log(res)
-          if (res.statusCode == 200) {
-            console.log("获取到的openid为：" + res.data)
-            app.globalData.openid = res.data
-            wx.setStorageSync('openid', res.data)
-          } else {
-            console.log('结果：' + res.errMsg)
+          console.log("返回：", res.data)
+          if (res.data.SessionId) {
+            app.globalData.sessionID = res.data.SessionId//获取sessionID并保存在全局变量sessionID中
+            wx.setStorageSync('SessionId', res.data.SessionId)
+            console.log("注册时获取的SessionId：" + res.data.SessionId)
           }
         },
       })
