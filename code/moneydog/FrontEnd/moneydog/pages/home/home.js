@@ -15,18 +15,29 @@ Page({
       url: '../logs/logs'
     })
   },
-  //跳转到快递代拿接单界面（可编辑删除）
-  goToReceiptPage: function() {
+  //跳转到快递代拿接单界面
+  goToReceiptPage1: function() {
     wx.navigateTo({
-      url: '../receipt/receipt',
+      url: '../receipt/receipt?id=1',
     })
   },
-  //跳转到快递代拿发布界面（可编辑删除）
-  goToPublishPage: function() {
+
+  goToPublishPage2: function () {
     wx.navigateTo({
-      url: '../publish/publish',
+      url: '../publish/publish?id=2',//跳转的时候传值，在跳转到的页面的js的page处理id
     })
   },
+  goToPublishPage3: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=3',//跳转的时候传值，在跳转到的页面的js的page处理id
+    })
+  },
+  goToPublishPage4: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=4',//跳转的时候传值，在跳转到的页面的js的page处理id
+    })
+  },
+
   goToWenjuanPage: function() {
     wx.navigateTo({
       url: '../questionnaire/questionnaire',
@@ -69,13 +80,88 @@ Page({
       })
     }
   },
+  //跳转到跑腿接单界面
+  goToReceiptPage2: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=2',
+    })
+  },
+  //跳转到求助接单界面
+  goToReceiptPage3: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=3',
+    })
+  },
+  //跳转到闲置接单界面
+  goToReceiptPage4: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=4',
+    })
+  },
+  //跳转到问卷接单界面
+  goToReceiptPage5: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=5',
+    })
+  },
+  //跳转到快递代拿发布界面
+  goToPublishPage1: function() {
+    wx.navigateTo({
+      url: '../publish/publish?id=1',
+    })
+  },
+  //跳转到求助发布界面
+  goToPublishPage2: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=2',
+    })
+  },
+  //跳转到跑腿发布界面
+  goToPublishPage3: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=3',
+    })
+  },
+  //跳转到闲置发布界面
+  goToPublishPage4: function () {
+    wx.navigateTo({
+      url: '../publish/publish?id=4',
+    })
+  },
   getUserInfo: function(e) {
-    console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
     wx.showTabBar({})
+    if (app.globalData.code) {
+      // ------ 发送凭证 ------
+      var t = {
+        code: app.globalData.code,
+        nickName: e.detail.userInfo.nickName,
+        avatarUrl: e.detail.userInfo.avatarUrl,
+        gender: e.detail.userInfo.gender
+      }
+      console.log('code is ' + app.globalData.code)
+      wx.request({
+        url: 'http://172.18.32.138:8080/Create/User',
+        data: t,
+        method: 'POST',
+        header: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        success: function (res) {
+          console.log("返回：", res.data)
+          if (res.data.SessionId) {
+            app.globalData.sessionID = res.data.SessionId//获取sessionID并保存在全局变量sessionID中
+            wx.setStorageSync('SessionId', res.data.SessionId)
+            console.log("注册时获取的SessionId：" + res.data.SessionId)
+          }
+        },
+      })
+    } else {
+      console.log('获取用户登录失败：' + res.errMsg);
+    }
   }
 })

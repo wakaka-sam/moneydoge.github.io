@@ -10,6 +10,29 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        if(res.code) {
+          this.globalData.code = res.code
+        }
+        var mycode = res.code
+        console.log('未重新获取时SessionId is ' + wx.getStorageSync('SessionId'))
+        if (wx.getStorageSync('SessionId') != null) {
+          //登录时获取sessionID
+          wx.request({
+            url: 'http://172.18.32.138:8080/Create/Login',
+            data: { code: mycode },
+            method: 'GET',
+            header: {
+              "Content-Type": "application/x-www-form-urlencoded"
+            },
+            success: function (res) {
+              if (res.data.SessionId) {
+                console.log("登录时获取的SessionId：" + res.data.SessionId)
+                this.globalData.sessionID = res.data.SessionId//获取sessionID并保存在全局变量sessionID中
+                wx.setStorageSync('SessionId', res.data.SessionId)
+              }
+            }
+          })
+        }
       }
     })
     // 获取用户信息
@@ -34,6 +57,8 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    sessionID: null,
+    code: null
   }
 })
