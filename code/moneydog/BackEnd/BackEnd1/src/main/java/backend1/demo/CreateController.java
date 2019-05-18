@@ -74,7 +74,6 @@ public class CreateController {
         jsonObject.put("session_key", session_key);
         return jsonObject;
     }
-
     private JSONObject setSessionId(JSONObject res) {
         JSONObject RedisSession = new JSONObject();
 
@@ -83,7 +82,7 @@ public class CreateController {
         String session_key = res.getString("session_key");
         RedisSession.put("openid", openid);
         RedisSession.put("session_key", session_key);
-
+        JSONObject time = new JSONObject();
         if (createService.Login(openid) == 1) {
             //生成sessionId
             String SessionId = UUID.randomUUID().toString();
@@ -91,12 +90,15 @@ public class CreateController {
             stringRedisTemplate.opsForValue().set(SessionId, RedisSession.toString(), 60, TimeUnit.MINUTES);
 
             //返回sessionId
-            JSONObject time = new JSONObject();
+            time.put("errcode",1);
+            time.put("errmsg","Login in successfully");
             time.put("SessionId", SessionId);
             time.put("expireTime", 60);
-            return time;
+        }else{
+            time.put("errcode",0);
+            time.put("errmsg","Please First Register");
         }
-        return null;
+        return time;
 
     }
 
@@ -132,9 +134,7 @@ public class CreateController {
             return res;
 
         JSONObject session = setSessionId(res);
-        //retrn SessionId
         return session;
-
     }
 
     private String getOpenidFromSession(String sessionId){
@@ -145,6 +145,7 @@ public class CreateController {
     }
     @PostMapping("/Expressage")
     public JSONObject CreateExpressage(@RequestHeader("sessionId")String sessionId,@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
+
         String openid = getOpenidFromSession(sessionId);
         return createService.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
     }
