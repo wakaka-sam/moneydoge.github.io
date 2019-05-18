@@ -98,7 +98,7 @@
   <view style="display:flex;">
     <label class = "input">截止时间</label>
     <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入截止时间！" bindinput='q_endinng_timeInput' auto-focus/>
+    <input class = "inputView" name="userName" placeholder="请输入截止时间！" bindinput='q_ending_timeInput' auto-focus/>
   </view>
 
   <view style="display:flex;">
