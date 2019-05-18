@@ -6,6 +6,7 @@ Page({
    */
   data: {
     /*命名时，为了方便记忆以及避免名字冲突，我将在快递，求助，跑腿，闲置的属性加上k,q,p,x的前缀*/
+    sessionID:"847694c4-14dd-47b2-8922-facd8e379f47",/*注意与用户有关的交互都需要sessionID,初始化为永久sessionId*/
     id: '',
     x_src_of_pic: '../../images /upload.png',/*这个是选择闲置物品图片后，将闲置物品图片替换原按钮图片*/
     /*以下是快递需要上传的属性*/
@@ -41,7 +42,6 @@ Page({
     x_pay:'',
     x_phone:'',
     x_wechat:'',
-    x_wechat:''
   },
 
   /**
@@ -49,10 +49,17 @@ Page({
    */
   onLoad: function (options) {
     var that=this;
+    var app = getApp();//要先getApp（）1  
     var date = new Date('2018/05/11 11:00:00');
+    const session_id = wx.getStorageSync('SessionId');
+    if (session_id != null) {
+      that.setData({sessionID:session_id})
+    }
     that.setData({
+      //sessionID: app.globalData.sessionID,
+      sessionID: "847694c4-14dd-47b2-8922-facd8e379f47",
       id:options.id,
-      src_of_pic: '../../images/upload.png',
+      src_of_pic: '../../images/upload.png',    
       /*以下是快递需要上传的属性*/
       k_express_loc: '明德园test',
       k_arrive_time: '2018/01/30 11:00:00',
@@ -86,7 +93,6 @@ Page({
       x_pay: '',
       x_phone: '',
       x_wechat: '',
-      x_wechat: ''
     })
     console.log(that.data.id)
   },
@@ -220,8 +226,10 @@ Page({
   //快递的属性值上传
   gotoupload: function () {
     var that = this;
+    console.log(that.data.sessionID)
     wx.request({
       url: "http://172.18.32.138:8080/Create/Expressage",
+      header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
         express_loc: that.data.k_express_loc,
@@ -234,9 +242,7 @@ Page({
         phone: that.data.k_phone,
         wechat: that.data.k_wechat,
       },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      
       success: function (res) {
         console.log(res.data);
         console.log(that.data.k_express_loc);
@@ -256,9 +262,9 @@ Page({
   },
 
   //获取求助输入的信息标题
-  k_titleInput: function (e) {
+  q_titleInput: function (e) {
     this.setData({
-      k_title: e.detail.value
+      q_title: e.detail.value
     })
   },
   //获取求助输入的信息内容
@@ -268,7 +274,7 @@ Page({
     })
   },
   //获取求助输入的信息截止时间
-  q_endinng_timeInput: function (e) {
+  q_ending_timeInput: function (e) {
     this.setData({
       q_endinng_time: e.detail.value
     })
@@ -287,41 +293,37 @@ Page({
   },
   //获取求助输入的发布人手机号
   q_phoneInput: function (e) {
+    var _this = this;
+    console.log(e.detail.value+'b');
     this.setData({
       q_phone: e.detail.value
     })
   },
 
   //求助的属性值上传
-  gotoupload: function () {
+  gotodeupload2: function () {
     var that = this;
+    console.log(that.data.q_phone + 'a');
     wx.request({
       url: "http://172.18.32.138:8080/Create/For_help",
+      header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
-        express_loc: that.data.k_express_loc,
-        // arrive_time: '2018/01/30 11:00:00',保留此行是为了保留date格式的时间
-        arrive_time: that.data.k_arrive_time,
-        loc: that.data.k_loc,
-        num: that.data.k_num,
-        pay: that.data.k_pay,
-        remark: that.data.k_remark,
-        phone: that.data.k_phone,
-        wechat: that.data.k_wechat,
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
+        title: that.data.q_title,
+        content: that.data.q_content,
+        ending_time: that.data.q_ending_time,
+        pay: that.data.q_pay,
+        phone: that.data.q_phone,
+        wechat: that.data.q_wechat,
       },
       success: function (res) {
         console.log(res.data);
-        console.log(that.data.k_express_loc);
-        console.log(that.data.k_num);
-        console.log(that.data.k_loc);
-        console.log(that.data.k_arrive_time);
-        console.log(that.data.k_pay);
-        console.log(that.data.k_wechat);
-        console.log(that.data.k_phone);
-        console.log(that.data.k_remark);
+        console.log(that.data.q_title);
+        console.log(that.data.q_content);
+        console.log(that.data.q_ending_time);
+        console.log(that.data.q_pay);
+        console.log(that.data.q_phone);
+        console.log(that.data.q_wechat);
 
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
@@ -329,6 +331,112 @@ Page({
       },
     })
   },
+
+  //获取跑腿输入的信息标题
+  p_titleInput: function (e) {
+    this.setData({
+      p_title: e.detail.value
+    })
+  },
+  //获取跑腿输入的信息内容
+  p_contentInput: function (e) {
+    this.setData({
+      p_content: e.detail.value
+    })
+  },
+  //获取跑腿输入的信息截止时间
+  p_endinng_timeInput: function (e) {
+    this.setData({
+      p_endinng_time: e.detail.value
+    })
+  },
+  //获取跑腿输入的报酬信息
+  p_payInput: function (e) {
+    this.setData({
+      p_pay: e.detail.value
+    })
+  },
+  //获取跑腿输入的发布人微信号
+  p_wechatInput: function (e) {
+    this.setData({
+      p_wechat: e.detail.value
+    })
+  },
+  //获取跑腿输入的发布人手机号
+  p_phoneInput: function (e) {
+    this.setData({
+      p_phone: e.detail.value
+    })
+  },
+
+  //跑腿的属性值上传
+  gotodeupload3: function () {
+    var that = this;
+    wx.request({
+      url: "http://172.18.32.138:8080/Create/Errand",
+      header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
+      method: "POST",
+      data: {
+        title: that.data.p_title,
+        content: that.data.p_content,
+        ending_time: that.data.p_ending_time,
+        pay: that.data.p_pay,
+        phone: that.data.p_phone,
+        wechat: that.data.p_wechat,
+      },
+      success: function (res) {
+        console.log(res.data);
+        console.log(that.data.that.data.p_title);
+        console.log(that.data.p_content);
+        console.log(that.data.that.data.p_ending_time);
+        console.log(that.data.p_pay);
+        console.log(that.data.p_phone);
+        console.log(that.data.p_wechat);
+
+        wx.navigateBack({
+          delta: 1  //小程序关闭当前页面返回上一页面
+        })
+      },
+    })
+  },
+
+  //获取闲置输入的物品名称
+  x_object_nameInput: function (e) {
+    this.setData({
+      x_object_name: e.detail.value
+    })
+  },
+  //获取闲置输入的具体描述
+  x_contentInput: function (e) {
+    this.setData({
+      x_content: e.detail.value
+    })
+  },
+  //获取跑腿输入的信息截止时间
+  x_ending_timeInput: function (e) {
+    this.setData({
+      x_ending_time: e.detail.value
+    })
+  },
+  //获取跑腿输入的报酬信息
+  x_payInput: function (e) {
+    this.setData({
+      x_pay: e.detail.value
+    })
+  },
+  //获取跑腿输入的发布人微信号
+  x_wechatInput: function (e) {
+    this.setData({
+      x_wechat: e.detail.value
+    })
+  },
+  //获取跑腿输入的发布人手机号
+  x_phoneInput: function (e) {
+    this.setData({
+      x_phone: e.detail.value
+    })
+  },
+
 
 //以下是闲置的物品的数据上传
   gotodeupload4: function () {
@@ -339,6 +447,7 @@ Page({
       filePath:that.data.src_of_pic,
       name: "img",
       header:{
+        sessionId: that.data.sessionID,
         "Content-Type": "multipart/form-data",
       },
       formData:{
@@ -346,31 +455,30 @@ Page({
       },
       success:function (res){
         console.log(that.data.src_of_pic);
+        wx.request({
+          url: "http://172.18.32.138:8080/Create/Second_hand",
+          header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
+          method: "POST",
+          data: {
+            object_name: that.data.x_object_name,
+            content: that.data.x_content,
+            ending_time: that.data.x_ending_time,
+            pay: that.data.x_pay,
+            phone: that.data.x_phone,
+            wechat: that.data.x_wechat,
+            photo_url: that.data.src_of_pic
+          },
+          success: function (res) {
+            // console.log(res.data);
+            wx.navigateBack({
+              delta: 1  //小程序关闭当前页面返回上一页面
+            })
+          },
+        })
       }
     })
    
-    wx.request({
-      url: "http://172.18.32.138:8080/Create/Second_hand",
-      method: "POST",
-      data: {
-        object_name: '自走车',
-        content: '你说啥？',
-        ending_time: '2018/01/30 11:00:00',
-        pay: '10',
-        phone: '12334456',
-        wechat: 'dsbasd',
-        photo_url:that.data.src_of_pic
-      },
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      success: function (res) {
-       // console.log(res.data);
-        wx.navigateBack({
-          delta: 1  //小程序关闭当前页面返回上一页面
-        })
-      },
-    })
+    
   }
 
 })
