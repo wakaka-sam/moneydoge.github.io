@@ -226,6 +226,7 @@ Page({
   //快递的属性值上传
   gotoupload: function () {
     var that = this;
+    var date0 = new Date(that.data.k_arrive_time);//STRING转Date
     console.log(that.data.sessionID)
     wx.request({
       url: "http://172.18.32.138:8080/Create/Expressage",
@@ -233,8 +234,9 @@ Page({
       method: "POST",
       data: {
         express_loc: that.data.k_express_loc,
-       // arrive_time: '2018/01/30 11:00:00',保留此行是为了保留date格式的时间
-        arrive_time: that.data.k_arrive_time,
+        //2018/9/21 14:58:43
+       // arrive_time: '2019/04/29 11:10:01',保留此行是为了保留date格式的时间
+        arrive_time: date0,
         loc: that.data.k_loc,
         num: that.data.k_num,
         pay: that.data.k_pay,
@@ -276,7 +278,7 @@ Page({
   //获取求助输入的信息截止时间
   q_ending_timeInput: function (e) {
     this.setData({
-      q_endinng_time: e.detail.value
+      q_ending_time: e.detail.value
     })
   },
   //获取求助输入的报酬信息
@@ -294,7 +296,6 @@ Page({
   //获取求助输入的发布人手机号
   q_phoneInput: function (e) {
     var _this = this;
-    console.log(e.detail.value+'b');
     this.setData({
       q_phone: e.detail.value
     })
@@ -303,7 +304,7 @@ Page({
   //求助的属性值上传
   gotodeupload2: function () {
     var that = this;
-    console.log(that.data.q_phone + 'a');
+    var date1 = new Date(that.data.q_ending_time);//STRING转Date
     wx.request({
       url: "http://172.18.32.138:8080/Create/For_help",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
@@ -311,7 +312,7 @@ Page({
       data: {
         title: that.data.q_title,
         content: that.data.q_content,
-        ending_time: that.data.q_ending_time,
+        ending_time: date1,
         pay: that.data.q_pay,
         phone: that.data.q_phone,
         wechat: that.data.q_wechat,
@@ -345,9 +346,9 @@ Page({
     })
   },
   //获取跑腿输入的信息截止时间
-  p_endinng_timeInput: function (e) {
+  p_ending_timeInput: function (e) {
     this.setData({
-      p_endinng_time: e.detail.value
+      p_ending_time: e.detail.value
     })
   },
   //获取跑腿输入的报酬信息
@@ -372,6 +373,7 @@ Page({
   //跑腿的属性值上传
   gotodeupload3: function () {
     var that = this;
+    var date2 = new Date(that.data.p_ending_time);//STRING转Date
     wx.request({
       url: "http://172.18.32.138:8080/Create/Errand",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
@@ -379,16 +381,16 @@ Page({
       data: {
         title: that.data.p_title,
         content: that.data.p_content,
-        ending_time: that.data.p_ending_time,
+        ending_time: date2,
         pay: that.data.p_pay,
         phone: that.data.p_phone,
         wechat: that.data.p_wechat,
       },
       success: function (res) {
         console.log(res.data);
-        console.log(that.data.that.data.p_title);
+        console.log(that.data.p_title);
         console.log(that.data.p_content);
-        console.log(that.data.that.data.p_ending_time);
+        console.log(that.data.p_ending_time);
         console.log(that.data.p_pay);
         console.log(that.data.p_phone);
         console.log(that.data.p_wechat);
