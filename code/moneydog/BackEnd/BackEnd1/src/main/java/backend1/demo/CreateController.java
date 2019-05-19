@@ -126,7 +126,7 @@ public class CreateController {
         return res;
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/Login")
+    @RequestMapping(method = RequestMethod.POST, value = "/Login")
     public JSONObject Login(@RequestParam("code") String code) {
 
         JSONObject res = GetOpenId(code);
