@@ -32,6 +32,7 @@ public class LoadController {
         }
         return jdbcTemplate.query(sql,new Object[]{id},new BeanPropertyRowMapper(Contact.class));
     }
+
     @RequestMapping(method = RequestMethod.GET, value = "/downLoadExpressage")
     public List<expressage> downLoadExpressage(@RequestParam("id") int pid) {
         return loadSerivce.downLoadExpressage(pid);
