@@ -443,7 +443,7 @@ Page({
 //以下是闲置的物品的数据上传
   gotodeupload4: function () {
     var that = this;
-   
+    var date3 = new Date(that.data.x_ending_time);//STRING转Date
     wx.uploadFile({
       url: "http://119.23.218.7:8080/File/Upload",
       filePath:that.data.src_of_pic,
@@ -464,14 +464,20 @@ Page({
           data: {
             object_name: that.data.x_object_name,
             content: that.data.x_content,
-            ending_time: that.data.x_ending_time,
+            ending_time: date3,
             pay: that.data.x_pay,
             phone: that.data.x_phone,
             wechat: that.data.x_wechat,
             photo_url: that.data.src_of_pic
           },
           success: function (res) {
-            // console.log(res.data);
+            console.log(that.data.x_object_name);
+            console.log(that.data.x_content);
+            console.log(that.data.x_ending_time);
+            console.log(that.data.x_pay);
+            console.log(that.data.x_phone);
+            console.log(that.data.x_wechat);
+            
             wx.navigateBack({
               delta: 1  //小程序关闭当前页面返回上一页面
             })
