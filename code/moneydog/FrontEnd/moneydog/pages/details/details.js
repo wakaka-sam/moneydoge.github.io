@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sessionId: '847694c4-14dd-47b2-8922-facd8e379f47',
     showDialog: false,
     id: 0,//1:快递 2:跑腿 3:求助 4:闲置 5:问卷
     json: [],
@@ -20,17 +21,19 @@ Page({
     console.log(options)
     var url = 'http://' + baseUrl + ':8080/Load/Contact_way?type=' + 
               options.type + '&id=' + options.id
-    console.log(url)
-    var sessionId = app.globalData.sessionId
+    console.log(url, 'sessionId:', that.data.sessionId)
     wx.request({
       url: url,
-      header:{sessionId:sessionId},
+      header:{sessionId: that.data.sessionId},
       success: function (res) {
         that.setData({
           phone: res.data[0].phone,
           wechat: res.data[0].wechat
         })
         that.toggleDialog()
+      },
+      fail: function (res) {
+        console.log('fail to get Contact_way', res)
       }
     })
   },
@@ -50,6 +53,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const sessionId = wx.getStorageSync('SessionId')
+    if (sessionId) {
+      this.setData({ sessionId: sessionId })
+    }
     this.setData({
       id: options.id,
       json: JSON.parse(options.json)

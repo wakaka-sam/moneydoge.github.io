@@ -25,64 +25,123 @@
 <view wx:if='{{isSelected1}}' class='expressageList'>
 <block wx:for='{{exTradeList}}'>
   <!-- 1.快递 data-*属性在触发事件时获取  -->
-  <view class='exTrade' catchtap='showDetail' data-id='1' data-json='{{item}}'>
-    <text>快递点：  {{item.express_loc}}</text>
-    <text>到达时间：{{item.arrive_time}}</text>
-    <text>快递数量：{{item.num}}</text>
-    <text>价格：    {{item.pay}}</text>
-    <button catchtap='receiptOrder' data-type='0' data-id='{{item.pid}}'>接单</button>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail' data-id='1' data-json='{{item}}'>
+    <view class='single-top'>
+      <view class='a'>
+        <view class='name'>{{item.loc}}</view>
+        <view class='price'>￥{{item.pay}}</view>
+      </view>
+    </view>
+    <view class='b'>
+      <view class='left-container'>
+        <view>快递点</view>
+        <view>快递数量</view>
+        <view>到达时间</view>
+      </view>
+      <view class='right-container'>
+        <view>{{item.express_loc}}</view>
+        <view>{{item.num}}</view>
+        <view>{{item.arrive_time}}</view>
+      </view>
+    </view>
+    <view class='single-bottom'>
+      <button class='accept-button' catchtap='receiptOrder' data-type='0' data-id='{{item.pid}}'>接单</button>
+    </view>
   </view>
 </block>
 <view wx:if="{{lastId1==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else bindtap='downloadEx' style='text-align:center;color:gray;'>点击加载更多</view>
+<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected2}}' class='errandList'>
 <block wx:for='{{erTradeList}}'>
   <!-- 2.跑腿 data-*属性在触发事件时获取  -->
-  <view class='erTrade' catchtap='showDetail' data-id='2' data-json='{{item}}'>
-    <text>title:   {{item.title}}</text>
-    <text>跑腿内容：{{item.content}}</text>
-    <text>截止时间：{{item.ending_time}}</text>
-    <text>价格：    {{item.pay}}</text>
-    <button catchtap='receiptOrder' data-type='1' data-id='{{item.rid}}'>接单</button>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail' data-id='2' data-json='{{item}}'>
+    <view class='single-top'>
+      <view class='a'>
+        <view class='name'>{{item.title}}</view>
+        <view class='price'>￥{{item.pay}}</view>
+      </view>
+    </view>
+    <view class='b'>
+      <view class='left-container'>
+        <view>跑腿内容</view>
+        <view>截止时间</view>
+      </view>
+      <view class='right-container'>
+        <view>{{item.content}}</view>
+        <view>{{item.ending_time}}</view>
+      </view>
+    </view>
+    <view class='single-bottom'>
+      <button class='accept-button' catchtap='receiptOrder' data-type='1' data-id='{{item.rid}}'>接单</button>
+    </view>
   </view>
 </block>
 <view wx:if="{{lastId2==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else bindtap='downloadEr' style='text-align:center;color:gray;'>点击加载更多</view>
+<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected3}}' class='seekhelpList'>
 <!--由于seekhelp和secondhand开头相同，为了避免混淆，下面用he代表求助，se代表闲置-->
 <block wx:for='{{heTradeList}}'>
   <!-- 3.求助 data-*属性在触发事件时获取  -->
-  <view class='heTrade' catchtap='showDetail' data-id='3' data-json='{{item}}'>
-    <text>title：  {{item.title}}</text>
-    <text>求助内容：{{item.content}}</text>
-    <text>截止时间：{{item.ending_time}}</text>
-    <text>价格：    {{item.pay}}</text>
-    <button catchtap='receiptOrder' data-type='2' data-id='{{item.fid}}'>接单</button>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail' data-id='3' data-json='{{item}}'>
+    <view class='single-top'>
+      <view class='a'>
+        <view class='name'>{{item.title}}</view>
+        <view class='price'>￥{{item.pay}}</view>
+      </view>
+    </view>
+    <view class='b'>
+      <view class='left-container'>
+        <view>求助内容</view>
+        <view>截止时间</view>
+      </view>
+      <view class='right-container'>
+        <view>{{item.content}}</view>
+        <view>{{item.ending_time}}</view>
+      </view>
+    </view>
+    <view class='single-bottom'>
+      <button class='accept-button' catchtap='receiptOrder' data-type='2' data-id='{{item.fid}}'>接单</button>
+    </view>
   </view>
 </block>
 <view wx:if="{{lastId3==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else bindtap='downloadHe' style='text-align:center;color:gray;'>点击加载更多</view>
+<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected4}}' class='secondhandList'>
 <block wx:for='{{seTradeList}}'>
   <!-- 4.闲置 data-*属性在触发事件时获取  -->
-  <view class='seTrade' catchtap='showDetail' data-id='4' data-json='{{item}}'>
-    <text>物品名称：{{item.object_name}}</text>
-    <text>备注内容：{{item.content}}</text>
-    <text>截止时间：{{item.ending_time}}</text>
-    <text>价格：    {{item.pay}}</text>
-    <button catchtap='receiptOrder' data-type='3' data-id='{{item.sid}}'>接单</button>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail' data-id='4' data-json='{{item}}'>
+    <view class='single-top'>
+      <view class='a'>
+        <view class='name'>{{item.object_name}}</view>
+        <view class='price'>￥{{item.pay}}</view>
+      </view>
+    </view>
+    <view class='b'>
+      <image src="../../images/pulldown.png" style='flex: 1;height: 50px;'></image>
+      <view style='flex: 1.6;'>
+        <view>备注</view>
+        <view>截止时间</view>
+      </view>
+      <view style='flex: 4;width: 215px;white-space: nowrap;overflow: hidden;'>
+        <view>{{item.content}}</view>
+        <view>{{item.ending_time}}</view>
+      </view>
+    </view>
+    <view class='single-bottom'>
+      <button class='accept-button' catchtap='receiptOrder' data-type='3' data-id='{{item.sid}}'>接单</button>
+    </view>
   </view>
 </block>
 <view wx:if="{{lastId4==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else bindtap='downloadSe' style='text-align:center;color:gray;'>点击加载更多</view>
+<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected5}}' class='questionnaireList'>
 <block wx:for='{{quTradeList}}'>
   <!-- 5.问卷 问卷的id待定，先用qid代替-->
-  <view class='quTrade' catchtap='showDetail' data-id='5' data-json='{{item}}'>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail' data-id='5' data-json='{{item}}'>
     <text>问卷标题：{{item.title}}</text>
     <text>备注内容：{{item.content}}</text>
     <text>截止时间：{{item.ending_time}}</text>
@@ -91,6 +150,6 @@
   </view>
 </block>
 <view wx:if="{{lastId5==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else bindtap='downloadQu' style='text-align:center;color:gray;'>点击加载更多</view>
+<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 </view>
