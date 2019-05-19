@@ -1,5 +1,5 @@
 <view class = "top-block">
-    <view>
+    <view bindtap='upUserimag'>
       <image src = "{{user_img}}" class = "s-image"></image>
     </view>    
 </view>
@@ -55,8 +55,8 @@
 
 <view class = "bottom-block">
 
-  <view  bindtap='up_schoolcard'>
-    <image src = "{{imageUrl}}" class = "size-card"></image>
+  <view  bindtap='upSchoolcard'>
+    <image src = "{{schoolCard}}" class = "size-card"></image>
   </view>
 
   <view>

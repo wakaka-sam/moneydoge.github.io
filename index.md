@@ -20,7 +20,7 @@
 - 8.生产规范与指南
   - 8.1 XX 代码规范
 
-  - 8.2 REST API 设计规范
+  - 8.2 [REST API 设计规范](./API/page.md)
 
   - 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
 
@@ -31,6 +31,7 @@
 - 10.贡献率计算
   - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
 - 11.成品展示
+- 
 - X1 meeting-records
 
   - [inception meeting(2019/03/22)](page/inception_meeting.md)
