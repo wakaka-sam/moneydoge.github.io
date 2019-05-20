@@ -1,6 +1,7 @@
+const app = getApp()
+const baseUrl = '172.18.32.138'
 // pages/receipt/receipt.js
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -8,8 +9,8 @@ Page({
     selctShow: false,//控制下拉列表的显示隐藏，false隐藏、true显示
     selectData: ['薪酬筛选（从高到低）', '薪酬筛选（从低到高）'],//下拉列表的数据
     index: 0,//选择的下拉列表下标
-    isSelected1: false,//默认快递
-    isSelected2: true,//跑腿
+    isSelected1: true,//默认快递
+    isSelected2: false,//跑腿
     isSelected3: false,//求助
     isSelected4: false,//闲置
     isSelected5: false,//问卷
@@ -25,7 +26,10 @@ Page({
         "num":4,
         "pay":10,
         "loc":"至善园2号666",
-        "pid":4
+        "pid":4,
+        "remark":"none",
+        "issue_time":"2019-05-3",
+        "state":0
       },
       {
         "express_loc": "明德园6号",
@@ -33,7 +37,10 @@ Page({
         "num": 1,
         "pay": 15,
         "loc": "至善园2号666",
-        "pid": 5
+        "pid": 5,
+        "remark": "none",
+        "issue_time": "2019-05-4",
+        "state": 0
       }],
     erTradeList: [],
     heTradeList: [],
@@ -148,7 +155,7 @@ Page({
   OnLoadExpressage: function(){
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadExpressage',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadExpressage',
       success: function(res) {
         that.setData({exTradeList:res.data})
         var exTradeList = that.data.exTradeList
@@ -156,6 +163,9 @@ Page({
           that.setData({lastId1: exTradeList[exTradeList.length-1].pid})
         }
         resolve()
+      },
+      fail: function(res) {
+        console.log('fail to onload',res)
       }
     }))
     // console.log('load expressage')
@@ -163,7 +173,7 @@ Page({
   OnLoadErrand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadErrands',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadErrands',
       success: function (res) {
         that.setData({ erTradeList: res.data })
         var erTradeList = that.data.erTradeList
@@ -178,7 +188,7 @@ Page({
   OnLoadSeekhelp: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadFor_help',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadFor_help',
       success: function (res) {
         that.setData({ heTradeList: res.data })
         var heTradeList = that.data.heTradeList
@@ -193,7 +203,7 @@ Page({
   OnLoadSecondhand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://172.18.32.138:8080/Load/OnLoadSecond_hand',
+      url: 'http://' + baseUrl + ':8080/Load/OnLoadSecond_hand',
       success: function (res) {
         that.setData({ seTradeList: res.data })
         var seTradeList = that.data.seTradeList
@@ -208,7 +218,7 @@ Page({
   //下拉加载
   downloadEx: function(){
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadExpressage?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadExpressage?id='
     tempUrl += String(this.data.lastId1)
     wx.request({
       url: tempUrl,
@@ -224,7 +234,7 @@ Page({
   },
   downloadEr: function () {
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadErrands?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadErrands?id='
     tempUrl += String(this.data.lastId2)
     wx.request({
       url: tempUrl,
@@ -239,7 +249,7 @@ Page({
   },
   downloadHe: function () {
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadFor_help?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadFor_help?id='
     tempUrl += String(this.data.lastId3)
     wx.request({
       url: tempUrl,
@@ -254,7 +264,7 @@ Page({
   },
   downloadSe: function () {
     var that = this
-    var tempUrl = 'http://172.18.32.138:8080/Load/downLoadSecond_hand?id='
+    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadSecond_hand?id='
     tempUrl += String(this.data.lastId4)
     wx.request({
       url: tempUrl,
@@ -270,7 +280,21 @@ Page({
 
   //跳转详情页面
   showDetail: function(e) {
+    var trade = e.currentTarget.dataset
+    var json = trade.json
+    var id = trade.id
+    console.log(id, json)
+    wx.navigateTo({
+      url: './../details/details?id=' + id + '&json=' + JSON.stringify(json),
+    })
+  },
 
+  //点击接单按钮
+  receiptOrder: function(e) {
+    var options = e.currentTarget.dataset
+    console.log(options)
+    var url = 'http://' + baseUrl + ':8080/Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
+    console.log(url)
   },
 
   /**
@@ -336,4 +360,5 @@ Page({
   onShareAppMessage: function () {
 
   }
+
 })
