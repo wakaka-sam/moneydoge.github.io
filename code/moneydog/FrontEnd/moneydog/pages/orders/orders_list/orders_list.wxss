@@ -63,7 +63,6 @@
 }
 .a .price{
   flex: 1;
-  color: red;
 }
 .single-bottom {
   display: flex;
