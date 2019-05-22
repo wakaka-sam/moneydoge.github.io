@@ -2,12 +2,33 @@
 var app = getApp()
 Page({
   data: {
-    user_img:     'http://img.52z.com/upload/news/image/20180213/20180213062641_35687.jpg',
-    nickname:'小明',
-    name:'张小凡',
-    school:'中山大学',
-    phone:'15167496318',
-    schoolCard:'../../../images/upload_picture.png'
+    sessionID: '',
+    user_img:  '',
+    nickname:'',
+    name:'',
+    school:'',
+    phone:'',
+    image_url:''
+  },
+  onLoad(options) {
+    // Do some initialize when page load.
+    this.setData({
+      sessionID: '847694c4-14dd-47b2-8922-facd8e379f47',
+      user_img: 'http://img.52z.com/upload/news/image/20180213/20180213062641_35687.jpg',
+      image_url: '../../../images/upload_picture.png'
+    })
+  },
+  onReady() {
+    // Do something when page ready.
+  },
+  onShow() {
+    // Do something when page show.
+  },
+  onHide() {
+    // Do something when page hide.
+  },
+  onUnload() {
+    // Do something when page close.
   },
   setNickname: function(e){
     this.setData({
@@ -33,21 +54,25 @@ Page({
   var that = this
   
   wx.request({
-    url: 'http://119.23.218.7:6666/User/Update',
+    url: 'http://moneydog.club:8080/User/Update',
     method:'POST',
+    header: {
+      "content-type": "application/x-www-form-urlencoded",
+      sessionId:that.data.sessionID.toString()
+    },
     data: {
       user_img:that.data.user_img,
       nickname: that.data.nickname,
       name: that.data.name,
       school: that.data.school,
       phone: that.data.phone,
-      schoolCard:that.data.schoolCard
-    },
-    header: {
-      
+      image_url:that.data.image_url
     },
     success: function (res) {
-      console.log(res.data)
+      console.log(res)
+      wx.navigateBack({
+        delta: 1
+      })
     }
   })
   },
@@ -61,18 +86,18 @@ Page({
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
         that.setData({
-          schoolCard:tempFilePaths[0]
+          image_url:tempFilePaths[0]
         })
         wx.uploadFile({
           url: 'http://119.23.218.7:8080/File/Upload',
-          filePath: that.data.schoolCard,
+          filePath: that.data.image_url,
           name: 'img',
           success: function (res) {
             var t = JSON.parse(res.data);
             console.log(t.imageUrl)
             var url = 'http://119.23.218.7:8080/' + t.imageUrl;
             that.setData({
-              schoolCard: url
+              image_url: url
             })
           }
         })
@@ -91,6 +116,7 @@ Page({
         that.setData({
           user_img: tempFilePaths[0]
         })
+        that.set
         wx.uploadFile({
           url: 'http://119.23.218.7:8080/File/Upload',
           filePath: that.data.user_img,

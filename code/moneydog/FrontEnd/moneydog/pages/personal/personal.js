@@ -19,5 +19,8 @@ Page({
     wx.navigateTo({
       url: 'service/service',
     })
+  },
+  onShow:function(){
+    wx.requst
   }
 })

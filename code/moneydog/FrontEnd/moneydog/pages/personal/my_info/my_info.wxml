@@ -56,7 +56,7 @@
 <view class = "bottom-block">
 
   <view  bindtap='upSchoolcard'>
-    <image src = "{{schoolCard}}" class = "size-card"></image>
+    <image src = "{{image_url}}" class = "size-card"></image>
   </view>
 
   <view>
