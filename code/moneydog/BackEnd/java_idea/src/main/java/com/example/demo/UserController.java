@@ -36,23 +36,31 @@ public class UserController {
             state = 0;
         else
             state = 1;
-
+        System.out.println("用户" + sessionId + "调用了Update");
         return jdbcTemplate.update("UPDATE moneydog.user set falsename = ?,realname = ?,school = ?,phoneNum = ?, state = ?,image_url = ?,avatarUrl = ?  WHERE openid = ? ",
                 falsename,realname,school,phoneNum,state,image_url,user_img,openid);
     }
 
     //获得闲币
-    @PostMapping("/getPower")
-    public int getPower(@RequestHeader("sessionId")String sessionId,@RequestParam("power") int power)
+    @PostMapping("/setPower")
+    public int setPower(@RequestHeader("sessionId")String sessionId,@RequestParam("power") int power)
     {
+
         String openid = getOpenidBySessionId(sessionId);
-        Integer count = 1;
-        String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
-        System.out.println("openid: " + openid);
-        count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
-        count += power;
-        jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",count,openid);
-        return count;
+
+        //String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
+        //System.out.println("openid: " + openid);
+        //count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
+        //count += power;
+        jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",power,openid);
+        System.out.println("用户" + sessionId + "调用了setPower" + "返回了" + power);
+
+        return power;
+    }
+    @RequestMapping(method = RequestMethod.GET, value = "/hello")
+    public String sayHello()
+    {
+        return "Hello";
     }
 
     //查询闲币
@@ -65,6 +73,13 @@ public class UserController {
         int count = 1;
         String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
         count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
+        System.out.println("用户" + sessionId + "调用了queryPower返回了" + count);
+        /*
+        JSONObject temp = new JSONObject();
+        temp.put("count",count);
+        temp.put("msg","success");
+
+         */
         return count;
     }
 
@@ -90,6 +105,7 @@ public class UserController {
         JSONObject userInfo = new JSONObject();
         String sql = "SELECT school,phoneNum,falsename,realname FROM moneydog.user WHERE openid = ?";
         List<User> temp1  = jdbcTemplate.query(sql,new Object[] {openid},new BeanPropertyRowMapper(User.class));
+        System.out.println("用户" + sessionId + "调用了getInfo");
         return temp1.get(0);
 
     }
