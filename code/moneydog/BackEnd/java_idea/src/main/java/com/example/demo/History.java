@@ -4,9 +4,10 @@ import java.util.Date;
 
 public class History {
     //private int thid;
-    //private String uid;
+    private String uid;
     private String type;
     private int price;
+    private int finish;
     private Date time;
     private String detail;
     History()
@@ -21,7 +22,7 @@ public class History {
     public void setThid(int thid) {
         this.thid = thid;
     }
-
+*/
     public String getUid() {
         return uid;
     }
@@ -29,7 +30,7 @@ public class History {
     public void setUid(String uid) {
         this.uid = uid;
     }
-*/
+
     public String getType() {
         return type;
     }
@@ -60,5 +61,13 @@ public class History {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public int getFinish() {
+        return finish;
+    }
+
+    public void setFinish(int finish) {
+        this.finish = finish;
     }
 }
