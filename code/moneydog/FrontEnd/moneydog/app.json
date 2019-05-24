@@ -13,7 +13,8 @@
     "pages/personal/my_info/my_info",
     "pages/personal/my_balance/my_balance",
     "pages/personal/service/service",
-    "pages/personal/bill/bill"
+    "pages/personal/bill/bill",
+    "pages/confession/confession_expression"
   ],
   "window": {
     "backgroundTextStyle": "light",

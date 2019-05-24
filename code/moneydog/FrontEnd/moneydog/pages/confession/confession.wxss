@@ -1,1 +1,5 @@
 /* pages/index3/index3.wxss */
+.gotoConfession{
+  width: 100px;
+  height: 50px;
+}
