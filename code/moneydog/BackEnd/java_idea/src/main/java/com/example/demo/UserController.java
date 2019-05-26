@@ -2,6 +2,9 @@ package com.example.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-
+@Api(description = "管理用户相关信息")
 @RequestMapping("/User")
 @RestController
 public class UserController {
@@ -23,27 +26,35 @@ public class UserController {
     StringRedisTemplate stringRedisTemplate;
 
     //完善信息，并改变state值
+    @ApiOperation(value = "完善信息，并改变state值")
     @PostMapping("/Update")
-    public int updateinfo(@RequestParam("nickname") String falsename, @RequestParam("name") String realname,
-                          @RequestParam("school") String school,@RequestParam("phone") String phoneNum,
-                          @RequestParam("image_url") String image_url,@RequestParam("user_img") String user_img,
-                          @RequestHeader("sessionId")String sessionId) {
-        //若有空值，则state为0，否则为1
+    public int updateinfo(@ApiParam(required = true, value = "用户昵称")@RequestParam("nickname") String falsename,
+                          @ApiParam(required = true, value = "用户真实姓名")@RequestParam("name") String realname,
+                          @ApiParam(required = true, value = "用户学校")@RequestParam("school") String school,
+                          @ApiParam(required = true, value = "用户电话号码")@RequestParam("phone") String phoneNum,
+                          @ApiParam(required = true, value = "用户校园卡图像url")@RequestParam("image_url") String image_url,
+                          @ApiParam(required = true, value = "用户头像url")@RequestParam("user_img") String user_img,
+                          @ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId) {
         //state的1代表信息完善
         String openid = getOpenidBySessionId(sessionId);
-        int state ;
+        int state = 0;
+        /*
         if(falsename.isEmpty()||realname.isEmpty()||school.isEmpty()||phoneNum.isEmpty())
             state = 0;
         else
             state = 1;
+
+         */
         System.out.println("用户" + sessionId + "调用了Update");
         return jdbcTemplate.update("UPDATE moneydog.user set falsename = ?,realname = ?,school = ?,phoneNum = ?, state = ?,image_url = ?,avatarUrl = ?  WHERE openid = ? ",
                 falsename,realname,school,phoneNum,state,image_url,user_img,openid);
     }
 
     //获得闲币
+    @ApiOperation(value = "设置闲钱币")
     @PostMapping("/setPower")
-    public int setPower(@RequestHeader("sessionId")String sessionId,@RequestParam("power") int power)
+    public int setPower(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId,
+                        @ApiParam(required = true, value = "需要设置的闲钱币的值")@RequestParam("power") int power)
     {
 
         String openid = getOpenidBySessionId(sessionId);
@@ -60,8 +71,9 @@ public class UserController {
 
 
     //查询闲币
+    @ApiOperation(value = "查询闲钱币")
     @RequestMapping(method = RequestMethod.GET, value = "/queryPower")
-    public int queryPower(@RequestHeader("sessionId")String sessionId)
+    public int queryPower(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId)
     {
         String openid = getOpenidBySessionId(sessionId);
         System.out.println("sessionId" + sessionId);
@@ -80,6 +92,7 @@ public class UserController {
     }
 
     @RequestMapping("/forever")
+    @Api(description = "生成测试用sessionid")
     @RestController
     public class createid {
         @RequestMapping(value = "/cc",method = RequestMethod.GET)
@@ -93,9 +106,11 @@ public class UserController {
             return  sessionId;
         }
     }
+
     //获取用户资料
+    @ApiOperation(value = "获取用户资料")
     @RequestMapping(method = RequestMethod.GET, value = "/Info")
-    public User getInfo(@RequestHeader("sessionId")String sessionId) {
+    public User getInfo(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId) {
 
         String openid = getOpenidBySessionId(sessionId);
         JSONObject userInfo = new JSONObject();
@@ -113,7 +128,75 @@ public class UserController {
         return openid;
     }
 
+    //获取用户资料
+    @ApiOperation(value = "获取校园卡url")
+    @RequestMapping(method = RequestMethod.GET, value = "/getImage_url")
+    public JSONObject getImage_url(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId) {
+
+        String openid = getOpenidBySessionId(sessionId);
+
+        int statecode;
+        String msg;
+        String sql = "SELECT image_url FROM moneydog.user WHERE openid = ?";
+        String url = "";
+        try
+        {
+            url = jdbcTemplate.queryForObject(sql,new Object[] {openid},String.class);
+
+        }
+        catch (Exception e)
+        {
+            statecode = -1;
+            msg = "该用户尚未提交校园卡图像";
+        }
+        System.out.println("用户" + sessionId + "调用了getImage_url");
+
+        JSONObject result = new JSONObject();
+        statecode = 1;
+        msg = "获取成功";
+        if(url == null)
+        {
+            statecode = -1;
+            msg = "该用户尚未提交校园卡图像";
+        }
+        result.put("url",url);
+        result.put("msg",msg);
+        result.put("statecode",statecode);
+        return result;
+
+    }
+
+    @ApiOperation(value = "更改其认证状态")
+    @RequestMapping(method = RequestMethod.POST, value = "/changeState")
+    public JSONObject changeState(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId) {
+
+        String openid = getOpenidBySessionId(sessionId);
+        int statecode;
+        String msg;
+
+        try{
+            jdbcTemplate.update("UPDATE moneydog.user set state = ?  WHERE openid = ? ",1,openid);
+
+        }
+        catch (Exception e)
+        {
+            statecode = -1;
+            msg = "用户不存在";
+        }
+
+        statecode = 1;
+        msg = "修改成功";
+
+        JSONObject result = new JSONObject();
+        result.put("msg",msg);
+        result.put("statecode",statecode);
+
+        return result;
+
+    }
+
     //提供给另一后端
+    /*
     @PostMapping("/changePower")
     public JSONObject changePower(@RequestParam("openid")String uid,@RequestParam("power") int power)
     {
@@ -160,6 +243,9 @@ public class UserController {
         temp.put("msg",msg);
         return temp;
     }
+
+
+     */
 
 
 

@@ -1,9 +1,15 @@
 package com.example.demo;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class User {
+    @ApiModelProperty(value = "学校")
     private String school;
+    @ApiModelProperty(value = "手机号")
     private String phoneNum;
+    @ApiModelProperty(value = "真实名字")
     private String realname;
+    @ApiModelProperty(value = "昵称")
     private String falsename;
 
 

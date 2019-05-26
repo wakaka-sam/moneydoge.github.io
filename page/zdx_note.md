@@ -1,5 +1,7 @@
 ## 学习笔记
 
+[TOC]
+
 
 
 #### 如何初始化第一个spring boot程序
@@ -122,3 +124,66 @@
 
   
 
+#### 如何使用swagger简单配置出api手册
+
+2019.5.26
+
+- 根据教程，这个比较简单，首先先添加依赖，在pom文件中
+
+- ```yaml
+  		<dependency>
+              <groupId>io.springfox</groupId>
+              <artifactId>springfox-swagger2</artifactId>
+              <version>2.9.2</version>
+          </dependency>
+          <dependency>
+              <groupId>io.springfox</groupId>
+              <artifactId>springfox-swagger-ui</artifactId>
+              <version>2.9.2</version>
+          </dependency>
+  
+  
+  ```
+
+- 然后再编写一个简单的controller
+
+- ```java
+  package com.example.demo;
+  
+  import ...
+  @Configuration
+  @EnableSwagger2
+  public class SwaggerController{
+  
+      @Bean
+      public Docket createRestApi() {
+          return new Docket(DocumentationType.SWAGGER_2)
+                  .apiInfo(apiInfo())
+                  .select()
+                  .apis(RequestHandlerSelectors.any())
+                  .paths(Predicates.not(PathSelectors.regex("/error.*")))// 错误路径不监控
+                  .paths(PathSelectors.any())
+                  .build();
+      }
+  
+      private ApiInfo apiInfo() {
+          return new ApiInfoBuilder()
+                  .title("Moneydog")
+                  .description("zdx后端接口描述")
+                  .contact(
+                          new Contact("wakaka", "moneydog.club", "zhengdx7@mail2.sysu.edu.cn")
+                  )
+                  .version("1.0.0-SNAPSHOT")
+                  .build();
+      }
+  }
+  ```
+
+- 然后我们就可以再localhost:3336/swagger-ui.html# 直接看到我们的api手册了。
+
+- 然后我们只需要在每个接口上，写上对应的备注，方便前端人员理解，就完成了
+
+  - 在类上增加`Api`注解
+  - 在方法上增加`ApiOperation`注解
+  - 在参数上增加`ApiParam`注解
+  - 在模型字段上`ApiModelProperty`增加注解
