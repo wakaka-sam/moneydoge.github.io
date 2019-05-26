@@ -1,5 +1,15 @@
 <!--pages/index3/index3.wxml-->
-<text>表白墙页面</text>
+<view class='title_center'>
+    <text class='text_center'>写表白</text>
+</view>
+
+<view>
+  <image src="../../images/confession_pic1.png">
+  </image>
+</view>
+<view>
+  <text class='sentence'>床前明月光，疑是地上霜……</text>
+</view>
 <button class='gotoConfession' bindtap='gotoconfession'>
-    <text>去表白</text>
+    <text>向Ta表白</text>
 </button>
