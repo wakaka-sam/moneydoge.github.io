@@ -15,6 +15,9 @@ spring:
     host: 127.0.0.1
     port: 6379
 server:
-  port: 8080
+  port: 3336
+  ssl:
+    key-store: 2129067.pfx
+    key-store-password: ocLB8JNI
   servlet:
     context-path: /
