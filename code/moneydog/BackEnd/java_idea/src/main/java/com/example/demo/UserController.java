@@ -57,11 +57,7 @@ public class UserController {
 
         return power;
     }
-    @RequestMapping(method = RequestMethod.GET, value = "/hello")
-    public String sayHello()
-    {
-        return "Hello";
-    }
+
 
     //查询闲币
     @RequestMapping(method = RequestMethod.GET, value = "/queryPower")
@@ -116,5 +112,55 @@ public class UserController {
         String openid = temp.getString("openid");
         return openid;
     }
+
+    //提供给另一后端
+    @PostMapping("/changePower")
+    public JSONObject changePower(@RequestParam("openid")String uid,@RequestParam("power") int power)
+    {
+        //1 交易成功  2 余额不足
+        // -1 账号不存在
+        int statecode;
+        String msg;
+        String openid = uid;
+        int count ;
+        String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
+        //System.out.println("openid: " + openid);
+        try
+        {
+            count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
+
+        }
+        catch (Exception e)
+        {
+            statecode = -1;
+            JSONObject temp = new JSONObject();
+            temp.put("statecode",statecode);
+            temp.put("msg","账号不存在");
+            temp.put("count",0);
+            return temp;
+        }
+        count += power;
+
+        if(count < 0)
+        {
+            statecode = 2;
+            msg = "余额不足";
+            System.out.println("用户" + uid + "调用了changePower" + " 余额不足");
+        }
+        else
+        {
+            statecode = 1;
+            jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",count,openid);
+            System.out.println("用户" + uid + "调用了changePower" + " 交易成功");
+            msg = "交易成功";
+        }
+        JSONObject temp = new JSONObject();
+        temp.put("statecode",statecode);
+        temp.put("count",count);
+        temp.put("msg",msg);
+        return temp;
+    }
+
+
 
 }
