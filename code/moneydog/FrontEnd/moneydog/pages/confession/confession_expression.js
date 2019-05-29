@@ -5,13 +5,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    content:"",
+    sessionID: "847694c4-14dd-47b2-8922-facd8e379f47",/*注意与用户有关的交互都需要sessionID,初始化为永久sessionId*/
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const session_id = wx.getStorageSync('SessionId');
+    if (session_id != null) {
+      that.setData({ sessionID: session_id })
+    }
+    that.setData({
+      content:""
+    })
 
   },
 
@@ -62,5 +70,15 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  //获取表白墙发布的内容
+  confession_content: function (e) {
+    this.setData({
+      content: e.detail.value
+    })
+  },
+  gotoupload5:function(){
+    var that = this;
+    console.log(that.data.content)
   }
 })
