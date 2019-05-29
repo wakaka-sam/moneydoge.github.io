@@ -1,1 +1,33 @@
 /* pages/index3/index3.wxss */
+.gotoConfession{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  position:fixed; 
+  bottom: 0px;
+
+  -webkit-text-fill-color: green;
+}
+.text_center{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;    
+  text-align: center;
+  background: pink;
+  font-size: 14px;
+
+}
+.title_center{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.picture2{
+  width: 100%;
+  height: 100px
+}
+.sentence{
+  width: 100%;
+}

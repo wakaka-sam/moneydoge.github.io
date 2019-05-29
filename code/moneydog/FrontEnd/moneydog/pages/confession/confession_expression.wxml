@@ -1,0 +1,9 @@
+<!--pages/confession/confession_expression.wxml-->
+<view style="display:flex;">
+  <textarea class = "confession_input" name="content" placeholder="表白要走心！最多可输入140字！" bindinput='confession_content' auto-focus/>
+</view>
+<view style="display:flex;">
+  <button class='btn_confession'>
+    <text>表白</text>
+  </button>
+</view>
