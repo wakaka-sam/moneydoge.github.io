@@ -1,23 +1,21 @@
 // pages/index3/index3.js
-Component({
+Page({
   /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
-  /**
-   * 组件的初始数据
+   * 初始数据
    */
   data: {
-
+  	confessionList: [
+  		{"content":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
+  		{"content":"哇，你妈妈好爱你呀！"},
+  		{"content":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
+  		{"content":"哇，你妈妈好爱你呀！"},
+  		{"content":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
+  		{"content":"哇，你妈妈好爱你呀！"}
+  	]
   },
-
-  /**
-   * 组件的方法列表
-   */
-  methods: {
-
+  writeConfession: function () {
+  	wx.navigateTo({
+      url: ''
+    })
   }
 })

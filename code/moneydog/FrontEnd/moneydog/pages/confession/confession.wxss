@@ -1,1 +1,35 @@
 /* pages/index3/index3.wxss */
+.confessionList {
+}
+/*252 252 235*/
+.singleConfession {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 30px;
+}
+.image {
+	width: 40%;
+	height: 130px;
+}
+.text {
+	width: 48%;
+	border: thin solid #c5c5c5;
+}
+.loveImage {
+	height:25px;
+	width:32px;
+}
+.button {
+	margin: 30px 0px 30px 0px;
+	width: 100%;
+	display: flex;
+	justify-content: space-around;
+}
+.writeConfession {
+	width: 40%;
+	text-align: center;
+	color: rgb(26,173,25);
+	font-size: 16px;
+	border: 1px solid rgb(26,173,25);
+	border-radius: 5px;
+}
