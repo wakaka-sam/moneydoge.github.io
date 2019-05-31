@@ -57,4 +57,18 @@
     </view>
   </view>
 
+<view class="divLine"></view>
+
+    <view class = "list-item" bindtap='goTo_check'>
+    <view>
+      <image class = "l-icon" src = "../../images/审核.png"></image>
+    </view>
+    <view>
+      <text>信息审核</text>
+    </view>
+    <view>
+      <image class = "r-icon" src = "../../images/arrows_right.png"></image>
+    </view>
+  </view>
+
 </view>
