@@ -26,7 +26,7 @@ public class UserController {
     StringRedisTemplate stringRedisTemplate;
 
     //完善信息，并改变state值
-    @ApiOperation(value = "完善信息，并改变state值")
+    @ApiOperation(value = "完善信息")
     @PostMapping("/Update")
     public int updateinfo(@ApiParam(required = true, value = "用户昵称")@RequestParam("nickname") String falsename,
                           @ApiParam(required = true, value = "用户真实姓名")@RequestParam("name") String realname,
@@ -108,7 +108,7 @@ public class UserController {
     }
 
     //获取用户资料
-    @ApiOperation(value = "获取用户资料")
+    @ApiOperation(value = "获取用户资料",notes = "返回每个用户的昵称，手机号，真实姓名以及学校",response = User.class)
     @RequestMapping(method = RequestMethod.GET, value = "/Info")
     public User getInfo(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId) {
 
@@ -128,60 +128,29 @@ public class UserController {
         return openid;
     }
 
-    //获取用户资料
-    @ApiOperation(value = "获取校园卡url")
-    @RequestMapping(method = RequestMethod.GET, value = "/getImage_url")
-    public JSONObject getImage_url(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId) {
-
-        String openid = getOpenidBySessionId(sessionId);
-
-        int statecode;
-        String msg;
-        String sql = "SELECT image_url FROM moneydog.user WHERE openid = ?";
-        String url = "";
-        try
-        {
-            url = jdbcTemplate.queryForObject(sql,new Object[] {openid},String.class);
-
-        }
-        catch (Exception e)
-        {
-            statecode = -1;
-            msg = "该用户尚未提交校园卡图像";
-        }
-        System.out.println("用户" + sessionId + "调用了getImage_url");
-
-        JSONObject result = new JSONObject();
-        statecode = 1;
-        msg = "获取成功";
-        if(url == null)
-        {
-            statecode = -1;
-            msg = "该用户尚未提交校园卡图像";
-        }
-        result.put("url",url);
-        result.put("msg",msg);
-        result.put("statecode",statecode);
-        return result;
-
-    }
 
     @ApiOperation(value = "更改其认证状态")
-    @RequestMapping(method = RequestMethod.POST, value = "/changeState")
-    public JSONObject changeState(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId) {
+    @PostMapping("/changeState")
+    public JSONObject changeState(@ApiParam(required = true, value = "用户特征值openid")@RequestParam("openid")String openid,
+                @ApiParam(required = true, value = "认证状态值,-1不通过，0未认证，1已认证")@RequestParam("state") int state) {
 
-        String openid = getOpenidBySessionId(sessionId);
+        //String openid = getOpenidBySessionId(sessionId);
         int statecode;
         String msg;
 
         try{
-            jdbcTemplate.update("UPDATE moneydog.user set state = ?  WHERE openid = ? ",1,openid);
+            jdbcTemplate.update("UPDATE moneydog.user set state = ?  WHERE openid = ? ",state,openid);
 
         }
         catch (Exception e)
         {
             statecode = -1;
             msg = "用户不存在";
+            JSONObject result = new JSONObject();
+            result.put("msg",msg);
+            result.put("statecode",statecode);
+
+            return result;
         }
 
         statecode = 1;
@@ -194,6 +163,35 @@ public class UserController {
         return result;
 
     }
+
+    @ApiOperation(value = "获取未认证的用户")
+    @RequestMapping(method = RequestMethod.GET, value = "/getUnstated")
+    public JSONObject  getUnstatedList() {
+
+        JSONObject result = new JSONObject();
+        int statecode;
+        String msg;
+        String sql = "SELECT openid,image_url,state,realname FROM moneydog.user";
+        List<SchoolCard> temp1  = jdbcTemplate.query(sql,new BeanPropertyRowMapper(SchoolCard.class));
+        //System.out.println("用户" + sessionId + "调用了getInfo");
+        //return temp1.get(0);
+
+        if(temp1.isEmpty())
+        {
+            statecode = -1;
+            msg = "无未认证用户";
+        }
+        else
+        {
+            statecode = 1;
+            msg = "获取成功";
+        }
+        result.put("user",temp1);
+        result.put("statecode",statecode);
+        result.put("msg",msg);
+        return result;
+    }
+
 
     //提供给另一后端
     /*
