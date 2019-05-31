@@ -1,4 +1,3 @@
-const app = getApp()
 const baseUrl = '172.18.32.138'
 // pages/receipt/receipt.js
 Page({
@@ -6,6 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    sessionId: '847694c4-14dd-47b2-8922-facd8e379f47',
     selctShow: false,//控制下拉列表的显示隐藏，false隐藏、true显示
     selectData: ['薪酬筛选（从高到低）', '薪酬筛选（从低到高）'],//下拉列表的数据
     index: 0,//选择的下拉列表下标
@@ -129,7 +129,8 @@ Page({
     else { //闲置
       var tradeList = this.data.seTradeList
     }
-    // console.log()
+    if (tradeList.length == 0) 
+      return tradeList
     if (index == 1) {
       tradeList.sort(function(a, b) {
         if (a.pay < b.pay)
@@ -159,7 +160,7 @@ Page({
       success: function(res) {
         that.setData({exTradeList:res.data})
         var exTradeList = that.data.exTradeList
-        if(exTradeList.length > 0) {
+        if(exTradeList.length > 5) {
           that.setData({lastId1: exTradeList[exTradeList.length-1].pid})
         }
         resolve()
@@ -177,7 +178,7 @@ Page({
       success: function (res) {
         that.setData({ erTradeList: res.data })
         var erTradeList = that.data.erTradeList
-        if(erTradeList.length > 0) {
+        if(erTradeList.length > 5) {
           that.setData({lastId2: erTradeList[erTradeList.length-1].rid})
         }
         resolve()
@@ -192,7 +193,7 @@ Page({
       success: function (res) {
         that.setData({ heTradeList: res.data })
         var heTradeList = that.data.heTradeList
-        if(heTradeList.length > 0) {
+        if(heTradeList.length > 5) {
           that.setData({lastId3: heTradeList[heTradeList.length-1].fid})
         }
         resolve()
@@ -207,7 +208,7 @@ Page({
       success: function (res) {
         that.setData({ seTradeList: res.data })
         var seTradeList = that.data.seTradeList
-        if(seTradeList.length > 0) {
+        if(seTradeList.length > 5) {
           that.setData({lastId4: seTradeList[seTradeList.length-1].sid})
         }
         resolve()
@@ -223,14 +224,21 @@ Page({
     wx.request({
       url: tempUrl,
       success: function (res) {
-        var newList = that.data.exTradeList
-        newList = newList.concat(res.data)
-        console.log(res.data)
-        that.setData({exTradeList: newList})
-        that.setData({exTradeList: that.sortList(1, that.data.index)})
+        if (res.data[res.data.length-1].pid == that.data.lastId1) {
+          console.log('目前已经获取所有订单无法再更新')
+          that.setData({lastId1: -1})
+        }
+        else {
+          console.log('获取新订单')
+          var newList = that.data.exTradeList
+          newList = newList.concat(res.data)
+          console.log(res.data)
+          that.setData({exTradeList: newList})
+          that.setData({exTradeList: that.sortList(1, that.data.index)})
+        }
       }
     })
-    this.setData({lastId1: -1})
+    //this.setData({lastId1: -1})
   },
   downloadEr: function () {
     var that = this
@@ -239,13 +247,19 @@ Page({
     wx.request({
       url: tempUrl,
       success: function(res) {
-        var newList = that.data.erTradeList
-        newList = newList.concat(res.data)
-        that.setData({erTradeList: newList})
-        that.setData({ erTradeList: that.sortList(2, that.data.index) })
+        if (res.data[res.data.length-1].rid == that.data.lastId2) {
+          console.log('目前已经获取所有订单无法再更新')
+          that.setData({lastId2: -1})
+        }
+        else {
+          var newList = that.data.erTradeList
+          newList = newList.concat(res.data)
+          that.setData({erTradeList: newList})
+          that.setData({ erTradeList: that.sortList(2, that.data.index) })
+        }
       }
     })
-    this.setData({lastId2: -1})
+    //this.setData({lastId2: -1})
   },
   downloadHe: function () {
     var that = this
@@ -254,13 +268,19 @@ Page({
     wx.request({
       url: tempUrl,
       success: function(res) {
-        var newList = that.data.heTradeList
-        newList = newList.concat(res.data)
-        that.setData({heTradeList: newList})
-        that.setData({ heTradeList: that.sortList(3, that.data.index) })
+        if (res.data[res.data.length-1].fid == that.data.lastId3) {
+          console.log('目前已经获取所有订单无法再更新')
+          that.setData({lastId3: -1})
+        }
+        else {
+          var newList = that.data.heTradeList
+          newList = newList.concat(res.data)
+          that.setData({heTradeList: newList})
+          that.setData({ heTradeList: that.sortList(3, that.data.index) })
+        }
       }
     })
-    this.setData({lastId3: -1})
+    //this.setData({lastId3: -1})
   },
   downloadSe: function () {
     var that = this
@@ -269,13 +289,19 @@ Page({
     wx.request({
       url: tempUrl,
       success: function(res) {
-        var newList = that.data.seTradeList
-        newList = newList.concat(res.data)
-        that.setData({seTradeList: newList})
-        that.setData({ seTradeList: that.sortList(4, that.data.index) })
+        if (res.data[res.data.length-1].sid == that.data.lastId4) {
+          console.log('目前已经获取所有订单无法再更新')
+          that.setData({lastId4: -1})
+        }
+        else {
+          var newList = that.data.seTradeList
+          newList = newList.concat(res.data)
+          that.setData({seTradeList: newList})
+          that.setData({ seTradeList: that.sortList(4, that.data.index) })
+        }
       }
     })
-    this.setData({lastId4: -1})
+    //this.setData({lastId4: -1})
   },
 
   //跳转详情页面
@@ -291,17 +317,54 @@ Page({
 
   //点击接单按钮
   receiptOrder: function(e) {
+    var that = this
     var options = e.currentTarget.dataset
-    console.log(options)
     var url = 'http://' + baseUrl + ':8080/Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
     console.log(url)
+    wx.request({
+      url: url,
+      header: {sessionId: that.data.sessionId},
+      method: 'PUT',
+      success: function(res) {
+        console.log('接单成功')
+        that.OnLoadExpressage()
+        that.OnLoadErrand()
+        that.OnLoadSeekhelp()
+        that.OnLoadSecondhand()
+      },
+      fail: function(res) {
+        console.log(res)
+        wx.showToast({
+          title: '接单失败',
+          icon: 'none',
+          duration: 3000
+        })
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    const app = getApp()
+    const sessionId = wx.getStorageSync('SessionId')
+    if (sessionId){
+      this.setData({ sessionId: sessionId })
+    }
+    console.log('sessionId: ', this.data.sessionId)
     var that = this
+    var id = options.id
+    if (id == 1)
+      that.select1()
+    else if (id == 2)
+      that.select2()
+    else if (id == 3)
+      that.select3()
+    else if (id == 4)
+      that.select4()
+    else 
+      that.select5()
     this.OnLoadExpressage().then(() => that.OnLoadErrand()).then(
       () => that.OnLoadSeekhelp()).then(() => that.OnLoadSecondhand()).then(() => {
       that.setData({
@@ -351,7 +414,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    if (this.data.isSelected1 && this.data.lastId1 != -1)
+      this.downloadEx()
+    else if (this.data.isSelected2 && this.data.lastId2 != -1)
+      this.downloadEr()
+    else if (this.data.isSelected3 && this.data.lastId3 != -1)
+      this.downloadHe()
+    else if (this.data.isSelected4 && this.data.lastId4 != -1)
+      this.downloadSe()
   },
 
   /**

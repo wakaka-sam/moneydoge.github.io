@@ -1,0 +1,12 @@
+/* pages/confession/confession_expression.wxss */
+.confession_input{
+  border: 1px solid pink;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 0px;
+  width: 90%;
+  height: 120px
+}
+.btn_confession{
+  margin-top: 20px;
+}

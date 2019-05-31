@@ -36,24 +36,28 @@ public class UserController {
             state = 0;
         else
             state = 1;
-
+        System.out.println("用户" + sessionId + "调用了Update");
         return jdbcTemplate.update("UPDATE moneydog.user set falsename = ?,realname = ?,school = ?,phoneNum = ?, state = ?,image_url = ?,avatarUrl = ?  WHERE openid = ? ",
                 falsename,realname,school,phoneNum,state,image_url,user_img,openid);
     }
 
     //获得闲币
-    @PostMapping("/getPower")
-    public int getPower(@RequestHeader("sessionId")String sessionId,@RequestParam("power") int power)
+    @PostMapping("/setPower")
+    public int setPower(@RequestHeader("sessionId")String sessionId,@RequestParam("power") int power)
     {
+
         String openid = getOpenidBySessionId(sessionId);
-        Integer count = 1;
-        String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
-        System.out.println("openid: " + openid);
-        count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
-        count += power;
-        jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",count,openid);
-        return count;
+
+        //String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
+        //System.out.println("openid: " + openid);
+        //count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
+        //count += power;
+        jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",power,openid);
+        System.out.println("用户" + sessionId + "调用了setPower" + "返回了" + power);
+
+        return power;
     }
+
 
     //查询闲币
     @RequestMapping(method = RequestMethod.GET, value = "/queryPower")
@@ -65,6 +69,13 @@ public class UserController {
         int count = 1;
         String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
         count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
+        System.out.println("用户" + sessionId + "调用了queryPower返回了" + count);
+        /*
+        JSONObject temp = new JSONObject();
+        temp.put("count",count);
+        temp.put("msg","success");
+
+         */
         return count;
     }
 
@@ -90,6 +101,7 @@ public class UserController {
         JSONObject userInfo = new JSONObject();
         String sql = "SELECT school,phoneNum,falsename,realname FROM moneydog.user WHERE openid = ?";
         List<User> temp1  = jdbcTemplate.query(sql,new Object[] {openid},new BeanPropertyRowMapper(User.class));
+        System.out.println("用户" + sessionId + "调用了getInfo");
         return temp1.get(0);
 
     }
@@ -100,5 +112,55 @@ public class UserController {
         String openid = temp.getString("openid");
         return openid;
     }
+
+    //提供给另一后端
+    @PostMapping("/changePower")
+    public JSONObject changePower(@RequestParam("openid")String uid,@RequestParam("power") int power)
+    {
+        //1 交易成功  2 余额不足
+        // -1 账号不存在
+        int statecode;
+        String msg;
+        String openid = uid;
+        int count ;
+        String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
+        //System.out.println("openid: " + openid);
+        try
+        {
+            count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
+
+        }
+        catch (Exception e)
+        {
+            statecode = -1;
+            JSONObject temp = new JSONObject();
+            temp.put("statecode",statecode);
+            temp.put("msg","账号不存在");
+            temp.put("count",0);
+            return temp;
+        }
+        count += power;
+
+        if(count < 0)
+        {
+            statecode = 2;
+            msg = "余额不足";
+            System.out.println("用户" + uid + "调用了changePower" + " 余额不足");
+        }
+        else
+        {
+            statecode = 1;
+            jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",count,openid);
+            System.out.println("用户" + uid + "调用了changePower" + " 交易成功");
+            msg = "交易成功";
+        }
+        JSONObject temp = new JSONObject();
+        temp.put("statecode",statecode);
+        temp.put("count",count);
+        temp.put("msg",msg);
+        return temp;
+    }
+
+
 
 }

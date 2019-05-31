@@ -3,16 +3,18 @@ package com.example.demo;
 import java.util.Date;
 
 public class History {
-    private int thid;
+    //private int thid;
     private String uid;
     private String type;
     private int price;
+    private int finish;
     private Date time;
-
+    private String detail;
     History()
     {
 
     }
+    /*
     public int getThid() {
         return thid;
     }
@@ -20,7 +22,7 @@ public class History {
     public void setThid(int thid) {
         this.thid = thid;
     }
-
+*/
     public String getUid() {
         return uid;
     }
@@ -51,5 +53,21 @@ public class History {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
+
+    public void setDetail(String detail) {
+        this.detail = detail;
+    }
+
+    public int getFinish() {
+        return finish;
+    }
+
+    public void setFinish(int finish) {
+        this.finish = finish;
     }
 }
