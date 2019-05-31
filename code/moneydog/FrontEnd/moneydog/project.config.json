@@ -18,10 +18,7 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"autoAudits": false,
-		"checkInvalidKey": true
-
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",

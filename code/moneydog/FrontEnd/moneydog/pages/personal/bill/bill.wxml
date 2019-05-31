@@ -1,4 +1,20 @@
 <view>
-<text>未完成</text>
+
+<view wx:for="{{list}}" wx:for-item="itemName">
+
+<view class = 'item-colum'>
+  <view class = 'item-row'>
+    <text class = 'position'>{{itemName.detail}}</text>    
+    <text class = 'position'>{{itemName.type}}</text>
+    <text >{{itemName.price}}</text>  
+  </view>
+
+  <view>
+    <text>{{itemName.time}}</text>
+  </view>
+
 </view>
-<button>测试</button>
+
+</view>
+
+</view>

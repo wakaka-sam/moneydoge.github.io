@@ -1,0 +1,15 @@
+<view>
+  <view class = 'top'>
+    <text>校园卡审核</text>
+  </view>
+  <view class = 'top'>
+    <text>{{realneme}}</text>
+  </view>
+  <view class = 'mid'>
+    <image src ="{{image_url}}"></image>
+  </view>
+  <view class = 'bottom'>
+    <button class = 'l-button' bindtap='confirm'>确认通过</button>
+    <button class = 'r-button' bindtap='failing'>信息异常</button>
+  </view>
+</view>

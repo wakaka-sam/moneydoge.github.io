@@ -1,0 +1,15 @@
+.item-colum{
+  display: flex;
+  flex-direction: column
+}
+.item-row{
+  display: flex;
+  flex-direction: row
+}
+.position{
+  margin-left:2px;
+  margin-right: 20px
+}
+
+
+
