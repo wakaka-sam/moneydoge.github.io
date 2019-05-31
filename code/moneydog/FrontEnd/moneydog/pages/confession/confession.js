@@ -15,7 +15,8 @@ Page({
   },
   writeConfession: function () {
   	wx.navigateTo({
-      url: ''
+      url: '../confession/confession_expression'
     })
   }
 })
+
