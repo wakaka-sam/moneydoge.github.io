@@ -1,0 +1,45 @@
+{
+"questionnaireName":"问卷名称",
+"questionnaireDesc":"问卷说明",
+"s_questionList":[
+	{
+		"question":"题目1",
+		"choices":[
+					{"name":"CHN","value":"中国"},
+					{"name":"BRA","value":"巴西"}
+		]
+	},
+	{
+		"question":"单选题测试",
+		"choices":[
+					{"name":"单选选项1","value":"单选选项1"},
+					{"name":"单选选项2","value":"单选选项2"},
+					{"name":"单选选项3","value":"单选选项3"}
+		]
+	}
+],
+
+"m_questionList":[
+	{
+		"question":"题目2",
+		"choices":[
+					{"name":"CHN","value":"中国"},
+					{"name":"BRA","value":"巴西"}
+		]
+	},
+	{
+		"question":"多选题测试",
+		"choices":[
+			{"name":"多选选项1","value":"多选选项1"},
+			{"name":"多选选项2","value":"多选选项2"},
+			{"name":"多选选项3","value":"多选选项3"},
+			{"name":"多选选项4","value":"多选选项4"}
+		]
+	} 
+],
+
+"c_questionList":[
+	{"question":"题目3"},
+	{"question":"填空题测试"}
+]
+}
