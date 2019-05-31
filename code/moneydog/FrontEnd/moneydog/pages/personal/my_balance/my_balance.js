@@ -7,11 +7,11 @@ Page({
   onLoad(options) {
     var that = this
     // Do some initialize when page load.
-    this.setData({
+    that.setData({
       sessionID:'847694c4-14dd-47b2-8922-facd8e379f47',
     }),
     wx.request({
-      url: 'http://moneydog.club:8080/User/queryPower',
+      url: 'https://moneydog.club:3336/User/queryPower',
         method: 'GET',
         header: {
           "content-type": "application/x-www-form-urlencoded",
@@ -56,7 +56,7 @@ Page({
     var that = this
   
     wx.request({
-      url: 'http://moneydog.club:8080/User/setPower',
+      url: 'http://moneydog.club:3336/User/setPower',
       method: 'POST',
       data:{
         power:that.data.power
