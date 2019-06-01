@@ -1,64 +1,20 @@
-//logs.js
-const util = require('../../utils/util.js')
-
+// pages/index3/index3.js
 Page({
+  /**
+   * 初始数据
+   */
   data: {
+  	confessionList: [
+  		{"content":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
+  		{"content":"哇，你妈妈好爱你呀！"},
+  		{"content":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
+  		{"content":"哇，你妈妈好爱你呀！"},
+  		{"content":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
+  		{"content":"哇，你妈妈好爱你呀！"}
+  	]
   },
-  onLoad: function () {
-    this.setData({
-      
-      })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-  gotoconfession:function(){
-    wx.navigateTo({
+  writeConfession: function () {
+  	wx.navigateTo({
       url: '../confession/confession_expression'
     })
   }
