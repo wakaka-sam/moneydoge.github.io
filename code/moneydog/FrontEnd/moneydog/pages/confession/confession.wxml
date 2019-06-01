@@ -4,7 +4,7 @@
 </view>
 
 <view>
-  <image src="../../images/confession_pic1.png">
+  <image class = "pic" src="../../images/confession_pic1.png">
   </image>
 </view>
 <view>

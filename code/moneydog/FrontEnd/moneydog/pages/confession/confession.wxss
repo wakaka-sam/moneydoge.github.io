@@ -31,3 +31,6 @@
 .sentence{
   width: 100%;
 }
+.pic{
+  width: 100%
+}
