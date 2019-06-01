@@ -1,15 +1,15 @@
 package backend1.demo;
 
 public class LoadQuestion {
-    private String qid;
+    private int qid;
     private String name;
     private String description;
-
-    public String getQid() {
+    private int pay;
+    public int getQid() {
         return qid;
     }
 
-    public void setQid(String qid) {
+    public void setQid(int qid) {
         this.qid = qid;
     }
 
@@ -30,5 +30,13 @@ public class LoadQuestion {
     }
     LoadQuestion(){
 
+    }
+
+    public int getPay() {
+        return pay;
+    }
+
+    public void setPay(int pay) {
+        this.pay = pay;
     }
 }

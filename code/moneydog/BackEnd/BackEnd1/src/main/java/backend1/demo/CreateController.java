@@ -4,6 +4,8 @@ package backend1.demo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpEntity;
@@ -23,6 +25,7 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RequestMapping("/Create")
+@Api(description = "问卷的API和其他订单的创建")
 @RestController
 public class CreateController {
     @Autowired
@@ -33,8 +36,31 @@ public class CreateController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    @RequestMapping("/questionair")
-    public JSONObject create(@RequestParam("sessionId")String sessionId,@RequestParam("pay")int pay, @RequestParam("name") String name,@RequestParam("description") String description,@RequestParam("content")String content,@RequestParam("content_count")String content_count){
+
+    @RequestMapping(value = "/viewAll",method = RequestMethod.GET)
+    @ApiOperation(value = "发布者获取问卷填写统计：人数，内容统计等",notes = "errcode 0 失败，1 成功，成功可通过viewAllList 获取所有信息")
+    public JSONObject viewAll(@RequestHeader("sessionId")String sessionId,@RequestParam("id")int id){
+        String openid = getOpenidFromSession(sessionId);
+        String sql = "select name,description,content,content_count,num from questionair where qid = ? and uid = ?;";
+        JSONObject jsonObject = new JSONObject();
+
+        try{
+           List<question> temp =  jdbcTemplate.query(sql,new Object[]{id,openid},new BeanPropertyRowMapper(question.class));
+           jsonObject.put("errcode",1);
+           jsonObject.put("errmsg","successfully");
+           jsonObject.put("viewAllList",temp.get(0));
+
+        }catch (Exception e){
+            jsonObject.put("errcode",0);
+            jsonObject.put("errmsg","fail");
+            System.out.println(e);
+        }
+        return jsonObject;
+    }
+
+    //创建问卷
+    @RequestMapping(value = "/questionair" ,method = RequestMethod.POST)
+    public JSONObject create(@RequestHeader("sessionId")String sessionId,@RequestParam("pay")int pay, @RequestParam("name") String name,@RequestParam("description") String description,@RequestParam("content")String content,@RequestParam("content_count")String content_count){
 
         String sql = "insert into questionair(uid,pay,name,description,content,content_count,num,state)values(?,?,?,?,?,?,0,0)";
         String openid = getOpenidFromSession(sessionId);
@@ -53,30 +79,31 @@ public class CreateController {
 
     private List<answer> getFromJson(String con){
         JSONObject content = JSON.parseObject(con);
-        JSONArray arry = content.getJSONArray("content");
+        JSONArray arry = content.getJSONArray("content_count");
 
         List<answer> temp = new ArrayList<answer>();
         try {
             for (int i = 0;i < arry.size();i++){
                 int type = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("type");
-                int A = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("A");
-                int B = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("B");
-                int C = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("C");
-                int D = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("D");
+                int A = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("a");
+                int B = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("b");
+                int C = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("c");
+                int D = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getInteger("d");
                 String fill = JSONObject.parseObject(JSONObject.toJSONString(arry.get(i))).getString("fill");
                 temp.add(new answer(type,A,B,C,D,fill));
             }
         }catch (Exception e){
             System.out.println(e);
+            System.out.println(2);
         }
 
         return  temp;
     }
 
 
-
+    //发送问卷的填写内容
     @RequestMapping(value = "/fill",method =  RequestMethod.POST)
-    public JSONObject fill(@RequestParam("sessionId")String sessionId ,@RequestParam("content") String con,@RequestParam("id")int id){
+    public JSONObject fill(@RequestHeader("sessionId")String sessionId ,@RequestParam("content_count") String con,@RequestParam("id")int id){
 
         String openid = getOpenidFromSession(sessionId);
         JSONObject jsonObject = new JSONObject();
@@ -86,20 +113,32 @@ public class CreateController {
         }catch (Exception e){
             jsonObject.put("errocde",2);
             jsonObject.put("errmsg","you have fill this questionair");
-
+            return jsonObject;
         }
+        System.out.println(con);
         //获取前端填写的问卷内容
         List<answer> fillItem = getFromJson(con);
-        String sql = "select content_count from questionair where qid = ?";
-        List<String> temp = jdbcTemplate.query(sql,new Object[]{id},new BeanPropertyRowMapper(String.class));
-        List<answer> content_count = getFromJson(temp.get(0));
+        String sql = "select content_count from questionair where qid = ?;";
+        String ctt = "";
+        int num = 0;
+        try {
+            String temp = jdbcTemplate.queryForObject(sql,new Object[]{id},String.class);
+            num = jdbcTemplate.queryForObject("select num from questionair where qid = ?",new Object[]{id},int.class);
+            System.out.println(temp);
+            ctt = temp;
 
+        }catch (Exception e){
+            num = -1;
+            System.out.println(e);
+        }
+        System.out.println( "222"+ctt);
+        List<answer> content_count = getFromJson(ctt);
+        System.out.println(content_count);
         for (int i = 0;i < fillItem.size();i++){
             int type = fillItem.get(i).getType();
             if(type == 2){
                 String fill = fillItem.get(i).getFill();
                 String fill_content_count = content_count.get(i).getFill();
-
                 //设置内容
                 content_count.get(i).setFill(fill_content_count+fill);
             }else {
@@ -122,10 +161,17 @@ public class CreateController {
                 content_count.get(i).setD(D+D_temp);
             }
         }
-        String content_after = JSON.toJSONString(content_count);
 
+        String content_after;
+        JSONObject j = new JSONObject();
+        j.put("content_count",content_count);
+        content_after = JSONObject.toJSONString(j);
         try {
             t =  jdbcTemplate.update("update questionair set content_count = ? where qid = ?",content_after,id);
+            if(num != -1){
+                num += 1;
+                jdbcTemplate.update("update questionair set num = ? where qid = ?",num,id);
+            }
             jsonObject.put("errmsg","fill suc");
         }catch (Exception e){
             t = 0;
@@ -137,17 +183,65 @@ public class CreateController {
         return jsonObject;
     }
 
+    //删除问卷
+    @RequestMapping(value = "/DeleteQuestionair",method = RequestMethod.GET)
+    @ApiOperation(value = "删除问卷",notes = "errcode = 1,成功，0,失败，可查看errmsg内容，问卷的state变为0")
+    public JSONObject DeleteQuestionair(@RequestHeader("sessionId")String sessionId,@RequestParam("id")int id){
+        String openid = getOpenidFromSession(sessionId);
+        String sql = "update questionair set state = 3 where uid = ? and qid = ?;";
+        JSONObject jsonObject = new JSONObject();
+        int t = 0;
+        try {
+            t = jdbcTemplate.update(sql,openid,id);
+            jsonObject.put("errmsg","Delete suc");
+        }catch (Exception e){
+            System.out.println(e);
+            jsonObject.put("errmsg","Delete failed");
+        }
+        jsonObject.put("errcode",t);
+        return  jsonObject;
+    }
 
+
+    //终止问卷
+    @RequestMapping(value = "/EndQuestion",method = RequestMethod.GET)
+    @ApiOperation(value = "用户终止订单，用户收集到足够多的订单后，终止问卷",notes = "")
+    public JSONObject EndQuestion(@RequestHeader("sessionId")String sessionId,@RequestParam("id")int id){
+        String openid = getOpenidFromSession(sessionId);
+        String sql = "update questionair set state = 2 where uid = ? and qid = ?;";
+        JSONObject jsonObject = new JSONObject();
+        int t = 0;
+        try {
+            t = jdbcTemplate.update(sql,openid,id);
+            jsonObject.put("errmsg","End suc");
+        }catch (Exception e){
+            System.out.println(e);
+            jsonObject.put("errmsg","End failed");
+        }
+        jsonObject.put("errcode",t);
+        return  jsonObject;
+    }
+    //加载问卷
     @RequestMapping(value = "/OnLoadQuestionair",method = RequestMethod.GET)
     public List<LoadQuestion> OnLoadQuestionair(){
         int id = jdbcTemplate.queryForObject("SELECT COUNT(qid) AS NumberOfProducts FROM questionair;", int.class);
 
-        return jdbcTemplate.query("select qid,name,description from questionair where qid <= ? and state = 0  order by qid desc limit 15 ;",new Object[]{id},new BeanPropertyRowMapper(LoadQuestion.class));
+        return jdbcTemplate.query("select qid,name,description,pay from questionair where qid <= ? and state = 0  order by qid desc limit 15 ;",new Object[]{id},new BeanPropertyRowMapper(LoadQuestion.class));
     }
+
+    //上拉问卷
     @RequestMapping(value = "/downLoadQuestionair",method = RequestMethod.GET)
     public List<LoadQuestion> downLoadQuestionair(@RequestParam("id")int id){
         return jdbcTemplate.query("select qid,name,description from questionair where qid <= ? and state = 0 order by qid desc limit 15 ;", new Object[]{id}, new BeanPropertyRowMapper(LoadQuestion.class));
     }
+
+    @RequestMapping(value = "/getQuestionairContent",method = RequestMethod.GET)
+    public List<question> getQuestionairContent(@RequestParam("id")int id){
+        return jdbcTemplate.query("select qid,name ,description,content from questionair where qid = ?",new Object[]{id},new BeanPropertyRowMapper(question.class));
+    }
+
+
+
     private JSONObject GetOpenId(String code) {
         //得到完整的
         //{

@@ -3,22 +3,23 @@ package backend1.demo;
 
 public class answer {
     private int type;
-    private int A;
-    private int B;
-    private int C;
-    private int D;
+    private int a;
+    private int b;
+    private int c;
+    private int d;
     private String fill;
     answer(){
 
     }
     answer(int type,int A,int B,int C,int D,String fill){
         this.type = type;
-        this.A = A;
-        this.B = B;
-        this.C = C;
-        this.D = D;
+        this.a = A;
+        this.b = B;
+        this.c = C;
+        this.d = D;
         this.fill = fill;
     }
+
     public int getType() {
         return type;
     }
@@ -28,35 +29,35 @@ public class answer {
     }
 
     public int getA() {
-        return A;
+        return a;
     }
 
     public void setA(int a) {
-        A = a;
+        this.a = a;
     }
 
     public int getB() {
-        return B;
+        return b;
     }
 
     public void setB(int b) {
-        B = b;
+        this.b = b;
     }
 
     public int getC() {
-        return C;
+        return c;
     }
 
     public void setC(int c) {
-        C = c;
+        this.c = c;
     }
 
     public int getD() {
-        return D;
+        return d;
     }
 
     public void setD(int d) {
-        D = d;
+        this.d = d;
     }
 
     public String getFill() {
@@ -66,5 +67,4 @@ public class answer {
     public void setFill(String fill) {
         this.fill = fill;
     }
-
 }

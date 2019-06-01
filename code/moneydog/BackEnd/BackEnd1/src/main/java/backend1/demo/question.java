@@ -1,58 +1,58 @@
 package backend1.demo;
 
 public class question {
-    private int type;
-    private String title;
-    private  String A;
-    private  String B;
-    private  String C;
-    private String D;
+    private String name;
+    private String description;
+    private String content;
+    private String content_count;
+    private int num;
+    private int qid;
 
-    public int getType() {
-        return type;
+    public String getName() {
+        return name;
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTitle() {
-        return title;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getA() {
-        return A;
+    public String getContent() {
+        return content;
     }
 
-    public void setA(String a) {
-        A = a;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public String getB() {
-        return B;
+    public String getContent_count() {
+        return content_count;
     }
 
-    public void setB(String b) {
-        B = b;
+    public void setContent_count(String content_count) {
+        this.content_count = content_count;
     }
 
-    public String getC() {
-        return C;
+    public int getNum() {
+        return num;
     }
 
-    public void setC(String c) {
-        C = c;
+    public void setNum(int num) {
+        this.num = num;
     }
 
-    public String getD() {
-        return D;
+    public int getQid() {
+        return qid;
     }
 
-    public void setD(String d) {
-        D = d;
+    public void setQid(int qid) {
+        this.qid = qid;
     }
 }
