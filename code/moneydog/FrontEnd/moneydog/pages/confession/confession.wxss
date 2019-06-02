@@ -15,6 +15,11 @@
 	width: 48%;
 	border: thin solid #c5c5c5;
 }
+.sentence{
+  width: 100%;
+}
+.pic{
+  width: 100%
 .loveImage {
 	height:25px;
 	width:32px;
