@@ -13,6 +13,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     const session_id = wx.getStorageSync('SessionId');
     if (session_id != null) {
       that.setData({ sessionID: session_id })
@@ -79,6 +80,20 @@ Page({
   },
   gotoupload5:function(){
     var that = this;
-    console.log(that.data.content)
+    console.log(that.data.content);
+    wx.request({
+      url: "https://moneydog.club:3336/LoveWall/createWall",
+      header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded" },//请求时要加上sessionID
+      method: "POST",
+      data: {
+        detail:that.data.content,
+      },
+
+      success: function (res) {
+        wx.navigateBack({
+          delta: 1  //小程序关闭当前页面返回上一页面
+        })
+      },
+    })
   }
 })
