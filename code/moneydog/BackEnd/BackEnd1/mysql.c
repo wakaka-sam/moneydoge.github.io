@@ -127,3 +127,25 @@ create table second_hand(
 	foreign key (uid1) references user(openid),
 	foreign key (uid2) references user(openid)
 );
+create table questionair(
+    qid int AUTO_INCREMENT,
+    uid varchar(32),
+    pay int,
+    name text,
+    description text,
+    content text,
+    content_count text,
+    num int,
+    state int ,    
+    issue_time  datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    primary key(qid),
+    foreign key(uid) references user(openid)
+);
+create table questionairNote(
+	uid varchar(32),
+	qid int,
+	issue_time  datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	primary key(uid,qid),
+	foreign key(uid) references user(openid),
+	foreign key(qid) references questionair(qid)
+)

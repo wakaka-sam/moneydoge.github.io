@@ -2,6 +2,9 @@ package com.example.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -11,7 +14,9 @@ import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
+
 @RequestMapping("/History")
+@Api(description = "管理余额明细记录")
 @RestController
 public class HistoryController {
     @Autowired
@@ -20,8 +25,11 @@ public class HistoryController {
     @Autowired
     StringRedisTemplate stringRedisTemplate;
 
+    @ApiOperation(value = "创建余额明细记录")
     @PostMapping("/createHistory")
-    public JSONObject CreateHistory(@RequestParam("uid") String uid, @RequestParam("type") String type, @RequestParam("price") int price) {
+    public JSONObject CreateHistory(@ApiParam(required = true, value = "创建订单者的openid")@RequestParam("uid") String uid,
+                                    @ApiParam(required = true, value = "订单的类型")@RequestParam("type") String type,
+                                    @ApiParam(required = true, value = "订单产生的交易金额")@RequestParam("price") int price) {
         Timestamp d = new Timestamp(System.currentTimeMillis());
         JSONObject result = new JSONObject();
         String msg;
@@ -61,9 +69,10 @@ public class HistoryController {
         return result;
     }
 
-
+    @ApiOperation(value = "完成余额明细记录")
     @PostMapping("/finishHistory")
-    public JSONObject finishHistory(@RequestParam("thid") String thid, @RequestParam("uid") String uid) {
+    public JSONObject finishHistory(@ApiParam(required = true, value = "余额明细的thid")@RequestParam("thid") String thid,
+                                    @ApiParam(required = true, value = "接单者的openid")@RequestParam("uid") String uid) {
         JSONObject result = new JSONObject();
         //状态码 -1失败 1成功
         int statecode = 1;
@@ -115,9 +124,9 @@ public class HistoryController {
     }
 
 
-
+    @ApiOperation(value = "获取余额明细")
     @RequestMapping(method = RequestMethod.GET, value = "/getHistory")
-    public JSONObject getHistory(@RequestHeader("sessionId")String sessionId)
+    public JSONObject getHistory(@ApiParam(required = true, value = "用户特征值")@RequestHeader("sessionId")String sessionId)
     {
         String openid = getOpenidBySessionId(sessionId);
         //JSONObject userInfo = new JSONObject();

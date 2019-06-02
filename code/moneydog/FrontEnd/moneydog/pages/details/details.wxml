@@ -1,5 +1,5 @@
 <!--id=1的时候显示快递详情页面-->
-<view wx:if='{{id==1}}'>
+<view wx:if='{{id==1}}' class='txt'>
 	<view>
 		<text>快递点：</text>
 		<text>{{json.express_loc}}</text>
@@ -35,7 +35,7 @@
 	<view style='text-align:center;color:blue;' catchtap='getContact' data-type='0' data-id='{{json.pid}}'>联系方式</view>
 </view>
 <!--id=2的时候显示跑腿详情页面-->
-<view wx:if='{{id==2}}'>
+<view wx:if='{{id==2}}' class='txt'>
 	<view>
 		<text>订单号：</text>
 		<text>{{json.rid}}</text>
@@ -63,7 +63,7 @@
 	<view style='text-align:center;color:blue;' catchtap='getContact' data-type='1' data-id='{{json.rid}}'>联系方式</view>
 </view>
 <!--id=3的时候显示求助详情页面-->
-<view wx:if='{{id==3}}'>
+<view wx:if='{{id==3}}' class='txt'>
 	<view>
 		<text>订单号：</text>
 		<text>{{json.fid}}</text>
@@ -91,7 +91,7 @@
 	<view style='text-align:center;color:blue;' catchtap='getContact' data-type='2' data-id='{{json.fid}}'>联系方式</view>
 </view>
 <!--id=4的时候显示闲置详情页面-->
-<view wx:if='{{id==4}}'>
+<view wx:if='{{id==4}}' class='txt'>
 	<view>
 		<text>订单号：</text>
 		<text>{{json.sid}}</text>
@@ -120,7 +120,7 @@
 	<view style='text-align:center;color:blue;' catchtap='getContact' data-type='3' data-id='{{json.sid}}'>联系方式</view>
 </view>
 <!--id=5的时候，显示问卷详情页面-->
-<view wx:if='{{id==5}}'>
+<view wx:if='{{id==5}}' class='questionnaire'>
 	<!--单选题-->
 	<view class ='question-view' wx:for='{{s_questionList}}' wx:key='{{item.id}}'>
 		<label>{{item.question}}</label>
