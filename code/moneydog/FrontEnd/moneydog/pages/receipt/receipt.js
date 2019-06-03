@@ -44,7 +44,19 @@ Page({
       }],
     erTradeList: [],
     heTradeList: [],
-    seTradeList: []
+    seTradeList: [],
+    quTradeList: [{
+      "qid": 1,
+      "name": "调查问卷",
+      "description": "饭堂满意度",
+      "pay": 2
+    },
+    {
+      "qid": 0,
+      "name": "调查问卷",
+      "description": "饭堂满意度",
+      "pay": 1
+    }]
   },
   /**
    * 页面切换
@@ -215,6 +227,22 @@ Page({
       }
     }))
     //console.log('load secondhand')
+  },
+  //加载问卷
+  OnLoadQuestionair: function () {
+    var that = this
+    return new Promise((resolve, rej) => wx.requset({
+      url: 'http://' + baseUrl + ':8080/Create/OnLoadQuestionair',
+      success: function (res) {
+        that.setData({ quTradeList: res.data })
+        var quTradeList = that.data.quTradeList
+        if(quTradeList.length > 5) {
+          that.setData({lastId5: quTradeList[quTradeList.length-1].qid})
+        }
+        resolve()
+      }
+    }))
+    console.log('OnLoadQuestionair')
   },
   //下拉加载
   downloadEx: function(){
