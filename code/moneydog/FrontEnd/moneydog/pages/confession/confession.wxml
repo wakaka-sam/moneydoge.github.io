@@ -16,6 +16,7 @@
 <view>
   <image class = "pic" src="../../images/confession_pic1.png">
   </image>
+</view>
 <view class='button'>
 	<view class='writeConfession' catchtap='writeConfession'>写表白</view>
 </view>
