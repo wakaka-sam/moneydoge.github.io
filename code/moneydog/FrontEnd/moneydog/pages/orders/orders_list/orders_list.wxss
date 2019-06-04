@@ -1,38 +1,84 @@
-.container {
-  background-color: gainsboro;
-}
-
+/* pages/receipt/receipt.wxss */
 .button-area {
   display: flex;
   flex-direction: row;
   width: 100%;
   position: absolute;
-  top: 0px;
-  background-color: white;
+  top: 80rpx;
 }
-
+.button-area1 {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  position: absolute;
+  top: 0rpx;
+}
+.single-bottom {
+  display: flex;
+  flex-direction: row;
+}
+.accept-button {
+  display: inline-block;
+  margin-bottom: 10rpx;
+  width: 30%;
+  height: 80rpx;
+  background-color: #87CEFA;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 0;
+}
+.order-state {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 68%;
+  height: 80rpx;
+  font-size: 35rpx;
+  color: red;
+}
+.order-state1 {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  width: 100%;
+  height: 80rpx;
+  font-size: 35rpx;
+  color: red;
+}
 .is_selected {
+  width: 20%;
+  border-radius: 0px;
+  text-align: center;
+  background-color: #87CEFA;
+  padding: 15rpx;
+}
+.normal {
+  width: 20%;
+  border-radius: 0px;
+  text-align: center;
+  padding: 15rpx;
+}
+.is_selected1 {
   width: 50%;
   border-radius: 0px;
   text-align: center;
   background-color: #87CEFA;
   padding: 15rpx;
 }
-
-.normal {
+.normal1 {
   width: 50%;
   border-radius: 0px;
   text-align: center;
   padding: 15rpx;
 }
-/*by lzk*/
+
 .singleTrade {
   font-family: PingFangSC-regular;
   font-weight: bolder;
   margin: 3px;
   background-color: white;
   border: 1px solid rgb(187,187,187);
-  width: 95%;
+  width: 97.5%;
   border-radius: 10rpx;
 }
 
@@ -48,7 +94,11 @@
 }
 
 .b .right-container {
+  /*小程序的overflow:hidden;要固定长度*/
+  width: 230px;
   flex: 2;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .a {
@@ -63,20 +113,7 @@
 }
 .a .price{
   flex: 1;
-}
-.single-bottom {
-  display: flex;
-  justify-content: flex-end;
-}
-.accept-button {
-  display: inline-block;
-  margin: 0;
-  width: 80px;
-  height: 27px;
-  line-height: 2;
-  background-color: #F27A7A;
-  border-radius: 4px;
-  font-size: 14px;
+  color: red;
 }
 
 .goods_img {
@@ -84,3 +121,69 @@
   height: 250rpx;
   margin: 10rpx;
 }
+
+/* component/popup.wxss */
+.wx-popup {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 11;
+}
+.popup-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+ 
+  width: 80%;
+  max-width: 600rpx;
+  border: 2rpx solid #ccc;
+  border-radius: 10rpx;
+  box-sizing: bordre-box;
+  transform: translate(-50%, -50%); 
+  overflow: hidden;
+  background: #fff;
+  z-index: 12;
+}
+
+.wx-popup-con {
+  margin: 40rpx 20rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+.wx-popup-btn {
+  display: flex;
+  justify-content: space-around;
+}
+.btn-no {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 88rpx;
+  border-width: 2rpx 2rpx 0rpx 0rpx;
+  border-style: solid;
+  border-color: #ccc;
+  font: 35rpx;
+}
+.btn-ok {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 88rpx;
+  border-width: 2rpx 0rpx 0rpx 0rpx;
+  border-style: solid;
+  border-color: #ccc;
+  font-size: 35rpx;
+  color: #87CEFA;
+}
+.secondhand_image {
+   width: 250rpx; 
+   height: 250rpx;
+   margin-left: 20rpx;
+   margin-top: 10rpx;
+}
+/* component/popup.wxss end */
