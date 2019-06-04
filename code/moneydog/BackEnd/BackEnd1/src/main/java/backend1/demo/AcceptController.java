@@ -56,10 +56,10 @@ public class AcceptController {
         String sql = "";
 
         switch (type){
-            case 0:sql = "update moneydog.expressage set state = 3 where uid1 = ? and pid = ?";break;//快递
-            case 1:sql = "update moneydog.errand set state = 3 where  uid1 = ? and rid = ? ";break;//跑腿
-            case 2:sql = "update moneydog.for_help set state = 3 where uid1 = ? and fid = ? ";break;//求助
-            case 3:sql = "update moneydog.second_hand set state = 3 where uid1 = ? and sid = ? ";break;//二手
+            case 0:sql = "update moneydog.expressage set state = 2 where uid1 = ? and pid = ?";break;//快递
+            case 1:sql = "update moneydog.errand set state = 2 where  uid1 = ? and rid = ? ";break;//跑腿
+            case 2:sql = "update moneydog.for_help set state = 2 where uid1 = ? and fid = ? ";break;//求助
+            case 3:sql = "update moneydog.second_hand set state = 2 where uid1 = ? and sid = ? ";break;//二手
             default:break;
         }
 
@@ -92,10 +92,10 @@ public class AcceptController {
         String sql = "";
 
         switch (type){
-            case 0:sql = "update moneydog.expressage set state = 2 where uid1 = ? and pid = ?";break;//快递
-            case 1:sql = "update moneydog.errand set state = 2 where  uid1 = ? and rid = ? ";break;//跑腿
-            case 2:sql = "update moneydog.for_help set state = 2 where uid1 = ? and fid = ? ";break;//求助
-            case 3:sql = "update moneydog.second_hand set state = 2 where uid1 = ? and sid = ? ";break;//二手
+            case 0:sql = "update moneydog.expressage set state = 6 where uid1 = ? and pid = ?";break;//快递
+            case 1:sql = "update moneydog.errand set state = 6 where  uid1 = ? and rid = ? ";break;//跑腿
+            case 2:sql = "update moneydog.for_help set state = 6 where uid1 = ? and fid = ? ";break;//求助
+            case 3:sql = "update moneydog.second_hand set state = 6 where uid1 = ? and sid = ? ";break;//二手
             default:break;
         }
 
@@ -105,14 +105,14 @@ public class AcceptController {
         try{
             errcode = jdbcTemplate.update(sql,openid,id);
             if(errcode == 1){
-                errmsg = "Accept succeessfully";
+                errmsg = "Delete succeessfully";
             }
             else {
-                errmsg = "Accept failed";
+                errmsg = "Delete failed";
             }
         }catch (Exception e){
             errcode = 0;
-            errmsg = "Accept failed";
+            errmsg = "Delete failed";
         }
         jt.put("errcode",errcode);
         jt.put("errmsg",errmsg);

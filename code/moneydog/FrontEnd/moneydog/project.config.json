@@ -22,14 +22,14 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.0.4",
-	"projectname": "money%20dog",
+	"projectname": "moneydog",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
 	"isGameTourist": false,
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
-	"appid": "wxf6b84b12c9eedaff",
+	"appid": "wx08dea5e778f278de",
 	"condition": {
 		"search": {
 			"current": -1,

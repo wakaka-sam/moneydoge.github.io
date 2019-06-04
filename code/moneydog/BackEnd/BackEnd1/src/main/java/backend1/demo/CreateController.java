@@ -37,6 +37,7 @@ public class CreateController {
     private JdbcTemplate jdbcTemplate;
 
 
+
     @RequestMapping(value = "/viewAll",method = RequestMethod.GET)
     @ApiOperation(value = "发布者获取问卷填写统计：人数，内容统计等",notes = "errcode 0 失败，1 成功，成功可通过viewAllList 获取所有信息")
     public JSONObject viewAll(@RequestHeader("sessionId")String sessionId,@RequestParam("id")int id){
@@ -361,7 +362,7 @@ public class CreateController {
         return openid;
     }
     @PostMapping("/Expressage")
-    public JSONObject CreateExpressage(@RequestHeader("sessionId")String sessionId,@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
+        public JSONObject CreateExpressage(@RequestHeader("sessionId")String sessionId,@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
 
         String openid = getOpenidFromSession(sessionId);
         return createService.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
