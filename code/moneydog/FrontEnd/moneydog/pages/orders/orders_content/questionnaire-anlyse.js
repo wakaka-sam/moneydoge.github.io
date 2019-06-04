@@ -1,4 +1,4 @@
-// pages/orders/menu.js
+// pages/orders/orders_content/questionnaire-anlyse.js
 Page({
 
   /**
@@ -8,31 +8,6 @@ Page({
 
   },
 
-  goToExpressage_ordersPage: function () {
-    wx.navigateTo({
-      url: './orders_list/orders_list?id=1',
-    })
-  },
-  goToErrand_ordersPage: function () {
-    wx.navigateTo({
-      url: './orders_list/orders_list?id=2',
-    })
-  },
-  goToSeekhelp_ordersPage: function () {
-    wx.navigateTo({
-      url: './orders_list/orders_list?id=3',
-    })
-  },
-  goToSecondhand_ordersPage: function () {
-    wx.navigateTo({
-      url: './orders_list/orders_list?id=4',
-    })
-  },
-  goToQuetionnaire_ordersPage: function () {
-    wx.navigateTo({
-      url: './orders_list/orders_list?id=5',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
