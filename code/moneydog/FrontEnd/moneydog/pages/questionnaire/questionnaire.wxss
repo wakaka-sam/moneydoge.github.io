@@ -46,14 +46,30 @@
   height: 100rpx;
   width: 100%;
   background-color: white;
+  border: 2rpx solid gainsboro;
   z-index: 99;
+  padding: 5rpx;
 }
 
-.ques-tab label {
+.ques-tab view {
   width: 50%;
   text-align: center;
-  border: 2rpx solid gainsboro;
   border-radius: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+}
+
+.ques-tab view label {
+  font-size: 25rpx;
+  color: gray;
+}
+
+.item-images {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 5rpx;
 }
 
 .zan-dialog__mask {
@@ -112,30 +128,79 @@
 }
 
 #question-area {
-  background-color: gainsboro;
+  background-color: white;
   width: 100%;
 }
 
 .question-view {
   width: 100%;
-  text-align: left;
   padding: 10rpx 5% 10rpx 5%;
   margin-bottom: 10rpx;
   background-color: white;
 }
 
 .radio-group{
+  width: 90%;
   display: flex;
+  justify-content: center; 
+  align-items: center;
   flex-direction: column;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border: 2rpx solid gainsboro;
+  border-radius: 10rpx;
+}
+
+.radio-group label {
+  padding: 20rpx;
+  width: 95%;
+  border-width: 0rpx 0rpx 1rpx 0rpx;
+  border-style: solid;
+  border-color: gainsboro;
 }
 
  .checkbox-group {
+  width: 90%;
   display: flex;
+  justify-content: center; 
+  align-items: center;
   flex-direction: column;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border: 2rpx solid gainsboro;
+  border-radius: 10rpx;
+}
+
+.checkbox-group label {
+  padding: 20rpx;
+  width: 95%;
+  border-width: 0rpx 0rpx 1rpx 0rpx;
+  border-style: solid;
+  border-color: gainsboro;
 }
 
 .question-view input {
   width: 90%;
   height: 150rpx;
-  border: 2rpx solid gray;
+  border: 2rpx solid gainsboro;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border-radius: 10rpx;
+}
+
+.questionnaire-title {
+  width: 90%;
+  color: #87CEFA;
+  font-size: 70rpx;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+  margin: 30rpx 0rpx 30rpx 0rpx;
+}
+
+.questionnaire-describe {
+  width: 90%;
+  display: flex;
+  justify-content: center; 
+  align-items: left;
+  flex-direction: column;
+  margin: 20rpx 0rpx 20rpx 0rpx;
 }

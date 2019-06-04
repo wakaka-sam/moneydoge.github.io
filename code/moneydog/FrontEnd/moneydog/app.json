@@ -4,6 +4,8 @@
     "pages/logs/logs",
     "pages/orders/orders_menu",
     "pages/orders/orders_list/orders_list",
+    "pages/orders/orders_content/order_content",
+    "pages/orders/orders_content/questionnaire-anlyse",
     "pages/confession/confession",
     "pages/personal/personal",
     "pages/publish/publish",
