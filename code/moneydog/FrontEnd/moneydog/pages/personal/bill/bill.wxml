@@ -1,4 +1,20 @@
 <view>
-<text>未完成</text>
+<text class ='top'>显示最近十条记录</text>
+<view wx:for="{{list}}" wx:for-item="itemName" wx:for-index="index" wx:if="{{index<10}}">
+
+<view class = 'item-colum'>
+  <view > 
+    <text style="font-size:50rpx" class ='text-price'>{{itemName.type}}{{itemName.price}}     </text>
+  </view>
+  <view class ='textview'>
+    <text style="font-size:30rpx">{{itemName.detail}}</text>
+  </view>
+  <view>
+    <text>{{itemName.time}}</text>
+  </view>
+
 </view>
-<button>测试</button>
+
+</view>
+
+</view>

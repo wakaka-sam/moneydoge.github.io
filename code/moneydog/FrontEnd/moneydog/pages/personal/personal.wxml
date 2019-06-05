@@ -6,16 +6,17 @@
 
   <view class = "per_info">
     <view>
-      <text class = "name">{{nickname}}</text>
+      <text class = "name">{{realname}}</text>
     </view>
     <view>     
-      <text>{{phone}}</text>
+      <text>{{phoneNum}}</text>
     </view>
   </view>
 
 </view>
 
 <view class = "mid-block">
+
   <view class = "list-item" bindtap='goTo_info'>
     <view>
       <image class = "l-icon" src = "../../images/yonghu.png"></image>
@@ -28,7 +29,7 @@
     </view>
   </view>
 
-  <view class="divLine"></view>
+
   
   <view class = "list-item" bindtap='goTo_balance'>
     <view>
@@ -42,7 +43,7 @@
     </view>
   </view>
 
-  <view class="divLine"></view>
+
 
 
   <view class = "list-item" bindtap='goTo_service'>
@@ -54,7 +55,22 @@
     </view>
     <view>
       <image class = "r-icon" src = "../../images/arrows_right.png"></image>
-    </view>
+    </view> 
   </view>
+
+
+
+    <view class = "list-item" bindtap='goTo_check'>
+      <view>
+        <image class = "l-icon" src = "../../images/审核.png"></image>
+      </view>
+      <view>
+        <text>信息审核</text>
+      </view>
+      <view>
+        <image class = "r-icon" src = "../../images/arrows_right.png"></image>
+      </view>
+    </view>
+
 
 </view>

@@ -120,7 +120,7 @@
       </view>
     </view>
     <view class='b'>
-      <image src="../../images/pulldown.png" style='flex: 1;height: 50px;'></image>
+      <image src="http://119.23.218.7:8080/{{item.photo_url}}" style='flex: 1;height: 50px;'></image>
       <view style='flex: 1.6;'>
         <view>备注</view>
         <view>截止时间</view>
@@ -142,11 +142,23 @@
 <block wx:for='{{quTradeList}}'>
   <!-- 5.问卷 问卷的id待定，先用qid代替-->
   <view class='singleTrade' hover-class='item-press' catchtap='showDetail' data-id='5' data-json='{{item}}'>
-    <text>问卷标题：{{item.title}}</text>
-    <text>备注内容：{{item.content}}</text>
-    <text>截止时间：{{item.ending_time}}</text>
-    <text>价格：    {{item.pay}}</text>
-    <button>接单</button>
+    <view class='single-top'>
+      <view class='a'>
+        <view class='name'>{{item.name}}</view>
+        <view class='price'>￥{{item.pay}}</view>
+      </view>
+    </view>
+    <view class='b'>
+      <view class='left-container'>
+        <view>问卷描述</view>
+      </view>
+      <view class='right-container'>
+        <view>{{item.description}}</view>
+      </view>
+    </view>
+    <view class='single-bottom'>
+      <button class='accept-button' catchtap='receiptOrder' data-type='4' data-id='{{item.qid}}'>接单</button>
+    </view>
   </view>
 </block>
 <view wx:if="{{lastId5==-1}}" style='text-align:center;color:gray;'>没有更多了</view>

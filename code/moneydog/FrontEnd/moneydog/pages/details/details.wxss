@@ -1,3 +1,7 @@
+.txt {
+  padding-left: 20px;
+}
+
 .zan-dialog__mask {
   position: fixed;
   top: 0;

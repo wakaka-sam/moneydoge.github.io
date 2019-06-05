@@ -54,7 +54,7 @@ Page({
   var that = this
   
   wx.request({
-    url: 'http://moneydog.club:8080/User/Update',
+    url: 'https://moneydog.club:3336/User/Update',
     method:'POST',
     header: {
       "content-type": "application/x-www-form-urlencoded",
@@ -69,7 +69,7 @@ Page({
       image_url:that.data.image_url
     },
     success: function (res) {
-      console.log(res)
+      console.log("修改成功")
       wx.navigateBack({
         delta: 1
       })
@@ -89,7 +89,7 @@ Page({
           image_url:tempFilePaths[0]
         })
         wx.uploadFile({
-          url: 'http://119.23.218.7:8080/File/Upload',
+          url: 'https://119.23.218.7:8080/File/Upload',
           filePath: that.data.image_url,
           name: 'img',
           success: function (res) {
@@ -118,13 +118,13 @@ Page({
         })
         that.set
         wx.uploadFile({
-          url: 'http://119.23.218.7:8080/File/Upload',
+          url: 'https://119.23.218.7:8080/File/Upload',
           filePath: that.data.user_img,
           name: 'img',
           success: function (res) {
             var t = JSON.parse(res.data);
             console.log(t.imageUrl)
-            var url = 'http://119.23.218.7:8080/' + t.imageUrl;
+            var url = 'https://119.23.218.7:8080/' + t.imageUrl;
             that.setData({
               user_img: url
             })

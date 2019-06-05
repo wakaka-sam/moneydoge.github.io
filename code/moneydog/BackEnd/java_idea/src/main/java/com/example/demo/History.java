@@ -1,14 +1,26 @@
 package com.example.demo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
+@ApiModel(value="余额明细记录",description="用于余额明细管理")
 public class History {
     //private int thid;
-    //private String uid;
+    @ApiModelProperty(value = "手机号",example = "110")
+    private String uid;
+    @ApiModelProperty(value = "手机号",example = "110")
     private String type;
+    @ApiModelProperty(value = "手机号",example = "110")
     private int price;
+    @ApiModelProperty(value = "手机号",example = "110")
+    private int finish;
+    @ApiModelProperty(value = "手机号",example = "110")
     private Date time;
+    @ApiModelProperty(value = "手机号",example = "110")
     private String detail;
+
     History()
     {
 
@@ -21,7 +33,7 @@ public class History {
     public void setThid(int thid) {
         this.thid = thid;
     }
-
+*/
     public String getUid() {
         return uid;
     }
@@ -29,7 +41,7 @@ public class History {
     public void setUid(String uid) {
         this.uid = uid;
     }
-*/
+
     public String getType() {
         return type;
     }
@@ -60,5 +72,13 @@ public class History {
 
     public void setDetail(String detail) {
         this.detail = detail;
+    }
+
+    public int getFinish() {
+        return finish;
+    }
+
+    public void setFinish(int finish) {
+        this.finish = finish;
     }
 }

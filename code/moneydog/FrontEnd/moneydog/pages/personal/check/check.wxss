@@ -1,0 +1,27 @@
+.top{
+  display:flex;
+  justify-content: center;
+  margin-bottom: 20px
+}
+.mid{
+  display:flex;
+  justify-content: center;
+  border-radius: 15px;
+  border: solid 2px rgb(218, 215, 215);
+  margin: 20px
+}
+.bottom{
+  display: flex;
+  justify-content: center;
+  flex-direction: row
+}
+.l-button{
+  background-color: green;
+  margin-right: 10px;
+  width: 100px;
+}
+.r-button{
+  background-color: red;
+  margin-left: 10px;
+  width: 100px;
+}
