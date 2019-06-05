@@ -88,12 +88,21 @@ Page({
       wx.request({
         url: url,
         success: function (res) {
+          var content = res.data.content
+          var content_count = []
+          for (var i = 0; i < content.length; i++) {
+            content_count.push({type:content[i].type,a:0,b:0,c:0,d:0,fill:''})
+          }
           that.setData({
-            content: res.data.content,
+            content: content,
+            content_count: content_count,
             description: res.data.description,
-            name: res.data.name})},
+            name: res.data.name
+          })
+        },
         fail:function (res) {
-          console.log('fail to get the questionnaire')}
+          console.log('fail to get the questionnaire')
+        }
       })
     }
     console.log(this.data)
