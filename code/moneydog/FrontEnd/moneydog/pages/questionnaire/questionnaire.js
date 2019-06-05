@@ -3,6 +3,7 @@ Page({
   data: {
     questionnaireName: null,
     questionnaireDesc: null,
+    pay: 0,
     showDialog: false, //弹窗
     questionItem: { type: -1, title: '', a: '', b: '', c: '', d: ''},
     questionList: []
@@ -85,10 +86,11 @@ Page({
     if (options.question != null) {
       var question = JSON.parse(options.question)
       this.data.questionList.push(question)
-      console.log('push')
+      wx.setStorageSync('questionList', this.data.questionList)
     }
-    console.log('questionList is')
-    console.log(this.data.questionList)
+    this.setData({
+      questionList: this.data.questionList
+    })
   },
 
   /**

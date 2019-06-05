@@ -151,7 +151,7 @@
   border-radius: 10rpx;
 }
 
-.checkbox-group label {
+.checkbox-group checkbox {
   padding: 20rpx;
   width: 95%;
   border-width: 0rpx 0rpx 1rpx 0rpx;
