@@ -1,5 +1,5 @@
 .top-block {
-background-color:aqua;
+background-color: #19ADAD;
 padding: 25px;
 margin: 2px;
 border-radius: 2%;
@@ -31,7 +31,7 @@ flex-direction: row;
 .list-item{
   display: flex;
   flex-direction: row;
-  background-color: yellow;
+  background-color:white;
   padding: 10px;
   border-radius: 5%
 }
@@ -47,8 +47,4 @@ flex-direction: row;
   height: 25px;
   margin-left: 200px;
 }
-.divLine{
- background: #fff;
- width: 100%;
- height: 10rpx;
-}
+

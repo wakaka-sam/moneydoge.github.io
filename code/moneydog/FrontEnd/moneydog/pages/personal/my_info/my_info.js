@@ -69,7 +69,7 @@ Page({
       image_url:that.data.image_url
     },
     success: function (res) {
-      console.log(res)
+      console.log("修改成功")
       wx.navigateBack({
         delta: 1
       })

@@ -456,6 +456,7 @@ Page({
         "user":"test"
       },
       success:function (res){
+        res.data.imageUrl
         console.log(that.data.src_of_pic);
         wx.request({
           url: "http://172.18.32.138:8080/Create/Second_hand",
