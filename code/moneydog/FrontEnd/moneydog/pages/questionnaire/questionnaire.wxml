@@ -1,73 +1,6 @@
 <!--pages/questionnaire/questionnaire.wxml-->
 <view class='container'>
-  <!-->问卷创建显示<-->
-  <block wx:if="{{!isCreate}}">
-    <view class='wenjuan-welcome'>
-      <label id='welcome-text'>欢迎来到问卷系统！</label>
-      <image id='goutou-img' src="../../images/qiuzhu.png"></image>
-    </view>
-    <view class='wenjuan-info'>
-      <label>问卷名称：</label>
-      <input bindinput='questionnaireName'></input>
-      <label>问卷说明：</label>
-      <input bindinput='questionnaireDesc'></input>
-      <button type='primary' bindtap='createQuestionnaire'>创建问卷</button>
-    </view>
-  </block>
-  <!-->问卷创建end<-->
-
-  <!-->单选题创建<-->
-  <block wx:if="{{isCreateSCQ}}">
-  <view class='choice-question'>
-    <view>
-      <label>*标题：</label>
-      <input placeholder="请输入标题" bindinput='SCQName'/>
-    </view>
-    <view>
-      <label>*选项：</label>
-      <input placeholder="输入选项" bindinput='SCQChoice1'/>
-      <input placeholder="输入选项" bindinput='SCQChoice2'/>
-      <input placeholder="输入选项" bindinput='SCQChoice3'/>
-      <input placeholder="输入选项" bindinput='SCQChoice4'/>
-    </view>
-    <button type='primary' bindtap='confirmSCQ'>确认</button>
-  </view>
-  </block>
-  <!-->单选题创建end<-->
-
-  <!-->多选题创建<-->
-  <block wx:if="{{isCreateMCQ}}">
-  <view class='choice-question'>
-    <view>
-      <label>*标题：</label>
-      <input placeholder="请输入标题" bindinput='SCQName'/>
-    </view>
-    <view>
-      <label>*选项：</label>
-      <input placeholder="输入选项" bindinput='SCQChoice1'/>
-      <input placeholder="输入选项" bindinput='SCQChoice2'/>
-      <input placeholder="输入选项" bindinput='SCQChoice3'/>
-      <input placeholder="输入选项" bindinput='SCQChoice4'/>
-    </view>
-    <button type='primary' bindtap='confirmMCQ'>确认</button>
-  </view>
-  </block>
-  <!-->多选题创建end<-->
-
-  <!-->填空题创建<-->
-  <block wx:if="{{isCreateCompletion}}">
-  <view class='choice-question'>
-    <view>
-      <label>*标题：</label>
-      <input placeholder="请输入标题" bindinput='SCQName'/>
-    </view>
-    <button type='primary' bindtap='confirmCompletion'>确认</button>
-  </view>
-  </block>
-  <!-->填空题创建end<-->
-
   <!-->问卷内容显示<-->
-  <block wx:if="{{isCreate && !isCreateSCQ && !isCreateMCQ && !isCreateCompletion}}">
     <!-->tab选项<-->
     <view class='ques-tab'>
       <view bindtap="toggleDialog">
@@ -84,21 +17,29 @@
     <!--问卷内容显示-->
     <view id='question-area'>
     <view class='question-view'>
-      <label class='questionnaire-title'>问卷标题</label>
-      <label class='questionnaire-describe'>问卷描述</label>
+      <label class='questionnaire-title'>{{questionnaireName}}</label>
+      <label class='questionnaire-describe'>{{questionnaireDesc}}</label>
     </view>
     <!--单选题-->
-    <view class='question-view' wx:for="{{s_questionList}}" wx:key="{{item.id}}">
-      <label>{{item.question}}</label>
-      <radio-group class="radio-group" bindchange="radioChange">
-        <label class="radio" wx:for="{{item.choices}}" wx:key="{{item.id}}">
-          <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
-        </label>
+    <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
+      <label>{{item.title}}</label>
+      <radio-group wx:if="{{item.type == 0}}" class="radio-group" bindchange="radioChange">
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.a}}
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.b}}
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.c}}
+        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.d}}
       </radio-group>
+      <checkbox-group wx:if="{{item.type == 1}}" class="checkbox-group" bindchange="checkboxChange">
+        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.a}}
+        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.b}}
+        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.c}}
+        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.d}}
+      </checkbox-group>
+      <input wx:if="{{item.type == 2}}"></input>
     </view>
     <!--单选题end-->
-    <!--多选题-->
-    <view class='question-view' wx:for="{{m_questionList}}" wx:key="{{item.id}}">
+    <!--多选题--
+    <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
       <label>{{item.question}}</label>
       <checkbox-group class="checkbox-group" bindchange="checkboxChange">
         <label class="checkbox" wx:for="{{item.choices}}" wx:key="{{item.id}}">
@@ -107,13 +48,13 @@
       </checkbox-group>
     </view>
     <!--多选题end-->
-    <!--多选题-->
-    <view class='question-view' wx:for="{{c_questionList}}" wx:key="{{item.id}}">
+    <!--填空题--
+    <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
       <label>{{item.question}}</label>
       <input></input>
     </view>
-    <!--多选题end-->
-
+    <!--填空题end-->
+    <view class='question-area-bottom'></view>
     </view>
     <!--问卷内容显示end-->
 
@@ -127,6 +68,5 @@
     </view>
   </view>
   <!-->弹窗选择题目类型end<-->
-  </block>
   <!-->问卷内容显示end<-->
 </view>
