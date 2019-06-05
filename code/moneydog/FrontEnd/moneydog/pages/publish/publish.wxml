@@ -31,7 +31,19 @@
     <label>：</label>
     <input class = "inputView" name="userName" placeholder="请输入送达时间！" bindinput='k_arrive_timeInput' auto-focus/>
   </view>
-
+  <view>
+    <picker mode='date' 
+            value='{{selectDate}}'
+            start='{{startDate}}'
+            end='{{endDate}}'
+            field='day'
+            bindchange='dateChange'>
+    <view style="display:flex;">
+      <label class = "input">送达时间:</label>
+      <input class = "selectView" name="userName" placeholder="{{selectDate}}" bindinput='k_arrive_timeInput' auto-focus/>
+    </view>
+    </picker>
+  </view>
   <view style="display:flex;">
     <label class = "input">报酬</label>
     <label>：</label>

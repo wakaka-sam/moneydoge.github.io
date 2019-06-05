@@ -42,6 +42,11 @@ Page({
     x_pay:'',
     x_phone:'',
     x_wechat:'',
+
+    //日期选择器的初始数值
+    startDate:'2019/06/03',
+    endDate:'2019/12/31',
+    selectDate:'2019/06/03'
   },
 
   /**
@@ -52,8 +57,12 @@ Page({
     var app = getApp();//要先getApp（）1  
     var date = new Date('2018/05/11 11:00:00');
     const session_id = wx.getStorageSync('SessionId');
+    console.log("t" + session_id)
     if (session_id != null) {
       that.setData({sessionID:session_id})
+    }
+    else{
+      that.setData({ sessionID: "847694c4-14dd-47b2-8922-facd8e379f47"})
     }
     that.setData({
       //sessionID: app.globalData.sessionID,
@@ -246,15 +255,7 @@ Page({
       },
       
       success: function (res) {
-        console.log(res.data);
-        console.log(that.data.k_express_loc);
-        console.log(that.data.k_num);
-        console.log(that.data.k_loc);
-        console.log(that.data.k_arrive_time);
-        console.log(that.data.k_pay);
-        console.log(that.data.k_wechat);
-        console.log(that.data.k_phone);
-        console.log(that.data.k_remark);
+        console.log(that.data.sessionID);
 
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
@@ -487,6 +488,12 @@ Page({
     })
    
     
+  },
+  dateChange: function () {
+    var taht = this;
+    that.setData({
+      selectDate:e.detail.value
+    });
   }
 
 })

@@ -83,3 +83,12 @@
    width: 120px; /*不知道为什么照片那里多出来了10px，所以为了对齐特意为这个照片的label减了10px*/
    text-align-last: justify;/*文本两端对齐*/
 }
+.selectView{
+   /*边界：大小1px, 为固体，为绿色*/
+    border:  1px solid gray;
+    /*边界角的弧度*/
+    border-radius: 0px;
+    margin-left: 30px;
+    margin-right: 15px;
+    margin-top: 0px;
+}
