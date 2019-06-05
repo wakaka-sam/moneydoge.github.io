@@ -40,7 +40,7 @@
             bindchange='dateChange'>
     <view style="display:flex;">
       <label class = "input">送达时间:</label>
-      <input class = "selectView" name="userName" placeholder="{{selectDate}}" bindinput='k_arrive_timeInput' auto-focus/>
+      <input class = "selectView" name="userName" value="{{selectDate}}" bindinput='k_arrive_timeInput2' auto-focus/>
     </view>
     </picker>
   </view>

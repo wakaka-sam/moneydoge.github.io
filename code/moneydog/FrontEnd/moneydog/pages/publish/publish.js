@@ -206,6 +206,12 @@ Page({
       k_arrive_time: e.detail.value
     })
   },
+  //获取快递输入的快递送达时间
+  k_arrive_timeInput2: function (e) {
+    this.setData({
+      k_arrive_time: e.detail.value
+    })
+  },
   //获取快递输入的快递送达报酬
   k_payInput: function (e) {
     this.setData({
