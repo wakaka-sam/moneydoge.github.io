@@ -3,10 +3,12 @@ Page({
   data: {
     admini:true,
     sessionID:'',
-    nickname: '小明',
-    phone: 15167496318,
+    school:'中山大学',
+    realname: '小明',
+    falsename:'',
+    phoneNum: 15167496318,
     user_img: "http://img.52z.com/upload/news/image/20180213/20180213062641_35687.jpg",
-    admini:false
+    
   },
   onLoad(options) {
     var that = this
