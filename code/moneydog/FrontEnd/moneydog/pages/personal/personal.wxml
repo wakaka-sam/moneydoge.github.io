@@ -62,7 +62,7 @@
 
     <view class = "list-item" bindtap='goTo_check'>
       <view>
-        <image class = "l-icon" src = "../../images/审核.png"></image>
+        <image class = "l-icon" src = "../../images/shenhe.png"></image>
       </view>
       <view>
         <text>信息审核</text>
