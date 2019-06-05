@@ -16,6 +16,8 @@
     "pages/personal/my_balance/my_balance",
     "pages/personal/service/service",
     "pages/personal/bill/bill",
+    "pages/questionnaire/create_questionnaire",
+    "pages/questionnaire/create_question",
     "pages/personal/check/check",
     "pages/confession/confession_expression"
   ],

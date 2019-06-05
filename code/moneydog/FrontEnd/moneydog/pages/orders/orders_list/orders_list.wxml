@@ -26,9 +26,9 @@
 
 <view class='listArea'>
 <view wx:if='{{isSelected1}}' class='expressageList'>
-<block wx:for='{{exTradeList}}' wx:key='exTradeList' wx:for-index='index'>
+<block wx:for='{{isSelected6 == true ? publishExTradeList : receiptExTradeList}}' wx:key='exTradeList' wx:for-index='index'>
   <!-- 1.快递 data-*属性在触发事件时获取  -->
-  <view class='singleTrade' hover-class='item-press' bindtap='showDetail' data-id='1' data-json='{{item}}' bindlongpress='deleteOrder'>
+  <view class='singleTrade' hover-class='item-press' bindtap='showDetail' data-id='1' data-json='{{item}}' bindlongpress='deleteOrder' data-type='0' data-orderID='{{item.pid}}'>
     <view class='single-top'>
       <view class='a'>
         <view class='name'>{{item.loc}}</view>
@@ -59,9 +59,9 @@
 <view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected2}}' class='errandList'>
-<block wx:for='{{erTradeList}}' wx:key='erTradeList'>
+<block wx:for='{{isSelected6 == true ? publishErTradeList : receiptErTradeList}}' wx:key='erTradeList'>
   <!-- 2.跑腿 data-*属性在触发事件时获取  -->
-  <view class='singleTrade' hover-class='item-press' catchtap='showDetail' bindlongpress='deleteOrder' data-id='2' data-json='{{item}}'>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail' bindlongpress='deleteOrder' data-type='1' data-orderID='{{item.rid}}'>
     <view class='single-top'>
       <view class='a'>
         <view class='name'>{{item.title}}</view>
@@ -91,9 +91,9 @@
 </view>
 <view wx:if='{{isSelected3}}' class='seekhelpList'>
 <!--由于seekhelp和secondhand开头相同，为了避免混淆，下面用he代表求助，se代表闲置-->
-<block wx:for='{{heTradeList}}' wx:key='heTradeList'>
+<block wx:for='{{isSelected6 == true ? publishHeTradeList : receiptHeTradeList}}' wx:key='heTradeList'>
   <!-- 3.求助 data-*属性在触发事件时获取  -->
-  <view class='singleTrade' hover-class='item-press' catchtap='showDetail'  bindlongpress='deleteOrder' data-id='3' data-json='{{item}}'>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail'  bindlongpress='deleteOrder' data-type='2' data-orderID='{{item.fid}}'>
     <view class='single-top'>
       <view class='a'>
         <view class='name'>{{item.title}}</view>
@@ -122,9 +122,9 @@
 <view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected4}}' class='secondhandList'>
-<block wx:for='{{seTradeList}}' wx:key='seTradeList'>
+<block wx:for='{{isSelected6 == true ? publishSeTradeList : receiptSeTradeList}}' wx:key='seTradeList'>
   <!-- 4.闲置 data-*属性在触发事件时获取  -->
-  <view class='singleTrade' hover-class='item-press' catchtap='showDetail'  bindlongpress='deleteOrder' data-id='4' data-json='{{item}}'>
+  <view class='singleTrade' hover-class='item-press' catchtap='showDetail'  bindlongpress='deleteOrder' data-type='3' data-orderID='{{item.sid}}'>
     <view class='single-top'>
       <view class='a'>
         <view class='name'>{{item.object_name}}</view>

@@ -40,7 +40,7 @@ Page({
 
   goToWenjuanPage: function() {
     wx.navigateTo({
-      url: '../questionnaire/questionnaire',
+      url: '../questionnaire/create_questionnaire',
     })
   },
   toggleDialog() {
