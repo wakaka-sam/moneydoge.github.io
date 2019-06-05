@@ -66,7 +66,7 @@ Page({
     }
     that.setData({
       //sessionID: app.globalData.sessionID,
-      sessionID: "847694c4-14dd-47b2-8922-facd8e379f47",
+      //sessionID: "847694c4-14dd-47b2-8922-facd8e379f47",
       id:options.id,
       src_of_pic: '../../images/upload.png',    
       /*以下是快递需要上传的属性*/
