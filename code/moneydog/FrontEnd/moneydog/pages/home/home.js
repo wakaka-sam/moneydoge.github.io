@@ -143,7 +143,7 @@ Page({
         avatarUrl: e.detail.userInfo.avatarUrl,
         gender: e.detail.userInfo.gender
       }
-      console.log('code is ' + app.globalData.code)
+      console.log('register code is ' + app.globalData.code)
       wx.request({
         url: 'http://172.18.32.138:8080/Create/User',
         data: t,

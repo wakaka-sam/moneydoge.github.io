@@ -20,40 +20,22 @@
       <label class='questionnaire-title'>{{questionnaireName}}</label>
       <label class='questionnaire-describe'>{{questionnaireDesc}}</label>
     </view>
-    <!--单选题-->
     <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
-      <label>{{item.title}}</label>
+      <label>{{index+1}}. {{item.title}}</label>
       <radio-group wx:if="{{item.type == 0}}" class="radio-group" bindchange="radioChange">
-        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.a}}
-        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.b}}
-        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.c}}
-        <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.d}}
+        <radio wx:if='{{item.a}}'>{{item.a}}</radio>
+        <radio wx:if='{{item.b}}'>{{item.b}}</radio>
+        <radio wx:if='{{item.c}}'>{{item.c}}</radio>
+        <radio wx:if='{{item.d}}'>{{item.d}}</radio>
       </radio-group>
       <checkbox-group wx:if="{{item.type == 1}}" class="checkbox-group" bindchange="checkboxChange">
-        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.a}}
-        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.b}}
-        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.c}}
-        <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.d}}
+        <checkbox wx:if='{{item.a}}'>{{item.a}}</checkbox>
+        <checkbox wx:if='{{item.b}}'>{{item.b}}</checkbox>
+        <checkbox wx:if='{{item.c}}'>{{item.c}}</checkbox>
+        <checkbox wx:if='{{item.d}}'>{{item.d}}</checkbox>
       </checkbox-group>
       <input wx:if="{{item.type == 2}}"></input>
     </view>
-    <!--单选题end-->
-    <!--多选题--
-    <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
-      <label>{{item.question}}</label>
-      <checkbox-group class="checkbox-group" bindchange="checkboxChange">
-        <label class="checkbox" wx:for="{{item.choices}}" wx:key="{{item.id}}">
-          <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
-        </label>
-      </checkbox-group>
-    </view>
-    <!--多选题end-->
-    <!--填空题--
-    <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
-      <label>{{item.question}}</label>
-      <input></input>
-    </view>
-    <!--填空题end-->
     <view class='question-area-bottom'></view>
     </view>
     <!--问卷内容显示end-->
