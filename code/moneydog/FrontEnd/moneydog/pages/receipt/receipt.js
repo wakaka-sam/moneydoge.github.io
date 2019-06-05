@@ -124,7 +124,8 @@ Page({
       exTradeList: this.sortList(1, Index),
       erTradeList: this.sortList(2, Index),
       heTradeList: this.sortList(3, Index),
-      seTradeList: this.sortList(4, Index)
+      seTradeList: this.sortList(4, Index),
+      quTradeList: this.sortList(5, Index)
     })
   },
   //对订单列表进行排序
@@ -138,8 +139,11 @@ Page({
     else if(i == 3) {//求助
       var tradeList = this.data.heTradeList
     }
-    else { //闲置
+    else if(i == 4) {//闲置
       var tradeList = this.data.seTradeList
+    }
+    else {           //问卷
+      var tradeList = this.data.quTradeList
     }
     if (tradeList.length == 0) 
       return tradeList
@@ -231,7 +235,7 @@ Page({
   //加载问卷
   OnLoadQuestionair: function () {
     var that = this
-    return new Promise((resolve, rej) => wx.requset({
+    return new Promise((resolve, rej) => wx.request({
       url: 'http://' + baseUrl + ':8080/Create/OnLoadQuestionair',
       success: function (res) {
         that.setData({ quTradeList: res.data })
@@ -331,15 +335,38 @@ Page({
     })
     //this.setData({lastId4: -1})
   },
+  //上拉加载问卷
+  downloadQu: function () {
+    var that = this 
+    var tempUrl = 'http://' + baseUrl + ':8080/Create/downLoadQuestionair?id='
+    tempUrl += String(this.data.lastId5)
+    wx.request({
+      url: tempUrl,
+      success: function (res) {
+        if (res.data[res.data.length-1].qid == that.data.lastId5) {
+          console.log('目前已经获取所有订单无法再更新')
+          that.setData({lastId5: -1})
+        }
+        else {
+          var newList = that.data.quTradeList
+          newList = newList.concat(res.data)
+          that.setData({quTradeList: newList})
+          that.setData({ quTradeList: that.sortList(5,that.data.index) })
+        }
+      }
+    })
+  },
 
   //跳转详情页面
   showDetail: function(e) {
     var trade = e.currentTarget.dataset
     var json = trade.json
     var id = trade.id
-    console.log(id, json)
+    wx.setStorageSync('detailJson', json)
+    console.log(wx.getStorageSync('detailJson'))
+    console.log('跳转id:', id)
     wx.navigateTo({
-      url: './../details/details?id=' + id + '&json=' + JSON.stringify(json),
+      url: './../details/details?id=' + id
     })
   },
 
@@ -393,13 +420,17 @@ Page({
       that.select4()
     else 
       that.select5()
+    //onload请求是异步的，而我们需要收到所有数据再进行排序
+    //所以需要用到promise来保证onload一定在sort之前
     this.OnLoadExpressage().then(() => that.OnLoadErrand()).then(
-      () => that.OnLoadSeekhelp()).then(() => that.OnLoadSecondhand()).then(() => {
+      () => that.OnLoadSeekhelp()).then(() => that.OnLoadSecondhand()).then(
+      () => that.OnLoadQuestionair()).then(() => {
       that.setData({
         exTradeList: that.sortList(1, 0),
         erTradeList: that.sortList(2, 0),
         heTradeList: that.sortList(3, 0),
-        seTradeList: that.sortList(4, 0)
+        seTradeList: that.sortList(4, 0),
+        quTradeList: that.sortList(5, 0)
       })})
   },
 
@@ -450,6 +481,8 @@ Page({
       this.downloadHe()
     else if (this.data.isSelected4 && this.data.lastId4 != -1)
       this.downloadSe()
+    else if (this.data.isSelected5 && this.data.lastId5 != -1)
+      this.downloadQu()
   },
 
   /**

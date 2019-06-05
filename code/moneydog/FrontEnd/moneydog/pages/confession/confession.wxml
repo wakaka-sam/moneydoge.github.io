@@ -6,7 +6,7 @@
 			<view class='text'>
 				<image class='loveImage' src='../../images/timg.png'></image>
 				<text>表白{{listIndex + 1}}:</text>
-				<text>{{item.content}}</text>
+				<text style="word-break: break-all;">{{item.detail}}</text>
 			</view>
 			<image wx:if='{{listIndex % 2 != 0}}' class='image' src='../../images/timg({{listIndex%4}}).jpeg'></image>
 		</view>

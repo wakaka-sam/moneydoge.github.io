@@ -121,7 +121,38 @@
 </view>
 <!--id=5的时候，显示问卷详情页面-->
 <view wx:if='{{id==5}}' class='questionnaire'>
-	<!--单选题-->
+	<view class='questionList' wx:for='{{content}}'>
+		<!--单选题-->
+		<view wx:if='{{item.type==0}}' class='question-view'>
+			<label>{{item.title}}</label>
+			<radio-group class="radio-group" bindchange='radioChange'>
+				<label class="radio">
+					<radio/>{{item.a}}
+					<radio/>{{item.b}}
+					<radio/>{{item.c}}
+					<radio/>{{item.d}}
+				</label>
+			</radio-group>
+		</view>
+		<!--多选题-->
+		<view wx:if='{{item.type==1}}' class='question-view'>
+			<label>{{item.title}}</label>
+			<checkbox-group class="checkbox-group" bindchange="checkboxChange">
+				<label class="checkbox">
+		    		<checkbox/>{{item.a}}
+		    		<checkbox/>{{item.b}}
+		    		<checkbox/>{{item.c}}
+		    		<checkbox/>{{item.d}}
+				</label>
+			</checkbox-group>
+		</view>
+		<!--填空题-->
+		<view wx:if='{{item.type==2}}' class='question-view'>
+			<label>{{item.title}}</label>
+			<input></input>
+		</view>
+	</view>
+	<!-- 单选题
 	<view class ='question-view' wx:for='{{s_questionList}}' wx:key='{{item.id}}'>
 		<label>{{item.question}}</label>
 		<radio-group class='radio-group' bindchange='radioChange'>
@@ -130,7 +161,7 @@
 			</label>
 		</radio-group>
 	</view>
-	<!--多选题-->
+	多选题
     <view class='question-view' wx:for="{{m_questionList}}" wx:key="{{item.id}}">
     	<label>{{item.question}}</label>
     	<checkbox-group class="checkbox-group" bindchange="checkboxChange">
@@ -139,11 +170,11 @@
     		</label>
     	</checkbox-group>
     </view>
-    <!--填空题-->
+    填空题
     <view class='question-view' wx:for="{{c_questionList}}" wx:key="{{item.id}}">
     	<label>{{item.question}}</label>
     	<input></input>
-    </view>
+    </view> -->
 </view>
 <!--联系方式弹窗
 <block wx:if='{{showContact}}'>

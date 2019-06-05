@@ -11,6 +11,11 @@ Page({
     showDialog: false,
     id: 0,//1:快递 2:跑腿 3:求助 4:闲置 5:问卷
     json: [],
+    qid: 0,//问卷id
+    name: '调查问卷',
+    description: '饭堂满意度',
+    content: [],
+    content_count: [],
     imgurl: 'a58e416d-64fd-444e-854b-9d36e3ae27291.jpg'
   },
 
@@ -57,10 +62,40 @@ Page({
     if (sessionId) {
       this.setData({ sessionId: sessionId })
     }
-    this.setData({
-      id: options.id,
-      json: JSON.parse(options.json)
-    })
+    const json = wx.getStorageSync('detailJson')
+    if (!json) {
+      wx.showToast({
+           title: '加载失败',
+           icon: 'none',
+           duration: 2000//持续的时间
+      })
+      wx.navigateBack({
+          delta: 1
+      })
+    }
+    if (options.id != 5) {
+      this.setData({
+        id: options.id,
+        json: json
+      })
+    }
+    else {
+      var that = this
+      that.setData({qid: json.qid})
+      var url = 'http://' + baseUrl + ':8080/Create/getQuestionairContent?id='
+      url +=  that.data.qid
+      console.log(url)
+      wx.request({
+        url: url,
+        success: function (res) {
+          that.setData({
+            content: res.data.content,
+            description: res.data.description,
+            name: res.data.name})},
+        fail:function (res) {
+          console.log('fail to get the questionnaire')}
+      })
+    }
     console.log(this.data)
   },
 

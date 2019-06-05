@@ -70,23 +70,13 @@
   <block wx:if="{{isCreate && !isCreateSCQ && !isCreateMCQ && !isCreateCompletion}}">
     <!-->tab选项<-->
     <view class='ques-tab'>
-      <view bindtap="toggleDialog">
-        <image class='item-images' src='../../images/Add.png'></image>
-        <label>题目</label>
-      </view>
-      <view bindtap='saveQuestionnaire'>
-        <image class='item-images' src='../../images/baocun.png'></image>
-      <label>保存</label>
-      </view>
+      <label bindtap="toggleDialog">添加题目</label>
+      <label bindtap='saveQuestionnaire'>保存</label>
     </view>
     <!-->tab选项end<-->
 
     <!--问卷内容显示-->
     <view id='question-area'>
-    <view class='question-view'>
-      <label class='questionnaire-title'>问卷标题</label>
-      <label class='questionnaire-describe'>问卷描述</label>
-    </view>
     <!--单选题-->
     <view class='question-view' wx:for="{{s_questionList}}" wx:key="{{item.id}}">
       <label>{{item.question}}</label>
@@ -102,7 +92,7 @@
       <label>{{item.question}}</label>
       <checkbox-group class="checkbox-group" bindchange="checkboxChange">
         <label class="checkbox" wx:for="{{item.choices}}" wx:key="{{item.id}}">
-          <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+          <checkbox value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}} 
         </label>
       </checkbox-group>
     </view>
