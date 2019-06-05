@@ -6,35 +6,44 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
+    wx.setStorageSync('questionList', [])
+
     // 登录
     var that = this
     wx.login({
       success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        var loginUrl
         if(res.code) {
-          this.globalData.code = res.code
+          loginUrl = 'http://172.18.32.138:8080/Create/Login?code=' + res.code
         }
-        var mycode = res.code
-        //if (wx.getStorageSync('SessionId') != null) {
-          //登录时获取sessionID
-          wx.request({
-            url: 'http://172.18.32.138:8080/Create/Login?code='+mycode,
-            method: 'POST',
-            header: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            success: function (res) {
-              console.log(res)
-              if (res.data.SessionId) {
-                console.log("登录时获取的SessionId：" + res.data.SessionId)
-                that.globalData.sessionID = res.data.SessionId//获取sessionID并保存在全局变量sessionID中
-                wx.setStorageSync('SessionId', res.data.SessionId)
-              }
+        //登录时获取sessionID
+        wx.request({
+          url: loginUrl,
+          method: 'POST',
+          header: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          success: function (res) {
+            if (res.data.errcode == 1) {
+              console.log("登录时获取的SessionId：" + res.data.SessionId)
+              that.globalData.sessionID = res.data.SessionId//获取sessionID并保存在全局变量sessionID中
+              wx.setStorageSync('SessionId', res.data.SessionId)
             }
-          })
-        //}
+            else {
+              console.log('用户未注册')
+              wx.login({
+                success: res => {
+                  if (res.code) {
+                    that.globalData.code = res.code
+                  }
+                }
+              })
+            }
+          }
+        })
       }
     })
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {

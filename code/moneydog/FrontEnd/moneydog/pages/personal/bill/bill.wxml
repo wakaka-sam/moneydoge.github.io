@@ -1,19 +1,19 @@
 <view>
+<text class ='top'>显示最近十条记录</text>
+<view wx:for="{{list}}" wx:for-item="itemName" wx:for-index="index" wx:if="{{index<10}}">
 
-<view wx:for="{{list}}" wx:for-item="itemName">
-
-<view class = 'item-colum'>
-  <view class = 'item-row'>
-    <text class = 'position'>{{itemName.detail}}</text>    
-    <text class = 'position'>{{itemName.type}}</text>
-    <text >{{itemName.price}}</text>  
+  <view class = 'item-colum'>
+    <view > 
+      <text style="font-size:50rpx" class ='text-price'>{{itemName.type}}{{itemName.price}}    </text>
+    </view>
+    <view class ='textview'>
+      <text style="font-size:30rpx">{{itemName.detail}}</text>
+    </view>
+    <view>
+      <text>{{itemName.time}}</text>
+    </view>
+    <view class = 'devide-line'></view>
   </view>
-
-  <view>
-    <text>{{itemName.time}}</text>
-  </view>
-
-</view>
 
 </view>
 
