@@ -8,10 +8,10 @@
   padding-left: 5px;
   margin-left: 30px;
   margin-right: 30px;
-  margin-bottom: 2px;
-  border: solid 2px rgb(218, 215, 215);
-  border-radius: 5px;
-  background-color:lightcyan;
+  margin-bottom: 5px;
+}
+.devide-line{
+  border:1px solid lightgray;
 }
 .text-price{
   color:red;
