@@ -1,0 +1,16 @@
+<!--pages/questionnaire/create_questionnaire.wxml-->
+<!-->问卷创建显示<-->
+<view class='container'>
+  <view class='wenjuan-welcome'>
+    <label id='welcome-text'>欢迎来到问卷系统！</label>
+    <image id='goutou-img' src="../../images/qiuzhu.png"></image>
+  </view>
+  <view class='wenjuan-info'>
+    <label>问卷名称：</label>
+    <textarea bindinput='questionnaireName'></textarea>
+    <label>问卷说明：</label>
+    <textarea bindinput='questionnaireDesc'></textarea>
+    <button type='primary' bindtap='createQuestionnaire'>创建问卷</button>
+  </view>
+</view>
+<!-->问卷创建end<-->
