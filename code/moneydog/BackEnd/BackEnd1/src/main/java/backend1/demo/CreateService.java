@@ -16,21 +16,21 @@ public class CreateService {
     }
 
     //        从Header 里面获取id
-    public JSONObject CreateExpressage(String openid,String express_loc, Date arrive_time, String loc, int num, int pay, String remark, String phone, String wechat) {
-        return issueInfoMapper.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
+    public JSONObject CreateExpressage(String openid,String express_loc, Date arrive_time, String loc, int num, int pay, String remark, String phone, String wechat,String thid) {
+        return issueInfoMapper.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat,thid);
     }
 
     //    state 初始为0，到后面再添加
-    public JSONObject CreateFor_help(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay) {
-        return issueInfoMapper.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay);
+    public JSONObject CreateFor_help(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay,String thid) {
+        return issueInfoMapper.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay,thid);
     }
 
-    public JSONObject CreateErrand(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay) {
-        return issueInfoMapper.CreateErrand(openid,title, content, phone, wechat, ending_time, pay);
+    public JSONObject CreateErrand(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay,String thid) {
+        return issueInfoMapper.CreateErrand(openid,title, content, phone, wechat, ending_time, pay,thid);
     }
 
-    public JSONObject CreateSecond_hand(String openid,String object_name, String content, String phone, String wechat, Date ending_time, int pay, String photo_url) {
-        return issueInfoMapper.CreateSecond_hand(openid,object_name, content, phone, wechat, ending_time, pay, photo_url);
+    public JSONObject CreateSecond_hand(String openid,String object_name, String content, String phone, String wechat, Date ending_time, int pay, String photo_url,String thid) {
+        return issueInfoMapper.CreateSecond_hand(openid,object_name, content, phone, wechat, ending_time, pay, photo_url,thid);
     }
 
     public int Login(String openid) {

@@ -28,64 +28,63 @@ public class IssueInfoImpl implements IssueInfoMapper {
     }
 
     @Override
-    public JSONObject CreateExpressage(String openid,String express_loc, Date arrive_time, String loc, int num, int pay, String remark, String phone, String wechat) {
+    public JSONObject CreateExpressage(String openid,String express_loc, Date arrive_time, String loc, int num, int pay, String remark, String phone, String wechat,String thid) {
         String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("INSERT  into moneydog.expressage(uid1,express_loc,arrive_time,loc,num,pay,remark,phone,wechat,state)values (?,?,?,?,?,?,?,?,?,0)", id, express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
+        t = jdbcTemplate.update("INSERT  into moneydog.expressage(uid1,express_loc,arrive_time,loc,num,pay,remark,phone,wechat,state,thid)values (?,?,?,?,?,?,?,?,?,0,?)", id, express_loc, arrive_time, loc, num, pay, remark, phone, wechat,thid);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
-        jsonObject.put("state", t);
-        jsonObject.put("msg", msg);
+        jsonObject.put("errcode", t);
+        jsonObject.put("errmsg", msg);
         return jsonObject;
     }
 
     @Override
-    public JSONObject CreateFor_help(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay) {
+    public JSONObject CreateFor_help(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay,String thid) {
         String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("insert into moneydog.for_help(uid1,title,content,phone,wechat,ending_time,pay,state) values (?,?,?,?,?,?,?,0)", id, title, content, phone, wechat, ending_time, pay);
+        t = jdbcTemplate.update("insert into moneydog.for_help(uid1,title,content,phone,wechat,ending_time,pay,state,thid) values (?,?,?,?,?,?,?,0,?)", id, title, content, phone, wechat, ending_time, pay,thid);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
-        jsonObject.put("state", t);
-        jsonObject.put("msg", msg);
+        jsonObject.put("errcode", t);
+        jsonObject.put("errmsg", msg);
         return jsonObject;
-
 
     }
 
     @Override
-    public JSONObject CreateErrand(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay) {
+    public JSONObject CreateErrand(String openid,String title, String content, String phone, String wechat, Date ending_time, int pay,String thid) {
         String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("insert into moneydog.errand(uid1,title,content,phone,wechat,ending_time,pay,state) values (?,?,?,?,?,?,?,0)", id, title, content, phone, wechat, ending_time, pay);
+        t = jdbcTemplate.update("insert into moneydog.errand(uid1,title,content,phone,wechat,ending_time,pay,state,thid) values (?,?,?,?,?,?,?,0,?)", id, title, content, phone, wechat, ending_time, pay,thid);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
-        jsonObject.put("state", t);
-        jsonObject.put("msg", msg);
+        jsonObject.put("errcode", t);
+        jsonObject.put("errmsg", msg);
         return jsonObject;
     }
 
     @Override
-    public JSONObject CreateSecond_hand(String openid,String object_name, String content, String phone, String wechat, Date ending_time, int pay, String photo_url) {
+    public JSONObject CreateSecond_hand(String openid,String object_name, String content, String phone, String wechat, Date ending_time, int pay, String photo_url,String thid) {
         String id = openid;
         int t = 0;
         String msg = "Create Successfully!";
         JSONObject jsonObject = new JSONObject();
-        t = jdbcTemplate.update("insert into moneydog.second_hand(uid1,object_name,content,phone,wechat,ending_time,pay,photo_url,state) values (?,?,?,?,?,?,?,?,0)", id, object_name, content, phone, wechat, ending_time, pay, photo_url);
+        t = jdbcTemplate.update("insert into moneydog.second_hand(uid1,object_name,content,phone,wechat,ending_time,pay,photo_url,state,thid) values (?,?,?,?,?,?,?,?,0,?)", id, object_name, content, phone, wechat, ending_time, pay, photo_url,thid);
         if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
-        jsonObject.put("state", t);
-        jsonObject.put("msg", msg);
+        jsonObject.put("errcode", t);
+        jsonObject.put("errmsg", msg);
         return jsonObject;
     }
 }

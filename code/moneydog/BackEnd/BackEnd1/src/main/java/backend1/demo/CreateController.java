@@ -6,16 +6,17 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.http.client.methods.HttpHead;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import springfox.documentation.spring.web.json.Json;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -242,6 +243,47 @@ public class CreateController {
     }
 
 
+    private JSONObject CreateIssueBalanceDetail(int price,String type,String uid,String path){
+
+        //请求路径
+        String url = "https://moneydog.club:3336/History/"+path;
+        //使用Restemplate来发送HTTP请求
+        RestTemplate restTemplate = new RestTemplate();
+        // json对象
+
+
+        // LinkedMultiValueMap 有点像JSON，用于传递post数据，网络上其他教程都使用
+        // MultiValueMpat<>来传递post数据
+        // 但传递的数据类型有限，不能像这个这么灵活，可以传递多种不同数据类型的参数
+        LinkedMultiValueMap body=new LinkedMultiValueMap();
+        body.add("price",price);
+        body.add("type",type);
+        body.add("uid",uid);
+
+        //设置请求header 为 APPLICATION_FORM_URLENCODED
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        // 请求体，包括请求数据 body 和 请求头 headers
+        HttpEntity httpEntity = new HttpEntity(body,headers);
+
+
+        try {
+            //使用 exchange 发送请求，以String的类型接收返回的数据
+            //ps，我请求的数据，其返回是一个json
+            ResponseEntity<String> strbody = restTemplate.exchange(url,HttpMethod.POST,httpEntity,String.class);
+            //解析返回的数据
+            JSONObject jsTemp = JSONObject.parseObject(strbody.getBody());
+            return jsTemp;
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("statecode",0);
+        jsonObject.put("msg","请求错误,稍后再试");
+        return  jsonObject;
+    }
 
     private JSONObject GetOpenId(String code) {
         //得到完整的
@@ -263,8 +305,14 @@ public class CreateController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         HttpEntity<String> entity = new HttpEntity<String>(headers);
-        String strbody = restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
-        JSONObject res = JSONObject.parseObject(strbody, JSONObject.class);
+        String strbody = "";
+        JSONObject res = new JSONObject();
+        try {
+            strbody = restTemplate.exchange(url, HttpMethod.GET, entity, String.class).getBody();
+            res = JSONObject.parseObject(strbody, JSONObject.class);
+        }catch (Exception e){
+            System.out.println(e);
+        }
         int errcode = 0;
         String errmsg = "";
         try {
@@ -285,7 +333,6 @@ public class CreateController {
             session_key = res.getString("session_key");
         } catch (Exception e) {
         }
-
         jsonObject.put("errcode", errcode);
         jsonObject.put("errmsg", errmsg);
         jsonObject.put("openid", openid);
@@ -317,7 +364,6 @@ public class CreateController {
             time.put("errmsg","Please First Register");
         }
         return time;
-
     }
 
     @PostMapping("/User")
@@ -365,20 +411,44 @@ public class CreateController {
         public JSONObject CreateExpressage(@RequestHeader("sessionId")String sessionId,@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
 
         String openid = getOpenidFromSession(sessionId);
-        return createService.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
+        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"快递",openid,"createHistory");
+        if(jsonObject.getInteger("statecode")!= 1)
+        {
+            jsonObject.put("errcode",2);
+            jsonObject.put("errmsg","余额错误");
+            return jsonObject;
+        }
+        String thid = jsonObject.getString("thid");
+        return createService.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat,thid);
     }
 
     @ResponseBody
     @RequestMapping(value = "/For_help", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public JSONObject CreateFor_help(@RequestHeader("sessionId")String sessionId,@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
         String openid = getOpenidFromSession(sessionId);
-        return createService.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay);
+        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"求助",openid,"createHistory");
+        if(jsonObject.getInteger("statecode")!= 1)
+        {
+            jsonObject.put("errcode",2);
+            jsonObject.put("errmsg","余额错误");
+            return jsonObject;
+        }
+        String thid = jsonObject.getString("thid");
+        return createService.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay,thid);
     }
 
     @PostMapping("/Errand")
     public JSONObject CreateErrand(@RequestHeader("sessionId")String sessionId,@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
         String openid = getOpenidFromSession(sessionId);
-        return createService.CreateErrand(openid,title, content, phone, wechat, ending_time, pay);
+        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"跑腿",openid,"createHistory");
+        if(jsonObject.getInteger("statecode")!= 1)
+        {
+            jsonObject.put("errcode",2);
+            jsonObject.put("errmsg","余额错误");
+            return jsonObject;
+        }
+        String thid = jsonObject.getString("thid");
+        return createService.CreateErrand(openid,title, content, phone, wechat, ending_time, pay,thid);
     }
 //        @PostMapping("/Errand")
 //        public JSONObject CreateErrand(@RequestBody String title, @RequestBody String content, @RequestBody String phone, @RequestBody String wechat, @RequestBody Date ending_time, @RequestBody int pay) {
@@ -388,6 +458,14 @@ public class CreateController {
     @PostMapping("/Second_hand")
     public JSONObject CreateSecond_hand(@RequestHeader("sessionId")String sessionId,@RequestParam("object_name") String object_name, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay, @RequestParam("photo_url") String photo_url) {
         String openid = getOpenidFromSession(sessionId);
-        return createService.CreateSecond_hand(openid,object_name, content, phone, wechat, ending_time, pay, photo_url);
+        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"二手",openid,"createHistory");
+        if(jsonObject.getInteger("statecode")!= 1)
+        {
+            jsonObject.put("errcode",2);
+            jsonObject.put("errmsg","余额错误");
+            return jsonObject;
+        }
+        String thid = jsonObject.getString("thid");
+        return createService.CreateSecond_hand(openid,object_name, content, phone, wechat, ending_time, pay, photo_url,thid);
     }
 }
