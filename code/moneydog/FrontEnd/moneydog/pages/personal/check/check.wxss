@@ -6,6 +6,7 @@
 .mid{
   display:flex;
   justify-content: center;
+  border-radius: 15px;
   border: solid 2px rgb(218, 215, 215);
   margin: 20px
 }
@@ -15,12 +16,12 @@
   flex-direction: row
 }
 .l-button{
-  background-color: lightgreen;
+  background-color: green;
   margin-right: 10px;
   width: 100px;
 }
 .r-button{
-  background-color: lightcoral;
+  background-color: red;
   margin-left: 10px;
   width: 100px;
 }

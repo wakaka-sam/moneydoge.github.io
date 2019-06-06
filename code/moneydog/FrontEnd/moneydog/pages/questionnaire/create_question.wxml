@@ -1,0 +1,52 @@
+<!--pages/questionnaire/create_question.wxml-->
+<view class='container'>
+  <!-->单选题创建<-->
+  <block wx:if="{{isCreateSCQ}}">
+  <view class='choice-question'>
+    <view>
+      <label>*标题：</label>
+      <input placeholder="请输入标题" bindinput='SCQName'/>
+    </view>
+    <view>
+      <label>*选项：</label>
+      <input placeholder="输入选项" bindinput='SCQChoice1'/>
+      <input placeholder="输入选项" bindinput='SCQChoice2'/>
+      <input placeholder="输入选项" bindinput='SCQChoice3'/>
+      <input placeholder="输入选项" bindinput='SCQChoice4'/>
+    </view>
+    <button type='primary' bindtap='confirmSCQ'>确认</button>
+  </view>
+  </block>
+  <!-->单选题创建end<-->
+
+  <!-->多选题创建<-->
+  <block wx:if="{{isCreateMCQ}}">
+  <view class='choice-question'>
+    <view>
+      <label>*标题：</label>
+      <input placeholder="请输入标题" bindinput='SCQName'/>
+    </view>
+    <view>
+      <label>*选项：</label>
+      <input placeholder="输入选项" bindinput='SCQChoice1'/>
+      <input placeholder="输入选项" bindinput='SCQChoice2'/>
+      <input placeholder="输入选项" bindinput='SCQChoice3'/>
+      <input placeholder="输入选项" bindinput='SCQChoice4'/>
+    </view>
+    <button type='primary' bindtap='confirmMCQ'>确认</button>
+  </view>
+  </block>
+  <!-->多选题创建end<-->
+
+  <!-->填空题创建<-->
+  <block wx:if="{{isCreateCompletion}}">
+  <view class='choice-question'>
+    <view>
+      <label>*标题：</label>
+      <input placeholder="请输入标题" bindinput='SCQName'/>
+    </view>
+    <button type='primary' bindtap='confirmCompletion'>确认</button>
+  </view>
+  </block>
+  <!-->填空题创建end<-->
+</view>
