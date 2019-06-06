@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/moneydog?serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+server:
+  port: 3030
+  ssl:
+    key-store: 2129067.pfx
+    key-store-password: ocLB8JNI
+  servlet:
+    context-path: /

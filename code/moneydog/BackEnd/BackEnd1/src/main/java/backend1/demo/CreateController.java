@@ -6,19 +6,17 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.http.client.methods.HttpHead;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import springfox.documentation.spring.web.json.Json;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,14 +60,22 @@ public class CreateController {
 
     //创建问卷
     @RequestMapping(value = "/questionair" ,method = RequestMethod.POST)
-    public JSONObject create(@RequestHeader("sessionId")String sessionId,@RequestParam("pay")int pay, @RequestParam("name") String name,@RequestParam("description") String description,@RequestParam("content")String content,@RequestParam("content_count")String content_count){
+    public JSONObject create(@RequestHeader("sessionId")String sessionId,@RequestParam("pay")int pay, @RequestParam("total_num")int total_num,@RequestParam("name") String name,@RequestParam("description") String description,@RequestParam("content")String content,@RequestParam("content_count")String content_count){
 
-        String sql = "insert into questionair(uid,pay,name,description,content,content_count,num,state)values(?,?,?,?,?,?,0,0)";
+
+        String sql = "insert into questionair(uid,pay,name,description,content,content_count,total_num,num,state)values(?,?,?,?,?,?,?,0,0)";
         String openid = getOpenidFromSession(sessionId);
+        int total_price = 0 - total_num*pay;
+        JSONObject balance =  CreateIssueBalanceDetail(total_price,"创建问卷",openid,"");
+        if(balance.getInteger("statecode") == -1){
+            balance.put("errcode",2);
+            balance.put("errmsg","余额错误");
+            return balance;
+        }
         JSONObject jsonObject = new JSONObject();
         int t = 0;
         try{
-            t = jdbcTemplate.update(sql,openid,pay,name,description,content,content_count);
+            t = jdbcTemplate.update(sql,openid,pay,name,description,content,content_count,total_num);
             jsonObject.put("errmsg","Create suc");
         }catch (Exception e){
             System.out.println(e);
@@ -182,9 +188,20 @@ public class CreateController {
         }
         // t = 0,1,2,:创建失败，创建成功，重复填写问卷
         jsonObject.put("errcode",t);
+        if(t == 1){
+            try {
+                int pay = jdbcTemplate.queryForObject("select pay from questionair where qid = ?;",new Object[]{id},int.class);
+                JSONObject temp = CreateIssueBalanceDetail(pay,"填写问卷的报酬",openid,"");
+                jsonObject.put("statecode",temp.getInteger("statecode"));
+                jsonObject.put("msg",temp.getString("msg"));
+            }catch (Exception e){
+                System.out.println("填写问卷");
+                jsonObject.put("statecode",4);
+                jsonObject.put("msg","服务端出错");
+            }
+        }
         return jsonObject;
     }
-
     //删除问卷
     @RequestMapping(value = "/DeleteQuestionair",method = RequestMethod.GET)
     @ApiOperation(value = "删除问卷",notes = "errcode = 1,成功，0,失败，可查看errmsg内容，问卷的state变为0")
@@ -192,18 +209,36 @@ public class CreateController {
         String openid = getOpenidFromSession(sessionId);
         String sql = "update questionair set state = 3 where uid = ? and qid = ?;";
         JSONObject jsonObject = new JSONObject();
+        int state = 0;
         int t = 0;
         try {
+            state = jdbcTemplate.queryForObject("select state from questionair where qid = ?;",new Object[]{id},int.class);
             t = jdbcTemplate.update(sql,openid,id);
             jsonObject.put("errmsg","Delete suc");
         }catch (Exception e){
             System.out.println(e);
             jsonObject.put("errmsg","Delete failed");
         }
+        //        给用户返回金额
+        try {
+            int total_num = jdbcTemplate.queryForObject("select total_num from questionair where qid = ?;",new Object[]{id},int.class);
+            int num = jdbcTemplate.queryForObject("select num from questionair where qid = ?;",new Object[]{id},int.class);
+            int pay = jdbcTemplate.queryForObject("select pay from questionair where qid = ?;",new Object[]{id},int.class);
+            int price = pay*(total_num - num);
+            System.out.println(state);
+            if(state != 2){
+                JSONObject temp = CreateIssueBalanceDetail(price,"删除问卷获得剩余金额",openid,"");
+                jsonObject.put("statecode",temp.getInteger("statecode"));
+                jsonObject.put("msg",temp.getString("msg"));
+            }
+
+        }catch (Exception e){
+            jsonObject.put("statecode",4);
+            jsonObject.put("msg","服务器错误");
+        }
         jsonObject.put("errcode",t);
         return  jsonObject;
     }
-
 
     //终止问卷
     @RequestMapping(value = "/EndQuestion",method = RequestMethod.GET)
@@ -220,21 +255,47 @@ public class CreateController {
             System.out.println(e);
             jsonObject.put("errmsg","End failed");
         }
+//        给用户返回金额
+        try {
+            int total_num = jdbcTemplate.queryForObject("select total_num from questionair where qid = ?;",new Object[]{id},int.class);
+            int num = jdbcTemplate.queryForObject("select num from questionair where qid = ?;",new Object[]{id},int.class);
+            int pay = jdbcTemplate.queryForObject("select pay from questionair where qid = ?;",new Object[]{id},int.class);
+            int price = pay *(total_num - num);
+            JSONObject temp = CreateIssueBalanceDetail(price,"终止问卷获得剩余金额",openid,"");
+            jsonObject.put("statecode",temp.getInteger("statecode"));
+            jsonObject.put("msg",temp.getString("msg"));
+        }catch (Exception e){
+            jsonObject.put("statecode",4);
+            jsonObject.put("msg","服务器错误");
+        }
         jsonObject.put("errcode",t);
         return  jsonObject;
     }
     //加载问卷
     @RequestMapping(value = "/OnLoadQuestionair",method = RequestMethod.GET)
     public List<LoadQuestion> OnLoadQuestionair(){
-        int id = jdbcTemplate.queryForObject("SELECT COUNT(qid) AS NumberOfProducts FROM questionair;", int.class);
+        try {
+            int id = jdbcTemplate.queryForObject("SELECT COUNT(qid) AS NumberOfProducts FROM questionair;", int.class);
 
-        return jdbcTemplate.query("select qid,name,description,pay from questionair where qid <= ? and state = 0  order by qid desc limit 15 ;",new Object[]{id},new BeanPropertyRowMapper(LoadQuestion.class));
+            return jdbcTemplate.query("select qid,name,description,pay from questionair where qid <= ? and state = 0 and num < total_num order by qid desc limit 15 ;",new Object[]{id},new BeanPropertyRowMapper(LoadQuestion.class));
+        }catch (Exception e){
+            System.out.println("加载问卷错误");
+            System.out.println(e);
+            return  null;
+        }
+
     }
-
     //上拉问卷
     @RequestMapping(value = "/downLoadQuestionair",method = RequestMethod.GET)
     public List<LoadQuestion> downLoadQuestionair(@RequestParam("id")int id){
-        return jdbcTemplate.query("select qid,name,description from questionair where qid <= ? and state = 0 order by qid desc limit 15 ;", new Object[]{id}, new BeanPropertyRowMapper(LoadQuestion.class));
+        try {
+            return jdbcTemplate.query("select qid,name,description from questionair where qid <= ? and state = 0 and num < total_num order by qid desc limit 15 ;", new Object[]{id}, new BeanPropertyRowMapper(LoadQuestion.class));
+
+        }catch (Exception e){
+            System.out.println("上啦问卷错误");
+            System.out.println(e);
+            return  null;
+        }
     }
 
     @RequestMapping(value = "/getQuestionairContent",method = RequestMethod.GET)
@@ -243,10 +304,10 @@ public class CreateController {
     }
 
 
-    private JSONObject CreateIssueBalanceDetail(int price,String type,String uid,String path){
+    private JSONObject CreateIssueBalanceDetail(int price,String detail,String uid,String path){
 
         //请求路径
-        String url = "https://moneydog.club:3336/History/"+path;
+        String url = "https://moneydog.club:3336/History/createHistory";
         //使用Restemplate来发送HTTP请求
         RestTemplate restTemplate = new RestTemplate();
         // json对象
@@ -257,7 +318,7 @@ public class CreateController {
         // 但传递的数据类型有限，不能像这个这么灵活，可以传递多种不同数据类型的参数
         LinkedMultiValueMap body=new LinkedMultiValueMap();
         body.add("price",price);
-        body.add("type",type);
+        body.add("detail",detail);
         body.add("uid",uid);
 
         //设置请求header 为 APPLICATION_FORM_URLENCODED
@@ -266,8 +327,6 @@ public class CreateController {
 
         // 请求体，包括请求数据 body 和 请求头 headers
         HttpEntity httpEntity = new HttpEntity(body,headers);
-
-
         try {
             //使用 exchange 发送请求，以String的类型接收返回的数据
             //ps，我请求的数据，其返回是一个json
@@ -411,44 +470,46 @@ public class CreateController {
         public JSONObject CreateExpressage(@RequestHeader("sessionId")String sessionId,@RequestParam("express_loc") String express_loc, @RequestParam("arrive_time") Date arrive_time, @RequestParam("loc") String loc, @RequestParam("num") int num, @RequestParam("pay") int pay, @RequestParam("remark") String remark, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat) {
 
         String openid = getOpenidFromSession(sessionId);
-        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"快递",openid,"createHistory");
+        JSONObject jsonObject = CreateIssueBalanceDetail(-pay,"创建快递",openid,"");
         if(jsonObject.getInteger("statecode")!= 1)
         {
             jsonObject.put("errcode",2);
             jsonObject.put("errmsg","余额错误");
             return jsonObject;
         }
-        String thid = jsonObject.getString("thid");
-        return createService.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat,thid);
+//        String thid = jsonObject.getString("thid");
+        return createService.CreateExpressage(openid,express_loc, arrive_time, loc, num, pay, remark, phone, wechat);
     }
 
     @ResponseBody
     @RequestMapping(value = "/For_help", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public JSONObject CreateFor_help(@RequestHeader("sessionId")String sessionId,@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
         String openid = getOpenidFromSession(sessionId);
-        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"求助",openid,"createHistory");
+
+        JSONObject jsonObject = CreateIssueBalanceDetail(-pay,"创建求助",openid,"");
         if(jsonObject.getInteger("statecode")!= 1)
         {
             jsonObject.put("errcode",2);
             jsonObject.put("errmsg","余额错误");
             return jsonObject;
         }
-        String thid = jsonObject.getString("thid");
-        return createService.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay,thid);
+//        String thid = jsonObject.getString("thid");
+        return createService.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay);
     }
 
     @PostMapping("/Errand")
     public JSONObject CreateErrand(@RequestHeader("sessionId")String sessionId,@RequestParam("title") String title, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay) {
         String openid = getOpenidFromSession(sessionId);
-        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"跑腿",openid,"createHistory");
+
+        JSONObject jsonObject = CreateIssueBalanceDetail(-pay,"创建跑腿",openid,"");
         if(jsonObject.getInteger("statecode")!= 1)
         {
             jsonObject.put("errcode",2);
             jsonObject.put("errmsg","余额错误");
             return jsonObject;
         }
-        String thid = jsonObject.getString("thid");
-        return createService.CreateErrand(openid,title, content, phone, wechat, ending_time, pay,thid);
+//        String thid = jsonObject.getString("thid");
+        return createService.CreateErrand(openid,title, content, phone, wechat, ending_time, pay);
     }
 //        @PostMapping("/Errand")
 //        public JSONObject CreateErrand(@RequestBody String title, @RequestBody String content, @RequestBody String phone, @RequestBody String wechat, @RequestBody Date ending_time, @RequestBody int pay) {
@@ -458,14 +519,13 @@ public class CreateController {
     @PostMapping("/Second_hand")
     public JSONObject CreateSecond_hand(@RequestHeader("sessionId")String sessionId,@RequestParam("object_name") String object_name, @RequestParam("content") String content, @RequestParam("phone") String phone, @RequestParam("wechat") String wechat, @RequestParam("ending_time") Date ending_time, @RequestParam("pay") int pay, @RequestParam("photo_url") String photo_url) {
         String openid = getOpenidFromSession(sessionId);
-        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"二手",openid,"createHistory");
-        if(jsonObject.getInteger("statecode")!= 1)
-        {
-            jsonObject.put("errcode",2);
-            jsonObject.put("errmsg","余额错误");
-            return jsonObject;
-        }
-        String thid = jsonObject.getString("thid");
-        return createService.CreateSecond_hand(openid,object_name, content, phone, wechat, ending_time, pay, photo_url,thid);
+//        JSONObject jsonObject = CreateIssueBalanceDetail(pay,"二手",openid,"createHistory");
+//        if(jsonObject.getInteger("statecode")!= 1)
+//        {
+//            jsonObject.put("errcode",2);
+//            jsonObject.put("errmsg","余额错误");
+//            return jsonObject;
+//        }
+        return createService.CreateSecond_hand(openid,object_name, content, phone, wechat, ending_time, pay, photo_url);
     }
 }
