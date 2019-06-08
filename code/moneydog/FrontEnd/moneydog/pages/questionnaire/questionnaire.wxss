@@ -170,7 +170,7 @@
 .questionnaire-title {
   width: 90%;
   color: #87CEFA;
-  font-size: 70rpx;
+  font-size: 50rpx;
   display: flex;
   justify-content: center; 
   align-items: center;
@@ -178,6 +178,14 @@
 }
 
 .questionnaire-describe {
+  width: 90%;
+  display: flex;
+  justify-content: center; 
+  align-items: left;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+}
+
+.questionnaire-pay {
   width: 90%;
   display: flex;
   justify-content: center; 
