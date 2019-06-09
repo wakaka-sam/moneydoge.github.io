@@ -239,7 +239,7 @@ Page({
   gotoupload: function () {
     var that = this;
     var date0 = new Date(that.data.k_arrive_time);//STRING转Date
-    console.log(that.data.sessionID)
+    console.log("sessionID_test:" + that.data.sessionID)
     console.log("daodashijian:" + that.data.k_arrive_time)
     wx.request({
       url: "http://172.18.32.138:8080/Create/Expressage",
