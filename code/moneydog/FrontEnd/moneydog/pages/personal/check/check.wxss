@@ -1,27 +1,39 @@
-.top{
+
+.item{
   display:flex;
-  justify-content: center;
-  margin-bottom: 20px
-}
-.mid{
-  display:flex;
+  flex-direction: column;
   justify-content: center;
   border-radius: 15px;
-  border: solid 2px rgb(218, 215, 215);
+  border: solid 1px rgb(218, 215, 215);
   margin: 20px
 }
-.bottom{
+.text{
   display: flex;
   justify-content: center;
-  flex-direction: row
 }
-.l-button{
-  background-color: green;
-  margin-right: 10px;
+.button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.button1{
+  display: flex;
+  justify-content: center;
+  background-color: greenyellow;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100px;
 }
-.r-button{
+.button2{
+  display: flex;
+  justify-content: center;
   background-color: red;
-  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   width: 100px;
+}
+
+.image{
+  display:flex;
+  justify-content: center;
 }
