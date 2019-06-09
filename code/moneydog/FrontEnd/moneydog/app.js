@@ -14,7 +14,7 @@ App({
       success: res => {
         var loginUrl
         if(res.code) {
-          loginUrl = 'http://172.18.32.138:8080/Create/Login?code=' + res.code
+          loginUrl = 'https://moneydog.club:3030/Create/Login?code=' + res.code
         }
         //登录时获取sessionID
         wx.request({
