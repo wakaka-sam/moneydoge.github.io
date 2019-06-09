@@ -3,10 +3,12 @@ Page({
   data: {
     questionnaireName: null,
     questionnaireDesc: null,
-    pay: 0,
+    questionnairePay: 0,
+    questionnaireTota: 0,
     showDialog: false, //弹窗
     questionItem: { type: -1, title: '', a: '', b: '', c: '', d: ''},
-    questionList: []
+    questionList: [],
+    contentCount: []
   },
   //选择题目类型弹窗
   toggleDialog() {
@@ -47,32 +49,36 @@ Page({
     })
     wx.setStorageSync('questionList', this.data.questionList)
   },
+  //保存问卷
   saveQuestionnaire() {
-    var s_questionList = this.data.s_questionList
-    var m_questionList = this.data.m_questionList
-    var c_questionList = this.data.c_questionList
+    var that = this
     var data = { 
-      questionnaireName: this.data.questionnaireName,
-      questionnaireDesc: this.data.questionnaireDesc,
-      s_questionList, 
-      m_questionList, 
-      c_questionList
+      name: this.data.questionnaireName,
+      description: this.data.questionnaireDesc,
+      pay: this.data.questionnairePay,
+      content: JSON.stringify(this.data.questionList),
+      content_count: JSON.stringify({ content_count: this.data.contentCount }),
+      total_num: this.data.questionnaireTota
     }
-    var datastr = JSON.stringify(data)
-    console.log(datastr)
-    /*wx.request({
-      url: '',
+    console.log(data)
+    var t1 = JSON.stringify(this.data.questionList)
+    var t2 = JSON.stringify({ content_count: this.data.contentCount })
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/questionair',
       data: {
-        str: datastr
+        name: this.data.questionnaireName,
+        description: this.data.questionnaireDesc,
+        pay: 4,
+        content: t1,
+        content_count: t2,
+        total_num: this.data.questionnaireTota
       },
-      method: 'POST',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      method: 'POST', 
+      header: { sessionId: wx.getStorageSync('SessionId'), "Content-Type": "application/x-www-form-urlencoded" },
       success: function (res) {
-        console.log(res)
+        console.log(res);
       }
-    })*/
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -81,6 +87,8 @@ Page({
     this.setData({
       questionnaireName: wx.getStorageSync('questionnaireName'),
       questionnaireDesc: wx.getStorageSync('questionnaireDesc'),
+      questionnairePay: wx.getStorageSync('questionnairePay'), 
+      questionnaireTota: wx.getStorageSync('questionnaireTota'), 
       questionList: wx.getStorageSync('questionList')
     })
     if (options.question != null) {
@@ -91,6 +99,7 @@ Page({
     this.setData({
       questionList: this.data.questionList
     })
+    console.log(this.data.questionList)
   },
 
   /**

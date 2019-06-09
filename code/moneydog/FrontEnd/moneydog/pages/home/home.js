@@ -145,7 +145,7 @@ Page({
       }
       console.log('register code is ' + app.globalData.code)
       wx.request({
-        url: 'http://172.18.32.138:8080/Create/User',
+        url: 'https://moneydog.club:3030/Create/User',
         data: t,
         method: 'POST',
         header: {
