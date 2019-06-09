@@ -26,12 +26,19 @@
     <input class = "inputView" name="userName" placeholder="请输入送达地址！" bindinput='k_locInput' auto-focus/>
   </view>
 
-  <view style="display:flex;">
-    <label class = "input">送达时间</label>
-    <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入送达时间！" bindinput='k_arrive_timeInput' auto-focus/>
+  <view>
+    <picker mode='date' 
+            value='{{selectDate}}'
+            start='{{startDate}}'
+            end='{{endDate}}'
+            field='day'
+            bindchange='dateChange'>
+    <view style="display:flex;">
+      <label class = "selectView">送达时间:</label>
+      <view>{{selectDate}}</view>
+    </view>
+    </picker>
   </view>
-
   <view style="display:flex;">
     <label class = "input">报酬</label>
     <label>：</label>
@@ -95,10 +102,18 @@
     <input class = "inputView" name="userName" placeholder="请输入具体内容！" bindinput='q_contentInput' auto-focus/>
   </view>
 
-  <view style="display:flex;">
-    <label class = "input">截止时间</label>
-    <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入截止时间！" bindinput='q_ending_timeInput' auto-focus/>
+  <view>
+    <picker mode='date' 
+            value='{{selectDate}}'
+            start='{{startDate}}'
+            end='{{endDate}}'
+            field='day'
+            bindchange='dateChange1'>
+    <view style="display:flex;">
+      <label class = "selectView">截止时间:</label>
+      <view>{{selectDate1}}</view>
+    </view>
+    </picker>
   </view>
 
   <view style="display:flex;">
@@ -163,10 +178,18 @@
     <input class = "inputView" name="userName" placeholder="请输入具体内容！" bindinput='p_contentInput' auto-focus/>
   </view>
 
-  <view style="display:flex;">
-    <label class = "input">截止时间</label>
-    <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入截止时间！" bindinput='p_ending_timeInput'auto-focus/>
+  <view>
+    <picker mode='date' 
+            value='{{selectDate}}'
+            start='{{startDate}}'
+            end='{{endDate}}'
+            field='day'
+            bindchange='dateChange2'>
+    <view style="display:flex;">
+      <label class = "selectView">截止时间:</label>
+      <view>{{selectDate2}}</view>
+    </view>
+    </picker>
   </view>
 
   <view style="display:flex;">
@@ -234,10 +257,18 @@
     <input class = "inputView" name="userName" placeholder="请输入具体描述！" bindinput='x_contentInput' auto-focus/>
   </view>
 
-  <view style="display:flex;">
-    <label class = "input">截止时间</label>
-    <label>：</label>
-    <input class = "inputView" name="userName" placeholder="请输入截止时间！" bindinput='x_ending_timeInput' auto-focus/>
+  <view>
+    <picker mode='date' 
+            value='{{selectDate}}'
+            start='{{startDate}}'
+            end='{{endDate}}'
+            field='day'
+            bindchange='dateChange3'>
+    <view style="display:flex;">
+      <label class = "selectView">截止时间:</label>
+      <view>{{selectDate3}}</view>
+    </view>
+    </picker>
   </view>
 
   <view style="display:flex;">

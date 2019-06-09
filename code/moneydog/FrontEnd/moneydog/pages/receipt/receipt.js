@@ -1,4 +1,4 @@
-const baseUrl = '172.18.32.138'
+const baseUrl = 'https://moneydog.club:3030/'
 // pages/receipt/receipt.js
 Page({
   /**
@@ -172,7 +172,7 @@ Page({
   OnLoadExpressage: function(){
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadExpressage',
+      url: baseUrl + 'Load/OnLoadExpressage',
       success: function(res) {
         that.setData({exTradeList:res.data})
         var exTradeList = that.data.exTradeList
@@ -190,7 +190,7 @@ Page({
   OnLoadErrand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadErrands',
+      url: baseUrl + 'Load/OnLoadErrands',
       success: function (res) {
         that.setData({ erTradeList: res.data })
         var erTradeList = that.data.erTradeList
@@ -205,7 +205,7 @@ Page({
   OnLoadSeekhelp: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadFor_help',
+      url: baseUrl + 'Load/OnLoadFor_help',
       success: function (res) {
         that.setData({ heTradeList: res.data })
         var heTradeList = that.data.heTradeList
@@ -220,7 +220,7 @@ Page({
   OnLoadSecondhand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadSecond_hand',
+      url: baseUrl + 'Load/OnLoadSecond_hand',
       success: function (res) {
         that.setData({ seTradeList: res.data })
         var seTradeList = that.data.seTradeList
@@ -236,7 +236,7 @@ Page({
   OnLoadQuestionair: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Create/OnLoadQuestionair',
+      url: baseUrl + 'Create/OnLoadQuestionair',
       success: function (res) {
         that.setData({ quTradeList: res.data })
         var quTradeList = that.data.quTradeList
@@ -251,7 +251,7 @@ Page({
   //下拉加载
   downloadEx: function(){
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadExpressage?id='
+    var tempUrl = baseUrl + 'Load/downLoadExpressage?id='
     tempUrl += String(this.data.lastId1)
     wx.request({
       url: tempUrl,
@@ -274,7 +274,7 @@ Page({
   },
   downloadEr: function () {
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadErrands?id='
+    var tempUrl = baseUrl + 'Load/downLoadErrands?id='
     tempUrl += String(this.data.lastId2)
     wx.request({
       url: tempUrl,
@@ -295,7 +295,7 @@ Page({
   },
   downloadHe: function () {
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadFor_help?id='
+    var tempUrl = baseUrl + 'Load/downLoadFor_help?id='
     tempUrl += String(this.data.lastId3)
     wx.request({
       url: tempUrl,
@@ -316,7 +316,7 @@ Page({
   },
   downloadSe: function () {
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadSecond_hand?id='
+    var tempUrl = baseUrl + 'Load/downLoadSecond_hand?id='
     tempUrl += String(this.data.lastId4)
     wx.request({
       url: tempUrl,
@@ -338,7 +338,7 @@ Page({
   //上拉加载问卷
   downloadQu: function () {
     var that = this 
-    var tempUrl = 'http://' + baseUrl + ':8080/Create/downLoadQuestionair?id='
+    var tempUrl = baseUrl + 'Create/downLoadQuestionair?id='
     tempUrl += String(this.data.lastId5)
     wx.request({
       url: tempUrl,
@@ -374,14 +374,19 @@ Page({
   receiptOrder: function(e) {
     var that = this
     var options = e.currentTarget.dataset
-    var url = 'http://' + baseUrl + ':8080/Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
+    var url = baseUrl + 'Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
     console.log(url)
     wx.request({
       url: url,
       header: {sessionId: that.data.sessionId},
       method: 'PUT',
       success: function(res) {
-        console.log('接单成功')
+        console.log(res)
+        wx.showToast({
+          title: '接单成功',
+          icon: 'success',
+          duration: 3000
+        })
         that.OnLoadExpressage()
         that.OnLoadErrand()
         that.OnLoadSeekhelp()

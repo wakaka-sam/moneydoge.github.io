@@ -6,17 +6,19 @@ Page({
   },
   onLoad(options) {
     var that = this
+    var id = wx.getStorageSync('SessionId')
+    console.log(id)
     // Do some initialize when page load.
     that.setData({
-      sessionID:'847694c4-14dd-47b2-8922-facd8e379f47',
+      sessionID: id,
     }),
     wx.request({
       url: 'https://moneydog.club:3336/User/queryPower',
-        method: 'GET',
-        header: {
-          "content-type": "application/x-www-form-urlencoded",
-          sessionId: that.data.sessionID.toString()
-        },
+      method: 'GET',
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+        sessionId: that.data.sessionID.toString()
+      },
         success: function (res) {
           console.log(res.data)
           that.setData({
@@ -56,7 +58,7 @@ Page({
     var that = this
   
     wx.request({
-      url: 'http://moneydog.club:3336/User/setPower',
+      url: 'https://moneydog.club:3336/User/setPower',
       method: 'POST',
       data:{
         power:that.data.power

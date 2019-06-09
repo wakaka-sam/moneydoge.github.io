@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Example;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -28,17 +29,19 @@ public class HistoryController {
     @ApiOperation(value = "创建余额明细记录")
     @PostMapping("/createHistory")
     public JSONObject CreateHistory(@ApiParam(required = true, value = "创建订单者的openid")@RequestParam("uid") String uid,
-                                    @ApiParam(required = true, value = "订单的类型")@RequestParam("type") String type,
-                                    @ApiParam(required = true, value = "订单产生的交易金额")@RequestParam("price") int price) {
+                                    @ApiParam(required = true, value = "明细的描述")@RequestParam("detail") String detail,
+                                    @ApiParam(required = true, value = "订单产生的交易金额(负数为扣钱)")@RequestParam("price") int price
+    )
+                                     {
         Timestamp d = new Timestamp(System.currentTimeMillis());
         JSONObject result = new JSONObject();
         String msg;
         int statecode;
-
+        String type;
+        if(price < 0 ) type = "-";
+        else type = "+";
         //detail为备注，需要写得比较清楚
         String thid  = UUID.randomUUID().toString() ;
-        String sub = "subtract";
-        String add = "add";
         String openid = uid;
         String sql = "SELECT school,phoneNum,falsename,realname FROM moneydog.user WHERE openid = ?";
         List<User> temp1  = jdbcTemplate.query(sql,new Object[] {openid},new BeanPropertyRowMapper(User.class));
@@ -47,19 +50,20 @@ public class HistoryController {
             statecode = -1;
             msg = " 用户不存在";
         }
-        else if(!isRich(openid,-price))
+        else if(!isRich(openid,price))
         {
             statecode = -1;
             msg = "余额不足";
         }
         else
         {
+
             statecode = 1;
             msg = "创建对应的历史订单记录成功";
             User temp = temp1.get(0);
-            String detail = temp.getFalsename() + "创建了" +  type + "订单支付了" + price + "闲钱币";
-            jdbcTemplate.update("insert into moneydog.history(thid,uid,type,price,detail,time,finish)values (?,?,?,?,?,?,?)", thid,uid,sub,price,detail,d,0);
-            changeBalance(uid,-price);
+            if(price < 0 ) price *= -1;
+            jdbcTemplate.update("insert into moneydog.history(thid,uid,type,price,detail,time,finish)values (?,?,?,?,?,?,?)", thid,uid,type,price,detail,d,0);
+            changeBalance(uid,price);
         }
 
 
@@ -68,7 +72,7 @@ public class HistoryController {
         result.put("statecode",statecode);
         return result;
     }
-
+/*
     @ApiOperation(value = "完成余额明细记录")
     @PostMapping("/finishHistory")
     public JSONObject finishHistory(@ApiParam(required = true, value = "余额明细的thid")@RequestParam("thid") String thid,
@@ -108,7 +112,7 @@ public class HistoryController {
             History history = temp2.get(0);
             String detail = history.getDetail() + "给" +  user.getFalsename();
             jdbcTemplate.update("insert into moneydog.history(thid,uid,type,price,detail,time,finish,uid2)values (?,?,?,?,?,?,?,?)",
-                    UUID.randomUUID().toString(),uid,"add",history.getPrice(),detail,d,1,history.getUid());
+                    UUID.randomUUID().toString(),uid,"+",history.getPrice(),detail,d,1,history.getUid());
 
             jdbcTemplate.update("UPDATE moneydog.history set uid2 = ? , detail = ?,time = ? , finish = ? WHERE thid = ? ",
                     uid,detail,d,1,thid);
@@ -123,6 +127,8 @@ public class HistoryController {
         return result;
     }
 
+
+ */
 
     @ApiOperation(value = "获取余额明细")
     @RequestMapping(method = RequestMethod.GET, value = "/getHistory")
@@ -151,6 +157,57 @@ public class HistoryController {
         return result;
     }
 
+    @ApiOperation(value = "改变余额")
+    @PostMapping("/changePower")
+    public JSONObject changePower(@ApiParam(required = true, value = "用户特征值")@RequestParam("openid")String uid,
+                                  @ApiParam(required = true, value = "用户余额需要修改的值")@RequestParam("power") int power)
+    {
+        //1 交易成功  2 余额不足
+        // -1 账号不存在
+        int statecode;
+        String msg;
+        String openid = uid;
+        int count ;
+        String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
+        //System.out.println("openid: " + openid);
+        try
+        {
+            count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
+
+        }
+        catch (Exception e)
+        {
+            statecode = -1;
+            JSONObject temp = new JSONObject();
+            temp.put("statecode",statecode);
+            temp.put("msg","账号不存在");
+            temp.put("count",0);
+            return temp;
+        }
+        count += power;
+
+        if(count < 0)
+        {
+            statecode = 2;
+            msg = "余额不足";
+            System.out.println("用户" + uid + "调用了changePower" + " 余额不足");
+        }
+        else
+        {
+            statecode = 1;
+            jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",count,openid);
+            System.out.println("用户" + uid + "调用了changePower" + " 交易成功");
+            msg = "交易成功";
+        }
+        JSONObject temp = new JSONObject();
+        temp.put("statecode",statecode);
+        temp.put("count",count);
+        temp.put("msg",msg);
+        return temp;
+    }
+
+
+
     public String getOpenidBySessionId(String sessionId)
     {
         String key =  stringRedisTemplate.opsForValue().get(sessionId);
@@ -171,9 +228,10 @@ public class HistoryController {
     {
         int count;
         String sql = "SELECT balance FROM moneydog.user WHERE openid = ?";
-        //System.out.println("openid: " + openid);
         count = jdbcTemplate.queryForObject(sql,new Object[] {openid},Integer.class);
         count += power;
+        System.out.println("count: " + count);
+
         return jdbcTemplate.update("UPDATE moneydog.user set balance = ?  WHERE openid = ? ",count,openid);
     }
 }
