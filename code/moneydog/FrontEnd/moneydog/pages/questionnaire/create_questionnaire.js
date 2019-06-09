@@ -6,7 +6,9 @@ Page({
    */
   data: {
     questionnaireName: null,
-    questionnaireDesc: null
+    questionnaireDesc: null,
+    questionnairePay: 0,
+    questionnaireTota: 0
   },
   questionnaireName: function (e) {
     this.data.questionnaireName = e.detail.value
@@ -14,11 +16,21 @@ Page({
   questionnaireDesc: function (e) {
     this.data.questionnaireDesc = e.detail.value
   },
+  questionnairePay: function (e) {
+    this.data.questionnairePay = e.detail.value
+  },
+  questionnaireTota: function (e) {
+    this.data.questionnaireTota = e.detail.value
+  },
   //创建问卷
   createQuestionnaire: function () {
     wx.setStorageSync('questionnaireName', this.data.questionnaireName)
-    wx.setStorageSync('questionnaireDesc',this.data.questionnaireDesc)
-    wx.navigateTo({
+    wx.setStorageSync('questionnaireDesc', this.data.questionnaireDesc)
+    wx.setStorageSync('questionnairePay', this.data.questionnairePay)
+    wx.setStorageSync('questionnaireTota', this.data.questionnaireTota)
+    wx.setStorageSync('questionList', [])
+    wx.setStorageSync('questionContentCountList', [])
+    wx.redirectTo({
       url: 'questionnaire',
     })
   },

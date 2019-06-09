@@ -2,20 +2,45 @@
 var app = getApp()
 Page({
   data: {
+    userInfo: {},
     sessionID: '',
-    user_img:  '',
-    nickname:'',
-    name:'',
-    school:'',
-    phone:'',
-    image_url:''
+    nickname:'请输入昵称',
+    name:'请输入姓名',
+    school:'请输入学校',
+    phone:'请输入手机号码',
+    image_url:'',
   },
   onLoad(options) {
-    // Do some initialize when page load.
-    this.setData({
-      sessionID: '847694c4-14dd-47b2-8922-facd8e379f47',
-      user_img: 'http://img.52z.com/upload/news/image/20180213/20180213062641_35687.jpg',
-      image_url: '../../../images/upload_picture.png'
+    var id = wx.getStorageSync('SessionId')
+    var that = this
+
+    if (app.globalData.userInfo) {
+      that.setData({
+        userInfo: app.globalData.userInfo,
+      })
+    }
+    that.setData({
+      sessionID: id,
+    })
+    wx.request({
+      url: 'https://moneydog.club:3336/User/Info',
+      method: 'GET',
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+        sessionId: that.data.sessionID.toString()
+      },
+      success: function (res) {
+        console.log(res.data)
+        if(res.data.realname){
+          that.setData({
+            name:res.data.realname,
+            nickname:res.data.falsename,
+            school:res.data.school,
+            phone:res.data.phoneNum
+          })
+        }
+        
+      }
     })
   },
   onReady() {
@@ -51,8 +76,7 @@ Page({
     })
   },
   change_info:function(){
-  var that = this
-  
+  var that = this 
   wx.request({
     url: 'https://moneydog.club:3336/User/Update',
     method:'POST',
@@ -61,7 +85,6 @@ Page({
       sessionId:that.data.sessionID.toString()
     },
     data: {
-      user_img:that.data.user_img,
       nickname: that.data.nickname,
       name: that.data.name,
       school: that.data.school,
@@ -69,10 +92,13 @@ Page({
       image_url:that.data.image_url
     },
     success: function (res) {
-      console.log("修改成功")
-      wx.navigateBack({
-        delta: 1
+      if(res){
+      console.log(res)
+      wx.showModal({
+        title: '修改成功',
+        content: '请确认信息是否真实',
       })
+      }
     }
   })
   },
@@ -85,53 +111,27 @@ Page({
       success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths
+
         that.setData({
           image_url:tempFilePaths[0]
         })
         wx.uploadFile({
-          url: 'https://119.23.218.7:8080/File/Upload',
+          url: 'http://119.23.218.7:8080/File/Upload',
           filePath: that.data.image_url,
           name: 'img',
-          success: function (res) {
-            var t = JSON.parse(res.data);
-            console.log(t.imageUrl)
-            var url = 'http://119.23.218.7:8080/' + t.imageUrl;
-            that.setData({
-              image_url: url
-            })
+          success:function(res){
+            if(res){
+              var res_data = JSON.parse(res.data)
+              that.setData({
+                image_url:"http://119.23.218.7:8080/"+res_data.imageUrl
+              })
+
+            }
           }
         })
+
       }
     })  
-  },
-  upUserimag: function () {
-    var that = this
-    wx.chooseImage({
-      count: 1, // 默认9
-      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
-      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function (res) {
-        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
-        var tempFilePaths = res.tempFilePaths
-        that.setData({
-          user_img: tempFilePaths[0]
-        })
-        that.set
-        wx.uploadFile({
-          url: 'https://119.23.218.7:8080/File/Upload',
-          filePath: that.data.user_img,
-          name: 'img',
-          success: function (res) {
-            var t = JSON.parse(res.data);
-            console.log(t.imageUrl)
-            var url = 'https://119.23.218.7:8080/' + t.imageUrl;
-            that.setData({
-              user_img: url
-            })
-          }
-        })
-      }
-    })
   }
 
 })

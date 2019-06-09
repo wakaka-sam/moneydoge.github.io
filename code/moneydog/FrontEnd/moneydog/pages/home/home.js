@@ -15,29 +15,6 @@ Page({
       url: '../logs/logs'
     })
   },
-  //跳转到快递代拿接单界面
-  goToReceiptPage1: function() {
-    wx.navigateTo({
-      url: '../receipt/receipt?id=1',
-    })
-  },
-
-  goToPublishPage2: function () {
-    wx.navigateTo({
-      url: '../publish/publish?id=2',//跳转的时候传值，在跳转到的页面的js的page处理id
-    })
-  },
-  goToPublishPage3: function () {
-    wx.navigateTo({
-      url: '../publish/publish?id=3',//跳转的时候传值，在跳转到的页面的js的page处理id
-    })
-  },
-  goToPublishPage4: function () {
-    wx.navigateTo({
-      url: '../publish/publish?id=4',//跳转的时候传值，在跳转到的页面的js的page处理id
-    })
-  },
-
   goToWenjuanPage: function() {
     wx.navigateTo({
       url: '../questionnaire/create_questionnaire',
@@ -79,6 +56,12 @@ Page({
         }
       })
     }
+  },
+  //跳转到快递代拿接单界面
+  goToReceiptPage1: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=1',
+    })
   },
   //跳转到跑腿接单界面
   goToReceiptPage2: function () {
@@ -145,7 +128,7 @@ Page({
       }
       console.log('register code is ' + app.globalData.code)
       wx.request({
-        url: 'http://172.18.32.138:8080/Create/User',
+        url: 'https://moneydog.club:3030/Create/User',
         data: t,
         method: 'POST',
         header: {

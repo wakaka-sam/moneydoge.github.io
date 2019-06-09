@@ -3,10 +3,13 @@ Page({
   data: {
     questionnaireName: null,
     questionnaireDesc: null,
-    pay: 0,
+    questionnairePay: 0,
+    questionnaireTota: 0,
     showDialog: false, //弹窗
-    questionItem: { type: -1, title: '', a: '', b: '', c: '', d: ''},
-    questionList: []
+    questionItem: { type: -1, title: '', a: '', b: '', c: '', d: '' },
+    questionContentCount: { type: -1, a: 0, b: 0, c: 0, d: 0, fill: '' },
+    questionList: [],
+    questionContentCountList: []
   },
   //选择题目类型弹窗
   toggleDialog() {
@@ -47,32 +50,30 @@ Page({
     })
     wx.setStorageSync('questionList', this.data.questionList)
   },
+  //保存问卷
   saveQuestionnaire() {
-    var s_questionList = this.data.s_questionList
-    var m_questionList = this.data.m_questionList
-    var c_questionList = this.data.c_questionList
+    var that = this
     var data = { 
-      questionnaireName: this.data.questionnaireName,
-      questionnaireDesc: this.data.questionnaireDesc,
-      s_questionList, 
-      m_questionList, 
-      c_questionList
+      name: this.data.questionnaireName,
+      description: this.data.questionnaireDesc,
+      pay: this.data.questionnairePay,
+      content: JSON.stringify(this.data.questionList),
+      content_count: JSON.stringify({ content_count: this.data.questionContentCountList }),
+      total_num: this.data.questionnaireTota
     }
-    var datastr = JSON.stringify(data)
-    console.log(datastr)
-    /*wx.request({
-      url: '',
-      data: {
-        str: datastr
-      },
-      method: 'POST',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+    console.log(data)
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/questionair',
+      data: data,
+      method: 'POST', 
+      header: { sessionId: wx.getStorageSync('SessionId'), "Content-Type": "application/x-www-form-urlencoded" },
       success: function (res) {
-        console.log(res)
+        console.log(res);
       }
-    })*/
+    })
+    wx.redirectTo({
+      url: '../orders/orders_list/orders_list?id=5',
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -81,16 +82,27 @@ Page({
     this.setData({
       questionnaireName: wx.getStorageSync('questionnaireName'),
       questionnaireDesc: wx.getStorageSync('questionnaireDesc'),
-      questionList: wx.getStorageSync('questionList')
+      questionnairePay: wx.getStorageSync('questionnairePay'), 
+      questionnaireTota: wx.getStorageSync('questionnaireTota'), 
+      questionList: wx.getStorageSync('questionList'),
+      questionContentCountList: wx.getStorageSync('questionContentCountList')
     })
     if (options.question != null) {
       var question = JSON.parse(options.question)
       this.data.questionList.push(question)
       wx.setStorageSync('questionList', this.data.questionList)
     }
+    if (options.questionContentCount != null) {
+      var questionContentCount = JSON.parse(options.questionContentCount)
+      this.data.questionContentCountList.push(questionContentCount)
+      wx.setStorageSync('questionContentCountList', this.data.questionContentCountList)
+    }
     this.setData({
-      questionList: this.data.questionList
+      questionList: this.data.questionList,
+      questionContentCountList: this.data.questionContentCountList
     })
+    console.log(this.data.questionList)
+    console.log(this.data.questionContentCountList)
   },
 
   /**

@@ -2,83 +2,85 @@ var app = getApp()
 Page({
   data:{
     sessionID:'',
-    state:'',
-    openid:'',
-    realname:'',
-    image_url:'../../../images/图片.png'
+    list:[],
   },
+
   onLoad(options) {
+    var id = wx.getStorageSync('SessionId')
+    console.log(id)
     var that = this
+
     that.setData({
-      sessionID: '847694c4-14dd-47b2-8922-facd8e379f47',
+      sessionID:id,
     }),
     wx.request({
       url: 'https://moneydog.club:3336/User/getUnstated',
-      method: 'GET',      
+      method: 'GET',
       header: {
-          "content-type": "application/x-www-form-urlencoded",
-          sessionId: that.data.sessionID.toString()
-        },
+        "content-type": "application/x-www-form-urlencoded",
+        sessionId: that.data.sessionID.toString()
+      },
       success(res){
-        console.log(res.data)
+        console.log("管理员登陆成功")
         if(res.data.statecode == 1){
           that.setData({
-            openid:res.data.user[0].openid,
-            realneme: res.data.user[0].realname,
-            image_url: res.data.user[0].image_url,
+            list:res.data.user
           })
+          console.log(that.data.list)
         }
         }
     })
   },
-  confirm:function(){
-    var that = this
-    that.setData({
-      state:1,
-      sessionID: '847694c4-14dd-47b2-8922-facd8e379f47',
-    }),
+  pass:function(e){
+    var id = e.currentTarget.dataset.id
+    console.log(id);
+
+    wx.request({
+      url: 'https://moneydog.club:3336/User/changeState',
+      method:'POST',
+      header: {
+        "content-type": "application/x-www-form-urlencoded",
+        sessionId: this.data.sessionID.toString()
+      },
+      data:{
+        openid:id,
+        state:1
+      },
+      success:function(res){
+        if (res) {
+          wx.showModal({
+            title: '审核通过',
+            content: '',
+          })
+        }
+      }
+    })
+  },
+  failure: function (e) {
+    var id = e.currentTarget.dataset.id
+    console.log(id);
+
     wx.request({
       url: 'https://moneydog.club:3336/User/changeState',
       method: 'POST',
       header: {
         "content-type": "application/x-www-form-urlencoded",
-        sessionId: that.data.sessionID.toString()
+        sessionId: this.data.sessionID.toString()
       },
-      data:{
-        openid:that.data.openid,
-        state:that.data.state
+      data: {
+        openid: id,
+        state: -1
       },
-      success(res){
-        console.log(res.data)
-      }
-    }),
-    wx.navigateBack({
-      delta: 1
-    }) 
-  },
-  failing:function(){
-    var that = this
-    that.setData({
-      state: -1,
-      sessionID: '847694c4-14dd-47b2-8922-facd8e379f47',
-    }),
-      wx.request({
-        url: 'https://moneydog.club:3336/User/changeState',
-        method: 'POST',
-        header: {
-          "content-type": "application/x-www-form-urlencoded",
-          sessionId: that.data.sessionID.toString()
-        },
-        data: {
-          openid: that.data.openid,
-          state: that.data.state
-        },
-        success(res) {
-          console.log(res.data)
+      success: function (res) {
+        if (res) {
+          wx.showModal({
+            title: '信息异常',
+            content: '请重新上传',
+          })
         }
-      }),
-    wx.navigateBack({
-      delta: 1
-    }) 
+      }
+    })
   }
+  
+  
 })

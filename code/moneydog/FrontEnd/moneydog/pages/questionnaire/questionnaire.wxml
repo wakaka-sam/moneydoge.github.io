@@ -19,6 +19,8 @@
     <view class='question-view'>
       <label class='questionnaire-title'>{{questionnaireName}}</label>
       <label class='questionnaire-describe'>{{questionnaireDesc}}</label>
+      <!--<label class='questionnaire-pay'>报酬：{{questionnairePay}}元/份</label>
+      <label class='questionnaire-pay'>预期填写份数：{{questionnaireTota}}</label>-->
     </view>
     <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
       <label>{{index+1}}. {{item.title}}</label>

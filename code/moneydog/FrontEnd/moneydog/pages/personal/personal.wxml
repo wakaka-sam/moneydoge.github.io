@@ -1,12 +1,12 @@
 <view class="top-block">
 
   <view>
-    <image class ="s-image;" src = "{{user_img}}"></image>
+    <image class ="s-image;" src="{{userInfo.avatarUrl}}"></image>
   </view>
 
   <view class = "per_info">
     <view>
-      <text class = "name">{{realname}}</text>
+      <text class = "name">{{userInfo.nickName}}</text>
     </view>
     <view>     
       <text>{{phoneNum}}</text>

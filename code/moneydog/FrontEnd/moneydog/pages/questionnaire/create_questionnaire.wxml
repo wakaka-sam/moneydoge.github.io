@@ -7,9 +7,13 @@
   </view>
   <view class='wenjuan-info'>
     <label>问卷名称：</label>
-    <textarea bindinput='questionnaireName'></textarea>
+    <input bindinput='questionnaireName'></input>
     <label>问卷说明：</label>
     <textarea bindinput='questionnaireDesc'></textarea>
+    <label>每份问卷报酬：</label>
+    <input bindinput='questionnairePay'></input>
+    <label>预期填写份数：</label>
+    <input bindinput='questionnaireTota'></input>
     <button type='primary' bindtap='createQuestionnaire'>创建问卷</button>
   </view>
 </view>

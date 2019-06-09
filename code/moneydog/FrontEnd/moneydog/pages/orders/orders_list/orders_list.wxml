@@ -1,11 +1,17 @@
 <!--pages/receipt/receipt.wxml-->
 <!--selectbar area-->
-<view class='button-area'>
+<view hidden='{{!isSelected6}}' class='button-area'>
   <label class="{{isSelected1?'is_selected':'normal'}}" bindtap='select1'>快递</label>
   <label class="{{isSelected2?'is_selected':'normal'}}" bindtap='select2'>跑腿</label>
   <label class="{{isSelected3?'is_selected':'normal'}}" bindtap='select3'>求助</label>
   <label class="{{isSelected4?'is_selected':'normal'}}" bindtap='select4'>闲置</label>
   <label class="{{isSelected5?'is_selected':'normal'}}" bindtap='select5'>问卷</label>
+</view>
+<view hidden='{{!isSelected7}}' class='button-area'>
+  <label class="{{isSelected1?'is_selected2':'normal2'}}" bindtap='select1'>快递</label>
+  <label class="{{isSelected2?'is_selected2':'normal2'}}" bindtap='select2'>跑腿</label>
+  <label class="{{isSelected3?'is_selected2':'normal2'}}" bindtap='select3'>求助</label>
+  <label class="{{isSelected4?'is_selected2':'normal2'}}" bindtap='select4'>闲置</label>
 </view>
 
 <view class='button-area1'>
@@ -14,13 +20,38 @@
 </view>
 
 <view style='height:160rpx'></view>
-<view class="wx-popup" hidden="{{flag}}" catchtouchmove="ture">
+<view class="wx-popup" hidden="{{flag}}" catchtouchmove="true">
   <view class='popup-container'>
     <view class="wx-popup-con">订单删除后将不可恢复，是否删除订单？</view>
     <view class="wx-popup-btn">
       <text class="btn-no" bindtap='cancelDelete'>取消</text>
       <text class="btn-ok" bindtap='confirmDelete'>删除</text>
     </view>
+  </view>
+</view>
+
+<view class="qu-popup" hidden="{{flag1}}" catchtouchmove="true" bindtap='close_qu_popup'>
+  <view class='qu-popup-container'>
+    <label>qid：{{}}</label>
+    <view class="qu-popup-choice">
+      <view bindtap='show_content'>
+        <image></image>
+        <label>详情</label>
+      </view>
+      <view bindtap='show_result'>
+        <image></image>
+        <label>结果</label>
+      </view>
+      <view bindtap='end_questionnaire'>
+        <image></image>
+        <label>终止</label>
+      </view>
+      <view bindtap='delete_questionnaire'>
+        <image></image>
+        <label>删除</label>
+      </view>
+    </view>
+    <label class="qu-popup-btn" bindtap='close_quPopup'>关闭</label>
   </view>
 </view>
 
@@ -55,8 +86,6 @@
     </view>
   </view>
 </block>
-<view wx:if="{{lastId1==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected2}}' class='errandList'>
 <block wx:for='{{isSelected6 == true ? publishErTradeList : receiptErTradeList}}' wx:key='erTradeList'>
@@ -86,8 +115,6 @@
     </view>
   </view>
 </block>
-<view wx:if="{{lastId2==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected3}}' class='seekhelpList'>
 <!--由于seekhelp和secondhand开头相同，为了避免混淆，下面用he代表求助，se代表闲置-->
@@ -118,8 +145,6 @@
     </view>
   </view>
 </block>
-<view wx:if="{{lastId3==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected4}}' class='secondhandList'>
 <block wx:for='{{isSelected6 == true ? publishSeTradeList : receiptSeTradeList}}' wx:key='seTradeList'>
@@ -150,21 +175,21 @@
     </view>
   </view>
 </block>
-<view wx:if="{{lastId4==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 <view wx:if='{{isSelected5}}' class='questionnaireList'>
-<block wx:for='{{quTradeList}}' wx:key='quTradeList'>
-  <!-- 5.问卷 问卷的id待定，先用qid代替-->
-  <view class='singleTrade' hover-class='item-press' catchtap='showDetail'  bindlongpress='deleteOrder' data-id='5' data-json='{{item}}'>
-    <text>问卷标题：{{item.title}}</text>
-    <text>备注内容：{{item.content}}</text>
-    <text>截止时间：{{item.ending_time}}</text>
-    <text>价格：    {{item.pay}}</text>
-    <button>接单</button>
+<block wx:for='{{publishQuTradeList}}' wx:key='quTradeList'>
+  <!-- 5.问卷-->
+  <view class='question-view' hover-class='item-press' catchtap='showPopup' data-id='{{item.qid}}'>
+    <view class='q_left'>
+      <text class='qu_name'>{{item.name}}</text>
+      <!--<text>备注内容：{{item.description}}</text>-->
+      <text class='qu_state'>{{item.state == 0 ? '已发布' : '已终止'}}</text>
+    </view>
+    <view class='q_right'>
+      <text class='qu_num'>{{item.num}}</text>
+      <text class='qu_num_text'>答卷数量</text>
+    </view>
   </view>
 </block>
-<view wx:if="{{lastId5==-1}}" style='text-align:center;color:gray;'>没有更多了</view>
-<view wx:else style='text-align:center;color:gray;'>上拉加载更多</view>
 </view>
 </view>

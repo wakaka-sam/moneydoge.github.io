@@ -157,7 +157,7 @@
       </view>
     </view>
     <view class='single-bottom'>
-      <button class='accept-button' catchtap='receiptOrder' data-type='4' data-id='{{item.qid}}'>接单</button>
+      <button class='accept-button' catchtap='showDetail' data-id='5' data-json='{{item}}'>接单</button>
     </view>
   </view>
 </block>

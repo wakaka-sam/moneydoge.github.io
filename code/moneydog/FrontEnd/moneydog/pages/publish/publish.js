@@ -11,7 +11,7 @@ Page({
     x_src_of_pic: '../../images /upload.png',/*这个是选择闲置物品图片后，将闲置物品图片替换原按钮图片*/
     /*以下是快递需要上传的属性*/
     k_express_loc:'明德园test',
-    k_arrive_time:'2018/01/30 11:00:00',
+    k_arrive_time: '',
     k_loc:'至善园二号',
     k_num:'4',
     k_pay:'12',
@@ -42,6 +42,14 @@ Page({
     x_pay:'',
     x_phone:'',
     x_wechat:'',
+
+    //日期选择器的初始数值
+    startDate:'2019/01/01',
+    endDate:'2019/12/31',
+    selectDate:'2019/06/03',
+    selectDate1: '2019/06/03',
+    selectDate2: '2019/06/03',
+    selectDate3: '2019/06/03'
   },
 
   /**
@@ -52,17 +60,21 @@ Page({
     var app = getApp();//要先getApp（）1  
     var date = new Date('2018/05/11 11:00:00');
     const session_id = wx.getStorageSync('SessionId');
+    console.log("t" + session_id)
     if (session_id != null) {
       that.setData({sessionID:session_id})
     }
+    else{
+      that.setData({ sessionID: "847694c4-14dd-47b2-8922-facd8e379f47"})
+    }
     that.setData({
       //sessionID: app.globalData.sessionID,
-      sessionID: "847694c4-14dd-47b2-8922-facd8e379f47",
+      //sessionID: "847694c4-14dd-47b2-8922-facd8e379f47",
       id:options.id,
       src_of_pic: '../../images/upload.png',    
       /*以下是快递需要上传的属性*/
       k_express_loc: '明德园test',
-      k_arrive_time: '2018/01/30 11:00:00',
+      k_arrive_time: that.data.selectDate,
       k_loc: '至善园二号',
       k_num: '4',
       k_pay: '12',
@@ -73,7 +85,7 @@ Page({
       /*以下是求助需要上传的属性*/
       q_title: '',
       q_content: '',
-      q_ending_time: '',
+      q_ending_time: that.data.selectDate1,
       q_pay: '',
       q_phone: '',
       q_wechat: '',
@@ -81,15 +93,15 @@ Page({
       /*以下是跑腿需要上传的属性*/
       p_title: '',
       p_content: '',
-      p_ending_time: '',
+      p_ending_time: that.data.selectDate2,
       p_pay: '',
       p_phone: '',
-      p_wechat: '',
+      p_wechat: '',   
 
       /*以下是闲置需要上传的属性*/
       x_object_name: '',
       x_content: '',
-      x_ending_time: '',
+      x_ending_time: that.data.selectDate3,
       x_pay: '',
       x_phone: '',
       x_wechat: '',
@@ -192,7 +204,7 @@ Page({
     })
   },
   //获取快递输入的快递送达时间
-  k_arrive_timeInput: function (e) {
+  k_arrive_timeInput2: function (e) {
     this.setData({
       k_arrive_time: e.detail.value
     })
@@ -227,9 +239,10 @@ Page({
   gotoupload: function () {
     var that = this;
     var date0 = new Date(that.data.k_arrive_time);//STRING转Date
-    console.log(that.data.sessionID)
+    console.log("sessionID_test:" + that.data.sessionID)
+    console.log("daodashijian:" + that.data.k_arrive_time)
     wx.request({
-      url: "http://172.18.32.138:8080/Create/Expressage",
+      url: "https://moneydog.club:3030/Create/Expressage",
       header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -246,16 +259,11 @@ Page({
       },
       
       success: function (res) {
-        console.log(res.data);
-        console.log(that.data.k_express_loc);
-        console.log(that.data.k_num);
-        console.log(that.data.k_loc);
-        console.log(that.data.k_arrive_time);
-        console.log(that.data.k_pay);
-        console.log(that.data.k_wechat);
-        console.log(that.data.k_phone);
-        console.log(that.data.k_remark);
-
+        console.log("s" + that.data.sessionID);
+        wx.showToast({
+          title: '快递发布成功',
+          icon:'success'
+        })
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
         })
@@ -273,12 +281,6 @@ Page({
   q_contentInput: function (e) {
     this.setData({
       q_content: e.detail.value
-    })
-  },
-  //获取求助输入的信息截止时间
-  q_ending_timeInput: function (e) {
-    this.setData({
-      q_ending_time: e.detail.value
     })
   },
   //获取求助输入的报酬信息
@@ -305,8 +307,9 @@ Page({
   gotodeupload2: function () {
     var that = this;
     var date1 = new Date(that.data.q_ending_time);//STRING转Date
+    console.log("q_ending_time:"+that.data.q_ending_time);
     wx.request({
-      url: "http://172.18.32.138:8080/Create/For_help",
+      url: "https://moneydog.club:3030/Create/For_help",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -318,6 +321,10 @@ Page({
         wechat: that.data.q_wechat,
       },
       success: function (res) {
+        wx.showToast({
+          title: '快递发布成功',
+          icon: 'success'
+        })
         console.log(res.data);
         console.log(that.data.q_title);
         console.log(that.data.q_content);
@@ -345,12 +352,6 @@ Page({
       p_content: e.detail.value
     })
   },
-  //获取跑腿输入的信息截止时间
-  p_ending_timeInput: function (e) {
-    this.setData({
-      p_ending_time: e.detail.value
-    })
-  },
   //获取跑腿输入的报酬信息
   p_payInput: function (e) {
     this.setData({
@@ -374,8 +375,9 @@ Page({
   gotodeupload3: function () {
     var that = this;
     var date2 = new Date(that.data.p_ending_time);//STRING转Date
+    console.log("p_ending_time" + that.data.p_ending_time);
     wx.request({
-      url: "http://172.18.32.138:8080/Create/Errand",
+      url: "https://moneydog.club:3030/Create/Errand",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -387,6 +389,10 @@ Page({
         wechat: that.data.p_wechat,
       },
       success: function (res) {
+        wx.showToast({
+          title: '快递发布成功',
+          icon: 'success'
+        })
         console.log(res.data);
         console.log(that.data.p_title);
         console.log(that.data.p_content);
@@ -444,9 +450,15 @@ Page({
   gotodeupload4: function () {
     var that = this;
     var date3 = new Date(that.data.x_ending_time);//STRING转Date
+    console.log("x_ending_time" + that.data.x_ending_time);
+    console.log("src1:"+ that.data.src_of_pic);
+
+
+    var url =  + that.data.src_of_pic;
+    console.log("url:" + url);
     wx.uploadFile({
-      url: "http://119.23.218.7:8080/File/Upload",
-      filePath:that.data.src_of_pic,
+      url: 'http://119.23.218.7:8080/File/Upload',
+      filePath: that.data.src_of_pic,
       name: "img",
       header:{
         sessionId: that.data.sessionID,
@@ -456,10 +468,13 @@ Page({
         "user":"test"
       },
       success:function (res){
-        res.data.imageUrl
-        console.log(that.data.src_of_pic);
+
+        console.log("return:"+ res.data);
+        var image_url_t = JSON.parse(res.data);
+        var url = 'http://119.23.218.7:8080/' + image_url_t.imageUrl;
+        console.log(url);
         wx.request({
-          url: "http://172.18.32.138:8080/Create/Second_hand",
+          url: "https://moneydog.club:3030/Create/Second_hand",
           header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
           method: "POST",
           data: {
@@ -469,16 +484,19 @@ Page({
             pay: that.data.x_pay,
             phone: that.data.x_phone,
             wechat: that.data.x_wechat,
-            photo_url: that.data.src_of_pic
+            photo_url: url
           },
           success: function (res) {
+            wx.showToast({
+              title: '快递发布成功',
+              icon: 'success'
+            })
             console.log(that.data.x_object_name);
             console.log(that.data.x_content);
             console.log(that.data.x_ending_time);
             console.log(that.data.x_pay);
             console.log(that.data.x_phone);
             console.log(that.data.x_wechat);
-            
             wx.navigateBack({
               delta: 1  //小程序关闭当前页面返回上一页面
             })
@@ -488,6 +506,34 @@ Page({
     })
    
     
+  },
+  dateChange: function (e) {
+    this.setData({
+      selectDate:e.detail.value,
+      k_arrive_time: e.detail.value
+    });
+    
+  },
+  dateChange1: function (e) {
+    this.setData({
+      selectDate1: e.detail.value,
+      q_ending_time: e.detail.value
+    });
+
+  },
+  dateChange2: function (e) {
+    this.setData({
+      selectDate2: e.detail.value,
+      p_ending_time: e.detail.value
+    });
+
+  },
+  dateChange3: function (e) {
+    this.setData({
+      selectDate3: e.detail.value,
+      x_ending_time: e.detail.value
+    });
+
   }
 
 })

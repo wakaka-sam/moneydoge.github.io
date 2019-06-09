@@ -1,14 +1,11 @@
 //获取应用实例
 const app = getApp()
-console.log(wx.getStorageSync('SessionId'))
 
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
-    sessionId: '847694c4-14dd-47b2-8922-facd8e379f47',
+    sessionId: '',
     flag: true,
+    flag1: true,
     isFinish: false,
     orderid:-1,
     ordertype: null,
@@ -19,23 +16,16 @@ Page({
     isSelected5: false,//问卷
     isSelected6: true,//我的发布
     isSelected7: false,//我的接单
-    lastId1: -1,//获取订单列表后得到
-    lastId2: -1,//列表最后一个元素的
-    lastId3: -1,//订单号，并存起来，
-    lastId4: -1,//默认值-1，当得到所
-    lastId5: -1,//有订单后也置为-1
     publishExTradeList: [],//发布的快递订单
     publishErTradeList: [],//发布的跑腿订单
     publishHeTradeList: [],//发布的求助订单
     publishSeTradeList: [],//发布的闲置订单
+    publishQuTradeList: [],//发布的问卷订单
     receiptExTradeList: [],//接收的快递订单
     receiptErTradeList: [],//接收的跑腿订单
     receiptHeTradeList: [],//接收的求助订单
     receiptSeTradeList: []//接收的闲置订单
   },
-  /**
-   * 页面切换
-   */
   select1: function () {
     this.setData({
       isSelected1: true,
@@ -83,6 +73,11 @@ Page({
   },
   select6: function() {
     this.setData({
+      isSelected1: true,
+      isSelected2: false,
+      isSelected3: false,
+      isSelected4: false,
+      isSelected5: false,
       isSelected6:true,
       isSelected7:false
     })
@@ -90,6 +85,11 @@ Page({
   },
   select7: function () {
     this.setData({
+      isSelected1: true,
+      isSelected2: false,
+      isSelected3: false,
+      isSelected4: false,
+      isSelected5: false,
       isSelected6:false,
       isSelected7: true
     })
@@ -99,7 +99,7 @@ Page({
   confirmFinish: function(e) {
     var that = this
     var options = e.currentTarget.dataset
-    var url = 'http://172.18.32.138:8080/Modified/FinishIssue?type=' + options.type + '&id=' + options.orderid
+    var url = 'https://moneydog.club:3030/Modified/FinishIssue?type=' + options.type + '&id=' + options.orderid
     console.log(url)
     wx.request({
       url: url,
@@ -125,7 +125,7 @@ Page({
       flag: !this.data.flag
     })
     var that = this
-    var url = 'http://172.18.32.138:8080/Modified/DeleteIssue?type=' + that.data.ordertype + '&id=' + that.data.orderid
+    var url = 'https://moneydog.club:3030/Modified/DeleteIssue?type=' + that.data.ordertype + '&id=' + that.data.orderid
     console.log(url)
     wx.request({
       url: url,
@@ -150,14 +150,91 @@ Page({
       })
     }
   },
+  //显示问卷内容
+  show_content: function(e) {
+    var that = this
+    wx.request({
+      url: "https://moneydog.club:3030/Create/viewAll",
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function (res) {
+        console.log(res.data)
+        wx.setStorageSync('questionnaireName', res.data.viewAllList.name)
+        wx.setStorageSync('questionnaireDesc', res.data.viewAllList.description)
+        wx.setStorageSync('questionnairePay', 0)
+        wx.setStorageSync('questionnaireTota', res.data.viewAllList.num)
+        wx.setStorageSync('questionList', JSON.parse(res.data.viewAllList.content))
+        wx.navigateTo({
+          url: '../../questionnaire/questionnaire',
+        })
+      }
+    })
+  },
+  //显示问卷结果
+  show_result: function (e) {
+    var that = this
+    wx.request({
+      url: "https://moneydog.club:3030/Create/viewAll",
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function (res) {
+        console.log(res.data)
+        wx.setStorageSync('questionnaireName', res.data.viewAllList.name)
+        wx.setStorageSync('questionnaireDesc', res.data.viewAllList.description)
+        wx.setStorageSync('questionnairePay', 0)
+        wx.setStorageSync('questionnaireTota', res.data.viewAllList.num)
+        wx.setStorageSync('questionList', JSON.parse(res.data.viewAllList.content))
+        wx.navigateTo({
+          url: '../../questionnaire/questionnaire',
+        })
+      }
+    })
+    wx.navigateTo({
+      url: '../orders_content/questionnaire-anlyse',
+    })
+  },
+  //终止问卷
+  end_questionnaire: function (e) {
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/EndQuestion',
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function(res) {
+        //console.log(res)
+        that.OnLoadQuestionnaires()
+      }
+    })
+    this.close_qu_popup()
+  },
+  //删除问卷
+  delete_questionnaire: function (e) {
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/DeleteQuestionair',
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function (res) {
+        //console.log(res)
+        that.OnLoadQuestionnaires()
+      }
+    })  
+    that.close_qu_popup()
+  },
+  //关闭问卷选项弹窗
+  close_qu_popup: function() {
+    this.setData({
+      flag1: true
+    })
+  },
   //加载发布订单
   OnLoadPublishOrders: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: "http://172.18.32.138:8080/Load/Creation",
+      url: "https://moneydog.club:3030/Load/Creation",
       header: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           publishExTradeList: res.data.expressages,//发布的快递订单
           publishErTradeList: res.data.errands,//发布的跑腿订单
@@ -171,19 +248,37 @@ Page({
       }
     }))
   },
-  //加载发布订单
+  //加载接收订单
   OnLoadReceiptOrders: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: "http://172.18.32.138:8080/Load/Receiving",
+      url: "https://moneydog.club:3030/Load/Receiving",
       header: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           receiptExTradeList: res.data.expressages,//接收的快递订单
           receiptErTradeList: res.data.errands,//接收的跑腿订单
           receiptHeTradeList: res.data.for_helps,//接收的求助订单
           receiptSeTradeList: res.data.second_hands//接收的闲置订单
+        })
+        resolve()
+      },
+      fail: function (res) {
+        console.log('fail to onload', res)
+      }
+    }))
+  },
+  //加载我发布问卷
+  OnLoadQuestionnaires: function () {
+    var that = this
+    return new Promise((resolve, rej) => wx.request({
+      url: "https://moneydog.club:3030/Create/LoadMyQuestionair",
+      data: { sessionId: that.data.sessionId },
+      success: function (res) {
+        //console.log(res.data)
+        that.setData({
+          publishQuTradeList: res.data
         })
         resolve()
       },
@@ -202,6 +297,12 @@ Page({
       url: '../../details/details?id=' + id + '&json=' + JSON.stringify(json),
     })
   },
+  showPopup: function(e) {
+    this.setData({
+      flag1: false,
+      orderid: e.currentTarget.dataset.id
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -211,7 +312,6 @@ Page({
     if (sessionId) {
       this.setData({ sessionId: sessionId })
     }
-    console.log('sessionId: ', this.data.sessionId)
     var that = this
     var id = options.id
     if (id == 1)
@@ -224,20 +324,9 @@ Page({
       that.select4()
     else
       that.select5()
-
-    wx.request({
-      url: "http://172.18.32.138:8080/Load/Creation",
-      header: { sessionId: that.data.sessionId },
-      success: function (res) {
-        console.log(res.data)
-        that.setData({
-          publishExTradeList: res.data.expressages,//发布的快递订单
-          publishErTradeList: res.data.errands,//发布的跑腿订单
-          publishHeTradeList: res.data.for_helps,//发布的求助订单
-          publishSeTradeList: res.data.second_hands,//发布的闲置订单
-        })
-      }
-    })
+    
+    that.OnLoadPublishOrders()
+    that.OnLoadQuestionnaires()
   },
 
   /**

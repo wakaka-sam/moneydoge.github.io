@@ -1,4 +1,4 @@
-const baseUrl = '172.18.32.138'
+const baseUrl = 'https://moneydog.club:3030/'
 // pages/receipt/receipt.js
 Page({
   /**
@@ -124,7 +124,8 @@ Page({
       exTradeList: this.sortList(1, Index),
       erTradeList: this.sortList(2, Index),
       heTradeList: this.sortList(3, Index),
-      seTradeList: this.sortList(4, Index)
+      seTradeList: this.sortList(4, Index),
+      quTradeList: this.sortList(5, Index)
     })
   },
   //对订单列表进行排序
@@ -138,8 +139,11 @@ Page({
     else if(i == 3) {//求助
       var tradeList = this.data.heTradeList
     }
-    else { //闲置
+    else if(i == 4) {//闲置
       var tradeList = this.data.seTradeList
+    }
+    else {           //问卷
+      var tradeList = this.data.quTradeList
     }
     if (tradeList.length == 0) 
       return tradeList
@@ -168,7 +172,7 @@ Page({
   OnLoadExpressage: function(){
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadExpressage',
+      url: baseUrl + 'Load/OnLoadExpressage',
       success: function(res) {
         that.setData({exTradeList:res.data})
         var exTradeList = that.data.exTradeList
@@ -186,7 +190,7 @@ Page({
   OnLoadErrand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadErrands',
+      url: baseUrl + 'Load/OnLoadErrands',
       success: function (res) {
         that.setData({ erTradeList: res.data })
         var erTradeList = that.data.erTradeList
@@ -201,7 +205,7 @@ Page({
   OnLoadSeekhelp: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadFor_help',
+      url: baseUrl + 'Load/OnLoadFor_help',
       success: function (res) {
         that.setData({ heTradeList: res.data })
         var heTradeList = that.data.heTradeList
@@ -216,7 +220,7 @@ Page({
   OnLoadSecondhand: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
-      url: 'http://' + baseUrl + ':8080/Load/OnLoadSecond_hand',
+      url: baseUrl + 'Load/OnLoadSecond_hand',
       success: function (res) {
         that.setData({ seTradeList: res.data })
         var seTradeList = that.data.seTradeList
@@ -231,8 +235,8 @@ Page({
   //加载问卷
   OnLoadQuestionair: function () {
     var that = this
-    return new Promise((resolve, rej) => wx.requset({
-      url: 'http://' + baseUrl + ':8080/Create/OnLoadQuestionair',
+    return new Promise((resolve, rej) => wx.request({
+      url: baseUrl + 'Create/OnLoadQuestionair',
       success: function (res) {
         that.setData({ quTradeList: res.data })
         var quTradeList = that.data.quTradeList
@@ -247,7 +251,7 @@ Page({
   //下拉加载
   downloadEx: function(){
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadExpressage?id='
+    var tempUrl = baseUrl + 'Load/downLoadExpressage?id='
     tempUrl += String(this.data.lastId1)
     wx.request({
       url: tempUrl,
@@ -270,7 +274,7 @@ Page({
   },
   downloadEr: function () {
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadErrands?id='
+    var tempUrl = baseUrl + 'Load/downLoadErrands?id='
     tempUrl += String(this.data.lastId2)
     wx.request({
       url: tempUrl,
@@ -291,7 +295,7 @@ Page({
   },
   downloadHe: function () {
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadFor_help?id='
+    var tempUrl = baseUrl + 'Load/downLoadFor_help?id='
     tempUrl += String(this.data.lastId3)
     wx.request({
       url: tempUrl,
@@ -312,7 +316,7 @@ Page({
   },
   downloadSe: function () {
     var that = this
-    var tempUrl = 'http://' + baseUrl + ':8080/Load/downLoadSecond_hand?id='
+    var tempUrl = baseUrl + 'Load/downLoadSecond_hand?id='
     tempUrl += String(this.data.lastId4)
     wx.request({
       url: tempUrl,
@@ -331,15 +335,38 @@ Page({
     })
     //this.setData({lastId4: -1})
   },
+  //上拉加载问卷
+  downloadQu: function () {
+    var that = this 
+    var tempUrl = baseUrl + 'Create/downLoadQuestionair?id='
+    tempUrl += String(this.data.lastId5)
+    wx.request({
+      url: tempUrl,
+      success: function (res) {
+        if (res.data[res.data.length-1].qid == that.data.lastId5) {
+          console.log('目前已经获取所有订单无法再更新')
+          that.setData({lastId5: -1})
+        }
+        else {
+          var newList = that.data.quTradeList
+          newList = newList.concat(res.data)
+          that.setData({quTradeList: newList})
+          that.setData({ quTradeList: that.sortList(5,that.data.index) })
+        }
+      }
+    })
+  },
 
   //跳转详情页面
   showDetail: function(e) {
     var trade = e.currentTarget.dataset
     var json = trade.json
     var id = trade.id
-    console.log(id, json)
+    wx.setStorageSync('detailJson', json)
+    console.log(wx.getStorageSync('detailJson'))
+    console.log('跳转id:', id)
     wx.navigateTo({
-      url: './../details/details?id=' + id + '&json=' + JSON.stringify(json),
+      url: './../details/details?id=' + id
     })
   },
 
@@ -347,14 +374,19 @@ Page({
   receiptOrder: function(e) {
     var that = this
     var options = e.currentTarget.dataset
-    var url = 'http://' + baseUrl + ':8080/Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
+    var url = baseUrl + 'Modified/AcceptIssue?type=' + options.type + '&id=' + options.id
     console.log(url)
     wx.request({
       url: url,
       header: {sessionId: that.data.sessionId},
       method: 'PUT',
       success: function(res) {
-        console.log('接单成功')
+        console.log(res)
+        wx.showToast({
+          title: '接单成功',
+          icon: 'success',
+          duration: 3000
+        })
         that.OnLoadExpressage()
         that.OnLoadErrand()
         that.OnLoadSeekhelp()
@@ -393,13 +425,17 @@ Page({
       that.select4()
     else 
       that.select5()
+    //onload请求是异步的，而我们需要收到所有数据再进行排序
+    //所以需要用到promise来保证onload一定在sort之前
     this.OnLoadExpressage().then(() => that.OnLoadErrand()).then(
-      () => that.OnLoadSeekhelp()).then(() => that.OnLoadSecondhand()).then(() => {
+      () => that.OnLoadSeekhelp()).then(() => that.OnLoadSecondhand()).then(
+      () => that.OnLoadQuestionair()).then(() => {
       that.setData({
         exTradeList: that.sortList(1, 0),
         erTradeList: that.sortList(2, 0),
         heTradeList: that.sortList(3, 0),
-        seTradeList: that.sortList(4, 0)
+        seTradeList: that.sortList(4, 0),
+        quTradeList: that.sortList(5, 0)
       })})
   },
 
@@ -450,6 +486,8 @@ Page({
       this.downloadHe()
     else if (this.data.isSelected4 && this.data.lastId4 != -1)
       this.downloadSe()
+    else if (this.data.isSelected5 && this.data.lastId5 != -1)
+      this.downloadQu()
   },
 
   /**

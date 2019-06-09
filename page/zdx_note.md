@@ -1,6 +1,5 @@
 ## 学习笔记
 
-{:.no_toc}
 
 * 目录
 {:toc}
@@ -132,7 +131,7 @@
 - 根据教程，这个比较简单，首先先添加依赖，在pom文件中
 
 - ```yaml
-  		<dependency>
+    <dependency>
               <groupId>io.springfox</groupId>
               <artifactId>springfox-swagger2</artifactId>
               <version>2.9.2</version>
@@ -142,8 +141,9 @@
               <artifactId>springfox-swagger-ui</artifactId>
               <version>2.9.2</version>
           </dependency>
-  
-  
+    ```
+
+
   ```
 
 - 然后再编写一个简单的controller
