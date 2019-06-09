@@ -30,7 +30,7 @@
   </view>
 </view>
 
-<view class="qu-popup" hidden="{{flag1}}" catchtouchmove="true">
+<view class="qu-popup" hidden="{{flag1}}" catchtouchmove="true" bindtap='close_qu_popup'>
   <view class='qu-popup-container'>
     <label>qid：{{}}</label>
     <view class="qu-popup-choice">
@@ -181,13 +181,13 @@
   <!-- 5.问卷-->
   <view class='question-view' hover-class='item-press' catchtap='showPopup' data-id='{{item.qid}}'>
     <view class='q_left'>
-      <text>{{item.name}}</text>
+      <text class='qu_name'>{{item.name}}</text>
       <!--<text>备注内容：{{item.description}}</text>-->
-      <text>价格：{{item.pay}}</text>
+      <text class='qu_state'>{{item.state == 0 ? '已发布' : '已终止'}}</text>
     </view>
     <view class='q_right'>
-      <text>{{item.num}}</text>
-      <text>答卷数量</text>
+      <text class='qu_num'>{{item.num}}</text>
+      <text class='qu_num_text'>答卷数量</text>
     </view>
   </view>
 </block>

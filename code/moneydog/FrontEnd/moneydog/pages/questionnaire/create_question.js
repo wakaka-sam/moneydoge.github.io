@@ -5,6 +5,7 @@ Page({
     isCreateMCQ: false,
     isCreateCompletion: false,
     questionItem: {type: -1, title: '', a:'', b:'', c:'', d:''},
+    questionContentCount: { type: -1, a: 0, b: 0, c: 0, d: 0, fill: '' }
   },
   SCQName: function (e) {
     this.data.questionItem.title = e.detail.value
@@ -28,34 +29,43 @@ Page({
   //确认单选题
   confirmSCQ() {
     this.data.questionItem.type = 0
+    this.data.questionContentCount.type = 0
     this.setData({
-      questionItem: this.data.questionItem
+      questionItem: this.data.questionItem,
+      questionContentCount: this.data.questionContentCount
     })
     var question = JSON.stringify(this.data.questionItem);
+    var questionContentCount = JSON.stringify(this.data.questionContentCount)
     wx.navigateTo({
-      url: 'questionnaire?question=' + question,
+      url: 'questionnaire?question=' + question + '&questionContentCount=' + questionContentCount,
     })
   },
   //确认多选题
   confirmMCQ() {
     this.data.questionItem.type = 1
+    this.data.questionContentCount.type = 1
     this.setData({
-      questionItem: this.data.questionItem
+      questionItem: this.data.questionItem,
+      questionContentCount: this.data.questionContentCount
     })
     var question = JSON.stringify(this.data.questionItem);
+    var questionContentCount = JSON.stringify(this.data.questionContentCount)
     wx.navigateTo({
-      url: 'questionnaire?question=' + question,
+      url: 'questionnaire?question=' + question + '&questionContentCount=' + questionContentCount,
     })
   },
   //确认填空题
   confirmCompletion() {
     this.data.questionItem.type = 2
+    this.data.questionContentCount.type = 2
     this.setData({
-      questionItem: this.data.questionItem
+      questionItem: this.data.questionItem,
+      questionContentCount: this.data.questionContentCount
     })
     var question = JSON.stringify(this.data.questionItem);
+    var questionContentCount = JSON.stringify(this.data.questionContentCount)
     wx.navigateTo({
-      url: 'questionnaire?question=' + question,
+      url: 'questionnaire?question=' + question + '&questionContentCount=' + questionContentCount,
     })
   },
   /**
