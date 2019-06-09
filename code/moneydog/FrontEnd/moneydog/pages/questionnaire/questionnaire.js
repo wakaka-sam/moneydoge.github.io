@@ -6,9 +6,10 @@ Page({
     questionnairePay: 0,
     questionnaireTota: 0,
     showDialog: false, //弹窗
-    questionItem: { type: -1, title: '', a: '', b: '', c: '', d: ''},
+    questionItem: { type: -1, title: '', a: '', b: '', c: '', d: '' },
+    questionContentCount: { type: -1, a: 0, b: 0, c: 0, d: 0, fill: '' },
     questionList: [],
-    contentCount: []
+    questionContentCountList: []
   },
   //选择题目类型弹窗
   toggleDialog() {
@@ -57,27 +58,21 @@ Page({
       description: this.data.questionnaireDesc,
       pay: this.data.questionnairePay,
       content: JSON.stringify(this.data.questionList),
-      content_count: JSON.stringify({ content_count: this.data.contentCount }),
+      content_count: JSON.stringify({ content_count: this.data.questionContentCountList }),
       total_num: this.data.questionnaireTota
     }
     console.log(data)
-    var t1 = JSON.stringify(this.data.questionList)
-    var t2 = JSON.stringify({ content_count: this.data.contentCount })
     wx.request({
       url: 'https://moneydog.club:3030/Create/questionair',
-      data: {
-        name: this.data.questionnaireName,
-        description: this.data.questionnaireDesc,
-        pay: 4,
-        content: t1,
-        content_count: t2,
-        total_num: this.data.questionnaireTota
-      },
+      data: data,
       method: 'POST', 
       header: { sessionId: wx.getStorageSync('SessionId'), "Content-Type": "application/x-www-form-urlencoded" },
       success: function (res) {
         console.log(res);
       }
+    })
+    wx.redirectTo({
+      url: '../orders/orders_list/orders_list?id=5',
     })
   },
   /**
@@ -89,17 +84,25 @@ Page({
       questionnaireDesc: wx.getStorageSync('questionnaireDesc'),
       questionnairePay: wx.getStorageSync('questionnairePay'), 
       questionnaireTota: wx.getStorageSync('questionnaireTota'), 
-      questionList: wx.getStorageSync('questionList')
+      questionList: wx.getStorageSync('questionList'),
+      questionContentCountList: wx.getStorageSync('questionContentCountList')
     })
     if (options.question != null) {
       var question = JSON.parse(options.question)
       this.data.questionList.push(question)
       wx.setStorageSync('questionList', this.data.questionList)
     }
+    if (options.questionContentCount != null) {
+      var questionContentCount = JSON.parse(options.questionContentCount)
+      this.data.questionContentCountList.push(questionContentCount)
+      wx.setStorageSync('questionContentCountList', this.data.questionContentCountList)
+    }
     this.setData({
-      questionList: this.data.questionList
+      questionList: this.data.questionList,
+      questionContentCountList: this.data.questionContentCountList
     })
     console.log(this.data.questionList)
+    console.log(this.data.questionContentCountList)
   },
 
   /**

@@ -169,21 +169,63 @@ Page({
         })
       }
     })
-    /*wx.navigateTo({
-      url: 'questionnaire',
-    })*/
   },
   //显示问卷结果
   show_result: function (e) {
-
+    var that = this
+    wx.request({
+      url: "https://moneydog.club:3030/Create/viewAll",
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function (res) {
+        console.log(res.data)
+        wx.setStorageSync('questionnaireName', res.data.viewAllList.name)
+        wx.setStorageSync('questionnaireDesc', res.data.viewAllList.description)
+        wx.setStorageSync('questionnairePay', 0)
+        wx.setStorageSync('questionnaireTota', res.data.viewAllList.num)
+        wx.setStorageSync('questionList', JSON.parse(res.data.viewAllList.content))
+        wx.navigateTo({
+          url: '../../questionnaire/questionnaire',
+        })
+      }
+    })
+    wx.navigateTo({
+      url: '../orders_content/questionnaire-anlyse',
+    })
   },
   //终止问卷
   end_questionnaire: function (e) {
-
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/EndQuestion',
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function(res) {
+        //console.log(res)
+        that.OnLoadQuestionnaires()
+      }
+    })
+    this.close_qu_popup()
   },
   //删除问卷
   delete_questionnaire: function (e) {
-
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/DeleteQuestionair',
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function (res) {
+        //console.log(res)
+        that.OnLoadQuestionnaires()
+      }
+    })  
+    that.close_qu_popup()
+  },
+  //关闭问卷选项弹窗
+  close_qu_popup: function() {
+    this.setData({
+      flag1: true
+    })
   },
   //加载发布订单
   OnLoadPublishOrders: function () {
@@ -192,7 +234,7 @@ Page({
       url: "https://moneydog.club:3030/Load/Creation",
       header: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           publishExTradeList: res.data.expressages,//发布的快递订单
           publishErTradeList: res.data.errands,//发布的跑腿订单
@@ -213,7 +255,7 @@ Page({
       url: "https://moneydog.club:3030/Load/Receiving",
       header: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           receiptExTradeList: res.data.expressages,//接收的快递订单
           receiptErTradeList: res.data.errands,//接收的跑腿订单
@@ -234,7 +276,7 @@ Page({
       url: "https://moneydog.club:3030/Create/LoadMyQuestionair",
       data: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           publishQuTradeList: res.data
         })

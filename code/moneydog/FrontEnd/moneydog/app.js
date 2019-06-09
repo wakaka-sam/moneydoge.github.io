@@ -24,6 +24,7 @@ App({
             "Content-Type": "application/x-www-form-urlencoded"
           },
           success: function (res) {
+            console.log(res)
             if (res.data.errcode == 1) {
               console.log("登录时获取的SessionId：" + res.data.SessionId)
               that.globalData.sessionID = res.data.SessionId//获取sessionID并保存在全局变量sessionID中
