@@ -242,7 +242,7 @@ Page({
     console.log("sessionID_test:" + that.data.sessionID)
     console.log("daodashijian:" + that.data.k_arrive_time)
     wx.request({
-      url: "http://172.18.32.138:8080/Create/Expressage",
+      url: "https://moneydog.club:3030/Create/Expressage",
       header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -259,8 +259,11 @@ Page({
       },
       
       success: function (res) {
-        console.log(that.data.sessionID);
-
+        console.log("s" + that.data.sessionID);
+        wx.showToast({
+          title: '快递发布成功',
+          icon:'success'
+        })
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
         })
@@ -306,7 +309,7 @@ Page({
     var date1 = new Date(that.data.q_ending_time);//STRING转Date
     console.log("q_ending_time:"+that.data.q_ending_time);
     wx.request({
-      url: "http://172.18.32.138:8080/Create/For_help",
+      url: "https://moneydog.club:3030/Create/For_help",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -318,6 +321,10 @@ Page({
         wechat: that.data.q_wechat,
       },
       success: function (res) {
+        wx.showToast({
+          title: '快递发布成功',
+          icon: 'success'
+        })
         console.log(res.data);
         console.log(that.data.q_title);
         console.log(that.data.q_content);
@@ -370,7 +377,7 @@ Page({
     var date2 = new Date(that.data.p_ending_time);//STRING转Date
     console.log("p_ending_time" + that.data.p_ending_time);
     wx.request({
-      url: "http://172.18.32.138:8080/Create/Errand",
+      url: "https://moneydog.club:3030/Create/Errand",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -382,6 +389,10 @@ Page({
         wechat: that.data.p_wechat,
       },
       success: function (res) {
+        wx.showToast({
+          title: '快递发布成功',
+          icon: 'success'
+        })
         console.log(res.data);
         console.log(that.data.p_title);
         console.log(that.data.p_content);
@@ -440,9 +451,14 @@ Page({
     var that = this;
     var date3 = new Date(that.data.x_ending_time);//STRING转Date
     console.log("x_ending_time" + that.data.x_ending_time);
+    console.log("src1:"+ that.data.src_of_pic);
+
+
+    var url =  + that.data.src_of_pic;
+    console.log("url:" + url);
     wx.uploadFile({
-      url: "http://119.23.218.7:8080/File/Upload",
-      filePath:that.data.src_of_pic,
+      url: 'http://119.23.218.7:8080/File/Upload',
+      filePath: that.data.src_of_pic,
       name: "img",
       header:{
         sessionId: that.data.sessionID,
@@ -452,10 +468,13 @@ Page({
         "user":"test"
       },
       success:function (res){
-        res.data.imageUrl
-        console.log(that.data.src_of_pic);
+
+        console.log("return:"+ res.data);
+        var image_url_t = JSON.parse(res.data);
+        var url = 'http://119.23.218.7:8080/' + image_url_t.imageUrl;
+        console.log(url);
         wx.request({
-          url: "http://172.18.32.138:8080/Create/Second_hand",
+          url: "https://moneydog.club:3030/Create/Second_hand",
           header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
           method: "POST",
           data: {
@@ -465,22 +484,19 @@ Page({
             pay: that.data.x_pay,
             phone: that.data.x_phone,
             wechat: that.data.x_wechat,
-            photo_url: that.data.src_of_pic
+            photo_url: url
           },
           success: function (res) {
+            wx.showToast({
+              title: '快递发布成功',
+              icon: 'success'
+            })
             console.log(that.data.x_object_name);
             console.log(that.data.x_content);
             console.log(that.data.x_ending_time);
             console.log(that.data.x_pay);
             console.log(that.data.x_phone);
             console.log(that.data.x_wechat);
-            var t = JSON.parse(res.data);
-            console.log(t.imageUrl)
-            var url = 'http://119.23.218.7:8080/' + t.src_of_pic;
-            that.setData({
-              src_of_pic: url,
-            })
-            console.log("aaa"+this.data.src_of_pic)
             wx.navigateBack({
               delta: 1  //小程序关闭当前页面返回上一页面
             })
