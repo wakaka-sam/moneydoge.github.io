@@ -353,8 +353,8 @@ public class CreateController {
         // session_key
         // }
         RestTemplate restTemplate = new RestTemplate();
-        String appid = "wx08dea5e778f278de&";
-        String secret = "77fc034ff68fe7799e4e8723466a50d7&";
+        String appid = "wxd128011688abed28&";
+        String secret = "44663739b9268649d3740990f49a2677&";
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid
                 + "&secret=" + secret
                 + "&js_code=" + code
