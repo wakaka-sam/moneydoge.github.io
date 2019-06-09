@@ -22,14 +22,13 @@ public class LoveWallController {
 
     @ApiOperation(value = "创建表白墙")
     @PostMapping("/createWall")
-    public JSONObject CreateHistory(@ApiParam(required = true, value = "被表白者的名字")@RequestParam("toPeople") String toPeople,
-                                    @ApiParam(required = true, value = "表白内容")@RequestParam("detail") String detail)
+    public JSONObject CreateHistory(@ApiParam(required = true, value = "表白内容")@RequestParam("detail") String detail)
     {
         Timestamp d = new Timestamp(System.currentTimeMillis());
         JSONObject result = new JSONObject();
         String msg;
         int statecode;
-        jdbcTemplate.update("insert into moneydog.loveWall(detail,toPeople,registe_time)values (?,?,?)", detail,toPeople,d);
+        jdbcTemplate.update("insert into moneydog.loveWall(detail,registe_time)values (?,?)", detail,d);
         statecode = 1;
         msg = "创建成功";
         result.put("msg",msg);
@@ -44,7 +43,7 @@ public class LoveWallController {
         int statecode;
         String msg;
         JSONObject result = new JSONObject();
-        String sql = "SELECT lwid,detail,toPeople,likeNum FROM moneydog.loveWall ORDER BY registe_time DESC ";
+        String sql = "SELECT lwid,detail,likeNum FROM moneydog.loveWall ORDER BY registe_time DESC ";
         List<LoveWall> temp1  = jdbcTemplate.query(sql,new BeanPropertyRowMapper(LoveWall.class));
         if(temp1.isEmpty())
         {
