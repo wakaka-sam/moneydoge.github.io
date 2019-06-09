@@ -1,15 +1,14 @@
 <view>
-  <view class = 'top'>
-    <text>校园卡审核</text>
-  </view>
-  <view class = 'top'>
-    <text>{{realneme}}</text>
-  </view>
-  <view class = 'mid'>
-    <image src ="{{image_url}}"></image>
-  </view>
-  <view class = 'bottom'>
-    <button class = 'l-button' bindtap='confirm'>确认通过</button>
-    <button class = 'r-button' bindtap='failing'>信息异常</button>
+  <view wx:for="{{list}}" wx:for-item="itemName">
+    <view class = 'item'>
+      <text class = "text">{{itemName.realname}}</text>
+      <view class = "image">
+        <image src = "{{itemName.image_url}}"></image>
+      </view>
+      <view class = "button">
+      <button class = "button1" bindtap='pass' data-id='{{itemName.openid}}'>审核通过</button>     
+       <button class = "button2" bindtap='failure' data-id='{{itemName.openid}}'>信息异常</button>
+       </view>
+    </view>
   </view>
 </view>

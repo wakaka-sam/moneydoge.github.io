@@ -6,9 +6,15 @@ Page({
   },
   onLoad(options) {
     var that = this
+    var id = wx.getStorageSync('SessionId')
+    console.log(id)
     // Do some initialize when page load.
     that.setData({
-      sessionID: '847694c4-14dd-47b2-8922-facd8e379f47',
+      sessionID: id,
+    }),
+    // Do some initialize when page load.
+    that.setData({
+      sessionID: id,
     })
      that.getList()
   },

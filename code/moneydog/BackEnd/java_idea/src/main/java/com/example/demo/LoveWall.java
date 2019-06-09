@@ -1,12 +1,13 @@
 package com.example.demo;
 
 public class LoveWall {
-    private String toPeople;
+    //private String toPeople;
     private String detail;
     private int likeNum;
 
     LoveWall()
     {}
+    /*
     public String getToPeople() {
         return toPeople;
     }
@@ -14,6 +15,8 @@ public class LoveWall {
     public void setToPeople(String toPeople) {
         this.toPeople = toPeople;
     }
+
+     */
 
     public String getDetail() {
         return detail;
