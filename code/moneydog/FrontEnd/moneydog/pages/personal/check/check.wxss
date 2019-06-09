@@ -1,0 +1,39 @@
+
+.item{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 15px;
+  border: solid 1px rgb(218, 215, 215);
+  margin: 20px
+}
+.text{
+  display: flex;
+  justify-content: center;
+}
+.button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.button1{
+  display: flex;
+  justify-content: center;
+  background-color: greenyellow;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+}
+.button2{
+  display: flex;
+  justify-content: center;
+  background-color: red;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100px;
+}
+
+.image{
+  display:flex;
+  justify-content: center;
+}

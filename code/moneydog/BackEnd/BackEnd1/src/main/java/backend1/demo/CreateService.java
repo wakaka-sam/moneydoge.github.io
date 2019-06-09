@@ -37,5 +37,4 @@ public class CreateService {
         return issueInfoMapper.Login(openid);
     }
 
-
 }

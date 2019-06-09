@@ -1,4 +1,7 @@
+
 Page({
-  data: {
+  data:{ 
+    image:'../../../images/WechatIMG1.jpeg'
   },
+ 
 })

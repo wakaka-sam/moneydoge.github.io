@@ -1,6 +1,6 @@
 <view class = "top-block">
-    <view>
-      <image src = "{{user_img}}" class = "s-image"></image>
+    <view >
+      <image src = "{{userInfo.avatarUrl}}" class = "s-image"></image>
     </view>    
 </view>
 
@@ -12,7 +12,7 @@
     </view>
 
     <view>
-      <input placeholder='请输入昵称' bindinput='setNickname'></input>
+      <input placeholder='{{nickname}}' bindinput='setNickname'></input>
     </view>
 
   </view>
@@ -24,7 +24,7 @@
       <image src = "../../../images/user_name.png" class = "s-icon"></image>
     </view>
     <view class = "input">
-      <input placeholder='请输入姓名' bindinput='setName'></input>
+      <input placeholder='{{name}}' bindinput='setName'></input>
     </view>
   </view>
 
@@ -35,7 +35,7 @@
       <image src = "../../../images/school.png" class = "s-icon"></image>
     </view>
     <view class = "input">
-      <input placeholder='请输入学校' bindinput='setSchool'></input>
+      <input placeholder='{{school}}' bindinput='setSchool'></input>
     </view>
   </view>
 
@@ -46,7 +46,7 @@
       <image src = "../../../images/phone.png" class = "s-icon"></image>
     </view>
     <view class = "input">
-      <input placeholder='请输入手机号' bindinput='setPhone'></input>
+      <input placeholder='{{phone}}' bindinput='setPhone'></input>
     </view>
   </view>
   <view class = "divLine"></view>
@@ -55,8 +55,8 @@
 
 <view class = "bottom-block">
 
-  <view  bindtap='up_schoolcard'>
-    <image src = "{{imageUrl}}" class = "size-card"></image>
+  <view  bindtap='upSchoolcard'>
+    <image src = "{{image_url}}" class = "size-card"></image>
   </view>
 
   <view>
@@ -65,7 +65,7 @@
 </view>
 
 <view>
-<button class = "ident-info" bindtap='change_info'>确认信息</button>
+<button class = "ident-info" bindtap='change_info'>确认修改</button>
 </view>
 
 

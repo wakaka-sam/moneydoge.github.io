@@ -1,2 +1,22 @@
 <!--pages/index3/index3.wxml-->
-<text>表白墙页面</text>
+<view class='confessionList'>
+	<block wx:for='{{confessionList}}' wx:for-index='listIndex'>
+		<view class='singleConfession'>
+			<image wx:if='{{listIndex % 2 == 0}}' class='image' src='../../images/timg({{listIndex%4}}).jpeg'></image>
+			<view class='text'>
+				<image class='loveImage' src='../../images/timg.png'></image>
+				<text>表白{{listIndex + 1}}:</text>
+				<text>{{item.content}}</text>
+			</view>
+			<image wx:if='{{listIndex % 2 != 0}}' class='image' src='../../images/timg({{listIndex%4}}).jpeg'></image>
+		</view>
+	</block>
+</view>
+
+<view>
+  <image class = "pic" src="../../images/confession_pic1.png">
+  </image>
+</view>
+<view class='button'>
+	<view class='writeConfession' catchtap='writeConfession'>写表白</view>
+</view>
