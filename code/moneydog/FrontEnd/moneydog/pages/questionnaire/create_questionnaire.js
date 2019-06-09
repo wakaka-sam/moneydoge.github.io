@@ -29,7 +29,8 @@ Page({
     wx.setStorageSync('questionnairePay', this.data.questionnairePay)
     wx.setStorageSync('questionnaireTota', this.data.questionnaireTota)
     wx.setStorageSync('questionList', [])
-    wx.navigateTo({
+    wx.setStorageSync('questionContentCountList', [])
+    wx.redirectTo({
       url: 'questionnaire',
     })
   },
