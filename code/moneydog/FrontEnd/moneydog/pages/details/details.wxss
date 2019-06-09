@@ -1,5 +1,57 @@
 .txt {
-  padding-left: 20px;
+  font-size: 14px;
+  word-break: break-all;
+}
+.detailHead {
+  padding: 25px 25px 0px 25px;
+  display: flex;
+  justify-content: space-between;
+  vertical-align: top;
+}
+.price {
+  font-size: 36px;
+  color: red;
+}
+.state {
+  font-size: 20px;
+  color: orange;
+}
+.detailBody{
+  padding: 5px 25px 0px 25px;
+  border-bottom: 1px solid #BBBBBB;
+  margin-bottom: 15px;
+}
+.detailTitle {
+  margin-bottom: 9px;
+}
+.detailContent {
+  margin-bottom: 9px;
+  width: 200px;
+  color: rgb(136, 136, 136);
+  border: 1px solid rgb(187, 187, 187);
+}
+.button {
+  font-size: 18px;
+  text-align: center;
+  padding-top: 11px;
+  color: white;
+  background-color: #19ADAD;
+  width: 89%;
+  height: 36px;
+  border-radius: 5px;
+}
+
+.questionnaire {
+  font-size: 16px;
+  padding: 20px 12px 12px 12px;
+}
+.questionnaireDescription {
+  margin: 18px 0px 33px 0px;
+}
+.question-view {
+  padding: 15px;
+  margin-bottom: 18px;
+  border: 1px solid rgb(187, 187, 187);
 }
 
 .zan-dialog__mask {
