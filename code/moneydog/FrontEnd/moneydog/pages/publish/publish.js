@@ -11,7 +11,7 @@ Page({
     x_src_of_pic: '../../images /upload.png',/*这个是选择闲置物品图片后，将闲置物品图片替换原按钮图片*/
     /*以下是快递需要上传的属性*/
     k_express_loc:'明德园test',
-    k_arrive_time:'2018/01/30 11:00:00',
+    k_arrive_time: '',
     k_loc:'至善园二号',
     k_num:'4',
     k_pay:'12',
@@ -44,9 +44,12 @@ Page({
     x_wechat:'',
 
     //日期选择器的初始数值
-    startDate:'2019/06/03',
+    startDate:'2019/01/01',
     endDate:'2019/12/31',
-    selectDate:'2019/06/03'
+    selectDate:'2019/06/03',
+    selectDate1: '2019/06/03',
+    selectDate2: '2019/06/03',
+    selectDate3: '2019/06/03'
   },
 
   /**
@@ -71,7 +74,7 @@ Page({
       src_of_pic: '../../images/upload.png',    
       /*以下是快递需要上传的属性*/
       k_express_loc: '明德园test',
-      k_arrive_time: '2018/01/30 11:00:00',
+      k_arrive_time: that.data.selectDate,
       k_loc: '至善园二号',
       k_num: '4',
       k_pay: '12',
@@ -82,7 +85,7 @@ Page({
       /*以下是求助需要上传的属性*/
       q_title: '',
       q_content: '',
-      q_ending_time: '',
+      q_ending_time: that.data.selectDate1,
       q_pay: '',
       q_phone: '',
       q_wechat: '',
@@ -90,15 +93,15 @@ Page({
       /*以下是跑腿需要上传的属性*/
       p_title: '',
       p_content: '',
-      p_ending_time: '',
+      p_ending_time: that.data.selectDate2,
       p_pay: '',
       p_phone: '',
-      p_wechat: '',
+      p_wechat: '',   
 
       /*以下是闲置需要上传的属性*/
       x_object_name: '',
       x_content: '',
-      x_ending_time: '',
+      x_ending_time: that.data.selectDate3,
       x_pay: '',
       x_phone: '',
       x_wechat: '',
@@ -201,12 +204,6 @@ Page({
     })
   },
   //获取快递输入的快递送达时间
-  k_arrive_timeInput: function (e) {
-    this.setData({
-      k_arrive_time: e.detail.value
-    })
-  },
-  //获取快递输入的快递送达时间
   k_arrive_timeInput2: function (e) {
     this.setData({
       k_arrive_time: e.detail.value
@@ -243,6 +240,7 @@ Page({
     var that = this;
     var date0 = new Date(that.data.k_arrive_time);//STRING转Date
     console.log(that.data.sessionID)
+    console.log("daodashijian:" + that.data.k_arrive_time)
     wx.request({
       url: "http://172.18.32.138:8080/Create/Expressage",
       header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
@@ -282,12 +280,6 @@ Page({
       q_content: e.detail.value
     })
   },
-  //获取求助输入的信息截止时间
-  q_ending_timeInput: function (e) {
-    this.setData({
-      q_ending_time: e.detail.value
-    })
-  },
   //获取求助输入的报酬信息
   q_payInput: function (e) {
     this.setData({
@@ -312,6 +304,7 @@ Page({
   gotodeupload2: function () {
     var that = this;
     var date1 = new Date(that.data.q_ending_time);//STRING转Date
+    console.log("q_ending_time:"+that.data.q_ending_time);
     wx.request({
       url: "http://172.18.32.138:8080/Create/For_help",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
@@ -352,12 +345,6 @@ Page({
       p_content: e.detail.value
     })
   },
-  //获取跑腿输入的信息截止时间
-  p_ending_timeInput: function (e) {
-    this.setData({
-      p_ending_time: e.detail.value
-    })
-  },
   //获取跑腿输入的报酬信息
   p_payInput: function (e) {
     this.setData({
@@ -381,6 +368,7 @@ Page({
   gotodeupload3: function () {
     var that = this;
     var date2 = new Date(that.data.p_ending_time);//STRING转Date
+    console.log("p_ending_time" + that.data.p_ending_time);
     wx.request({
       url: "http://172.18.32.138:8080/Create/Errand",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
@@ -451,6 +439,7 @@ Page({
   gotodeupload4: function () {
     var that = this;
     var date3 = new Date(that.data.x_ending_time);//STRING转Date
+    console.log("x_ending_time" + that.data.x_ending_time);
     wx.uploadFile({
       url: "http://119.23.218.7:8080/File/Upload",
       filePath:that.data.src_of_pic,
@@ -485,7 +474,13 @@ Page({
             console.log(that.data.x_pay);
             console.log(that.data.x_phone);
             console.log(that.data.x_wechat);
-            
+            var t = JSON.parse(res.data);
+            console.log(t.imageUrl)
+            var url = 'http://119.23.218.7:8080/' + t.src_of_pic;
+            that.setData({
+              src_of_pic: url,
+            })
+            console.log("aaa"+this.data.src_of_pic)
             wx.navigateBack({
               delta: 1  //小程序关闭当前页面返回上一页面
             })
@@ -496,11 +491,33 @@ Page({
    
     
   },
-  dateChange: function () {
-    var taht = this;
-    that.setData({
-      selectDate:e.detail.value
+  dateChange: function (e) {
+    this.setData({
+      selectDate:e.detail.value,
+      k_arrive_time: e.detail.value
     });
+    
+  },
+  dateChange1: function (e) {
+    this.setData({
+      selectDate1: e.detail.value,
+      q_ending_time: e.detail.value
+    });
+
+  },
+  dateChange2: function (e) {
+    this.setData({
+      selectDate2: e.detail.value,
+      p_ending_time: e.detail.value
+    });
+
+  },
+  dateChange3: function (e) {
+    this.setData({
+      selectDate3: e.detail.value,
+      x_ending_time: e.detail.value
+    });
+
   }
 
 })
