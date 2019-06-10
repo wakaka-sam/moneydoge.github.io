@@ -322,7 +322,7 @@ Page({
       },
       success: function (res) {
         wx.showToast({
-          title: '快递发布成功',
+          title: '求助发布成功',
           icon: 'success'
         })
         console.log(res.data);
@@ -390,7 +390,7 @@ Page({
       },
       success: function (res) {
         wx.showToast({
-          title: '快递发布成功',
+          title: '跑腿发布成功',
           icon: 'success'
         })
         console.log(res.data);
@@ -452,10 +452,6 @@ Page({
     var date3 = new Date(that.data.x_ending_time);//STRING转Date
     console.log("x_ending_time" + that.data.x_ending_time);
     console.log("src1:"+ that.data.src_of_pic);
-
-
-    var url =  + that.data.src_of_pic;
-    console.log("url:" + url);
     wx.uploadFile({
       url: 'http://119.23.218.7:8080/File/Upload',
       filePath: that.data.src_of_pic,
@@ -468,11 +464,10 @@ Page({
         "user":"test"
       },
       success:function (res){
-
         console.log("return:"+ res.data);
         var image_url_t = JSON.parse(res.data);
         var url = 'http://119.23.218.7:8080/' + image_url_t.imageUrl;
-        console.log(url);
+        console.log("上传的url:" + url);
         wx.request({
           url: "https://moneydog.club:3030/Create/Second_hand",
           header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
@@ -488,8 +483,9 @@ Page({
           },
           success: function (res) {
             wx.showToast({
-              title: '快递发布成功',
-              icon: 'success'
+              title: '闲置发布成功',
+              icon: 'success',
+              duration:20000
             })
             console.log(that.data.x_object_name);
             console.log(that.data.x_content);
