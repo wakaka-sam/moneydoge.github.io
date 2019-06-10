@@ -5,13 +5,9 @@ public class LoadQuestion {
     private String name;
     private String description;
     private int pay;
-    public int getQid() {
-        return qid;
-    }
+    private int num;
+    private int state;
 
-    public void setQid(int qid) {
-        this.qid = qid;
-    }
 
     public String getName() {
         return name;
@@ -38,5 +34,29 @@ public class LoadQuestion {
 
     public void setPay(int pay) {
         this.pay = pay;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public int getQid() {
+        return qid;
+    }
+
+    public void setQid(int qid) {
+        this.qid = qid;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }

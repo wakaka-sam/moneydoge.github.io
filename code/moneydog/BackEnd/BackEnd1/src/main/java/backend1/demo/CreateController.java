@@ -122,7 +122,8 @@ public class CreateController {
             jsonObject.put("errmsg","you have fill this questionair");
             return jsonObject;
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println("进行填写");
+//            System.out.println(e);
         }
         System.out.println(con);
         //获取前端填写的问卷内容
@@ -138,6 +139,7 @@ public class CreateController {
 
         }catch (Exception e){
             num = -1;
+//            System.out.println("");
             System.out.println(e);
         }
         System.out.println( "222"+ctt);
@@ -285,7 +287,7 @@ public class CreateController {
     public List<LoadQuestion> OnLoadQuestionair(){
         try {
             int id = jdbcTemplate.queryForObject("SELECT COUNT(qid) AS NumberOfProducts FROM questionair;", int.class);
-
+            System.out.println(id);
             return jdbcTemplate.query("select qid,name,description,pay from questionair where qid <= ? and state = 0 and num < total_num order by qid desc limit 15 ;",new Object[]{id},new BeanPropertyRowMapper(LoadQuestion.class));
         }catch (Exception e){
             System.out.println("加载问卷错误");
@@ -296,7 +298,7 @@ public class CreateController {
     }
     //加载问卷
     @RequestMapping(value = "/LoadMyQuestionair",method = RequestMethod.GET)
-    public List<LoadQuestion> LoadMyQuestionair(@RequestParam("sessionId")String sessionId){
+    public List<LoadQuestion> LoadMyQuestionair(@RequestHeader("sessionId")String sessionId){
         String openid = getOpenidFromSession(sessionId);
         try {
 //            int id = jdbcTemplate.queryForObject("SELECT COUNT(qid) AS NumberOfProducts FROM questionair;", int.class);
@@ -376,12 +378,12 @@ public class CreateController {
         // session_key
         // }
         RestTemplate restTemplate = new RestTemplate();
-        String appid = "wx08dea5e778f278de&";
-        String secret = "77fc034ff68fe7799e4e8723466a50d7&";
+        String appid = "wxd128011688abed28&";
+        String secret = "44663739b9268649d3740990f49a2677&";
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid
                 + "&secret=" + secret
                 + "&js_code=" + code
-                + "&grant_type=authorization_code";
+                + "&grant_ty pe=authorization_code";
         JSONObject jsonObject = new JSONObject();
 
         HttpHeaders headers = new HttpHeaders();

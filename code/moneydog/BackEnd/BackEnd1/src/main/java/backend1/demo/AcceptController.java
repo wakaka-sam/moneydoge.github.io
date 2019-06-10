@@ -176,6 +176,7 @@ public class AcceptController {
                 errmsg = "Finish failed";
             }
         }catch (Exception e){
+            System.out.println(e);
             errcode = 0;
             errmsg = "Finish failed";
         }
@@ -196,13 +197,11 @@ public class AcceptController {
 
         switch (type){
             case 0:sql = "update moneydog.expressage set state = 6 where uid1 = ? and pid = ? and state != 1;";state = "select state from expressage where pid = ?;";paymoney = "select pay from expressage where pid = ?;";break;//快递
-            case 1:sql = "update moneydog.errand set state = 6 where  uid1 = ? and rid = ?  and state != 1;";state = "select state from errand where rid = ?;";paymoney = "select pay from expressage where pid = ?;";break;//跑腿
-            case 2:sql = "update moneydog.for_help set state = 6 where uid1 = ? and fid = ? and state != 1; ";state = "select state from for_help where fid = ?;";paymoney = "select pay from expressage where pid = ?;";break;//求助
-            case 3:sql = "update moneydog.second_hand set state = 6 where uid1 = ? and sid = ? and state != 1; ";state = "select state from second_hand where sid = ?;";paymoney = "select pay from expressage where pid = ?;";break;//二手
+            case 1:sql = "update moneydog.errand set state = 6 where  uid1 = ? and rid = ?  and state != 1;";state = "select state from errand where rid = ?;";paymoney = "select pay from errand where rid = ?;";break;//跑腿
+            case 2:sql = "update moneydog.for_help set state = 6 where uid1 = ? and fid = ? and state != 1; ";state = "select state from for_help where fid = ?;";paymoney = "select pay from for_help where fid = ?;";break;//求助
+            case 3:sql = "update moneydog.second_hand set state = 6 where uid1 = ? and sid = ? and state != 1; ";state = "select state from second_hand where sid = ?;";paymoney = "select pay from second_hand where sid = ?;";break;//二手
             default:break;
         }
-
-
         String errmsg;
         int errcode;
         try{
@@ -212,6 +211,8 @@ public class AcceptController {
                 if(type != 3){
                     int state_num = jdbcTemplate.queryForObject(state,new Object[]{id},int.class);
                     int pay = jdbcTemplate.queryForObject(paymoney,new Object[]{id},int.class);
+                    if(pay < 0)
+                        pay = -pay;
                     if(state_num != 2){
                         JSONObject temp2 =  CreateIssueBalanceDetail(pay,"删除订单，返回费用",openid);
                         jt.put("statecode",temp2.getInteger("statecode"));
@@ -224,6 +225,7 @@ public class AcceptController {
             }
 
         }catch (Exception e){
+            System.out.println(e);
             errcode = 0;
             errmsg = "Delete failed";
         }
