@@ -93,6 +93,11 @@ Page({
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
         })
+        wx.showToast({
+          title: '表白发布成功',
+          icon: 'success',
+          duration: 2000
+        })
       },
     })
   }
