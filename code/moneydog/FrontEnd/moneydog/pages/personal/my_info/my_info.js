@@ -12,6 +12,7 @@ Page({
   },
   onLoad(options) {
     var id = wx.getStorageSync('SessionId')
+    console.log(id)
     var that = this
 
     if (app.globalData.userInfo) {
@@ -122,6 +123,7 @@ Page({
           success:function(res){
             if(res){
               var res_data = JSON.parse(res.data)
+              
               that.setData({
                 image_url:"http://119.23.218.7:8080/"+res_data.imageUrl
               })
