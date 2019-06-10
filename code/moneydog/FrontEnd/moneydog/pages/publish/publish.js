@@ -262,7 +262,8 @@ Page({
         console.log("s" + that.data.sessionID);
         wx.showToast({
           title: '快递发布成功',
-          icon:'success'
+          icon:'success',
+          duration: 2000
         })
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
@@ -323,7 +324,8 @@ Page({
       success: function (res) {
         wx.showToast({
           title: '求助发布成功',
-          icon: 'success'
+          icon: 'success',
+          duration: 2000
         })
         console.log(res.data);
         console.log(that.data.q_title);
@@ -391,7 +393,8 @@ Page({
       success: function (res) {
         wx.showToast({
           title: '跑腿发布成功',
-          icon: 'success'
+          icon: 'success',
+          duration: 2000
         })
         console.log(res.data);
         console.log(that.data.p_title);
@@ -485,7 +488,7 @@ Page({
             wx.showToast({
               title: '闲置发布成功',
               icon: 'success',
-              duration:20000
+              duration:2000
             })
             console.log(that.data.x_object_name);
             console.log(that.data.x_content);
