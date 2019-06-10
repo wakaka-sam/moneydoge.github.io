@@ -208,7 +208,7 @@
 		<view class='detailTitle'>
 			图片
 		</view>
-		<image src="http://119.23.218.7:8080/{{json.photo_url}}"></image>
+		<image src="{{json.photo_url}}" style='width:240px;height:240px;'></image>
 	</view>
 	<view style='display: flex;justify-content: space-around;'>
 		<view class='button' catchtap='getContact' data-type='3' data-id='{{json.sid}}'>联系方式</view>
@@ -225,24 +225,20 @@
 		<view wx:if='{{item.type==0}}' class='question-view'>
 			<label>{{qIndex+1}}.{{item.title}}</label>
 			<radio-group class="radio-group" data-id='{{qIndex}}' bindchange='radioChange'>
-				<label class="radio">
-					<radio wx:if='{{item.a}}' value='a'>{{item.a}}</radio>
-					<radio wx:if='{{item.b}}' value='b'>{{item.b}}</radio>
-					<radio wx:if='{{item.c}}' value='c'>{{item.c}}</radio>
-					<radio wx:if='{{item.d}}' value='d'>{{item.d}}</radio>
-				</label>
+				<radio wx:if='{{item.a}}' value='a'>{{item.a}}</radio>
+				<radio wx:if='{{item.b}}' value='b'>{{item.b}}</radio>
+				<radio wx:if='{{item.c}}' value='c'>{{item.c}}</radio>
+				<radio wx:if='{{item.d}}' value='d'>{{item.d}}</radio>
 			</radio-group>
 		</view>
 		<!--多选题-->
 		<view wx:if='{{item.type==1}}' class='question-view'>
 			<label>{{qIndex+1}}.{{item.title}}</label>
 			<checkbox-group class="checkbox-group" data-id='{{qIndex}}' bindchange="checkboxChange">
-				<label class="checkbox">
-		    		<checkbox wx:if='{{item.a}}' value='a'>{{item.a}}</checkbox>
-		    		<checkbox wx:if='{{item.b}}' value='b'>{{item.b}}</checkbox>
-		    		<checkbox wx:if='{{item.c}}' value='c'>{{item.c}}</checkbox>
-		    		<checkbox wx:if='{{item.d}}' value='d'>{{item.d}}</checkbox>
-				</label>
+		    	<checkbox wx:if='{{item.a}}' value='a'>{{item.a}}</checkbox>
+		    	<checkbox wx:if='{{item.b}}' value='b'>{{item.b}}</checkbox>
+		    	<checkbox wx:if='{{item.c}}' value='c'>{{item.c}}</checkbox>
+		    	<checkbox wx:if='{{item.d}}' value='d'>{{item.d}}</checkbox>
 			</checkbox-group>
 		</view>
 		<!--填空题-->
