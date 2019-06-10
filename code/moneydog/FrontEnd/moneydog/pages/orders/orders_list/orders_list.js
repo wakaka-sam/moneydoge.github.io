@@ -165,7 +165,7 @@ Page({
         wx.setStorageSync('questionnaireTota', res.data.viewAllList.num)
         wx.setStorageSync('questionList', JSON.parse(res.data.viewAllList.content))
         wx.navigateTo({
-          url: '../../questionnaire/questionnaire',
+          url: '../../questionnaire/questionnaire?type=1',
         })
       }
     })
@@ -178,19 +178,14 @@ Page({
       header: { sessionId: that.data.sessionId },
       data: { id: that.data.orderid },
       success: function (res) {
-        console.log(res.data)
-        wx.setStorageSync('questionnaireName', res.data.viewAllList.name)
-        wx.setStorageSync('questionnaireDesc', res.data.viewAllList.description)
-        wx.setStorageSync('questionnairePay', 0)
+        //console.log(res.data)
         wx.setStorageSync('questionnaireTota', res.data.viewAllList.num)
         wx.setStorageSync('questionList', JSON.parse(res.data.viewAllList.content))
-        wx.navigateTo({
-          url: '../../questionnaire/questionnaire',
-        })
+        wx.setStorageSync('questionContentCountList', (JSON.parse(res.data.viewAllList.content_count)).content_count)
       }
     })
     wx.navigateTo({
-      url: '../orders_content/questionnaire-anlyse',
+      url: '../orders_content/questionnaire_result/questionnaire-anlyse',
     })
   },
   //终止问卷
@@ -269,12 +264,12 @@ Page({
       }
     }))
   },
-  //加载我发布问卷
+  //加载我发布的问卷
   OnLoadQuestionnaires: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
       url: "https://moneydog.club:3030/Create/LoadMyQuestionair",
-      data: { sessionId: that.data.sessionId },
+      header: { sessionId: that.data.sessionId },
       success: function (res) {
         //console.log(res.data)
         that.setData({
@@ -322,7 +317,7 @@ Page({
       that.select3()
     else if (id == 4)
       that.select4()
-    else
+    else 
       that.select5()
     
     that.OnLoadPublishOrders()

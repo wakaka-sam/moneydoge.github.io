@@ -1,0 +1,20 @@
+<!--pages/orders/orders_content/completion_results.wxml-->
+<view class='container'>
+  <view id='question-area'>
+    <view class='question-view'>
+      <view class="choice-group">
+        <view class='choice-row'>
+          <view class='choice-content'>序号</view>
+          <view class='choice-num'>答案文本</view>
+        </view>
+        <view class='choice-row' wx:for='{{fillArray}}' wx:key='index'>
+          <view class='choice-content'>{{index+1}}</view>
+          <view class='choice-num'>{{item}}</view>
+        </view>
+      </view>
+    </view>
+    <view class='question-area-bottom'></view>
+  </view>
+</view>
+
+

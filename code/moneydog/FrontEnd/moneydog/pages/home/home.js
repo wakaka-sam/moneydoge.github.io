@@ -144,7 +144,7 @@ Page({
         },
       })
     } else {
-      console.log('获取用户登录失败：' + res.errMsg);
+      console.log('获取用户登录失败');
     }
   }
 })
