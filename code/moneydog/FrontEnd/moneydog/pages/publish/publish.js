@@ -262,7 +262,8 @@ Page({
         console.log("s" + that.data.sessionID);
         wx.showToast({
           title: '快递发布成功',
-          icon:'success'
+          icon:'success',
+          duration: 2000
         })
         wx.navigateBack({
           delta: 1  //小程序关闭当前页面返回上一页面
@@ -322,8 +323,9 @@ Page({
       },
       success: function (res) {
         wx.showToast({
-          title: '快递发布成功',
-          icon: 'success'
+          title: '求助发布成功',
+          icon: 'success',
+          duration: 2000
         })
         console.log(res.data);
         console.log(that.data.q_title);
@@ -390,8 +392,9 @@ Page({
       },
       success: function (res) {
         wx.showToast({
-          title: '快递发布成功',
-          icon: 'success'
+          title: '跑腿发布成功',
+          icon: 'success',
+          duration: 2000
         })
         console.log(res.data);
         console.log(that.data.p_title);
@@ -452,10 +455,6 @@ Page({
     var date3 = new Date(that.data.x_ending_time);//STRING转Date
     console.log("x_ending_time" + that.data.x_ending_time);
     console.log("src1:"+ that.data.src_of_pic);
-
-
-    var url =  + that.data.src_of_pic;
-    console.log("url:" + url);
     wx.uploadFile({
       url: 'http://119.23.218.7:8080/File/Upload',
       filePath: that.data.src_of_pic,
@@ -468,11 +467,10 @@ Page({
         "user":"test"
       },
       success:function (res){
-
         console.log("return:"+ res.data);
         var image_url_t = JSON.parse(res.data);
         var url = 'http://119.23.218.7:8080/' + image_url_t.imageUrl;
-        console.log(url);
+        console.log("上传的url:" + url);
         wx.request({
           url: "https://moneydog.club:3030/Create/Second_hand",
           header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
@@ -488,8 +486,9 @@ Page({
           },
           success: function (res) {
             wx.showToast({
-              title: '快递发布成功',
-              icon: 'success'
+              title: '闲置发布成功',
+              icon: 'success',
+              duration:2000
             })
             console.log(that.data.x_object_name);
             console.log(that.data.x_content);
