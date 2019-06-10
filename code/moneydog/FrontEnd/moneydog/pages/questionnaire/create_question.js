@@ -28,45 +28,66 @@ Page({
   },
   //确认单选题
   confirmSCQ() {
-    this.data.questionItem.type = 0
+    //设置题目类型
+    this.data.questionItem.type = 0 
     this.data.questionContentCount.type = 0
     this.setData({
       questionItem: this.data.questionItem,
       questionContentCount: this.data.questionContentCount
     })
-    var question = JSON.stringify(this.data.questionItem);
-    var questionContentCount = JSON.stringify(this.data.questionContentCount)
-    wx.navigateTo({
-      url: 'questionnaire?question=' + question + '&questionContentCount=' + questionContentCount,
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];  //上一个页面
+    //设置上一个页面的问题列表questionList和选项列表questionContentCountList
+    prevPage.data.questionList.push(this.data.questionItem)
+    prevPage.data.questionContentCountList.push(this.data.questionContentCount)
+    prevPage.setData({
+      questionList: prevPage.data.questionList,
+      questionContentCountList: prevPage.data.questionContentCountList,
     })
+    //跳转回上一个页面
+    wx.navigateBack({})
   },
   //确认多选题
   confirmMCQ() {
+    //设置题目类型
     this.data.questionItem.type = 1
     this.data.questionContentCount.type = 1
     this.setData({
       questionItem: this.data.questionItem,
       questionContentCount: this.data.questionContentCount
     })
-    var question = JSON.stringify(this.data.questionItem);
-    var questionContentCount = JSON.stringify(this.data.questionContentCount)
-    wx.navigateTo({
-      url: 'questionnaire?question=' + question + '&questionContentCount=' + questionContentCount,
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];  //上一个页面
+    //设置上一个页面的问题列表questionList和选项列表questionContentCountList
+    prevPage.data.questionList.push(this.data.questionItem)
+    prevPage.data.questionContentCountList.push(this.data.questionContentCount)
+    prevPage.setData({
+      questionList: prevPage.data.questionList,
+      questionContentCountList: prevPage.data.questionContentCountList,
     })
+    //跳转回上一个页面
+    wx.navigateBack({})
   },
   //确认填空题
   confirmCompletion() {
+    //设置题目类型
     this.data.questionItem.type = 2
     this.data.questionContentCount.type = 2
     this.setData({
       questionItem: this.data.questionItem,
       questionContentCount: this.data.questionContentCount
     })
-    var question = JSON.stringify(this.data.questionItem);
-    var questionContentCount = JSON.stringify(this.data.questionContentCount)
-    wx.navigateTo({
-      url: 'questionnaire?question=' + question + '&questionContentCount=' + questionContentCount,
+    var pages = getCurrentPages();
+    var prevPage = pages[pages.length - 2];  //上一个页面
+    //设置上一个页面的问题列表questionList和选项列表questionContentCountList
+    prevPage.data.questionList.push(this.data.questionItem)
+    prevPage.data.questionContentCountList.push(this.data.questionContentCount)
+    prevPage.setData({
+      questionList: prevPage.data.questionList,
+      questionContentCountList: prevPage.data.questionContentCountList,
     })
+    //跳转回上一个页面
+    wx.navigateBack({})
   },
   /**
    * 生命周期函数--监听页面加载

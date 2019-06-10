@@ -1,6 +1,7 @@
 // pages/questionnaire/questionnaire.js
 Page({
   data: {
+    flag: 0,
     questionnaireName: null,
     questionnaireDesc: null,
     questionnairePay: 0,
@@ -83,26 +84,13 @@ Page({
       questionnaireName: wx.getStorageSync('questionnaireName'),
       questionnaireDesc: wx.getStorageSync('questionnaireDesc'),
       questionnairePay: wx.getStorageSync('questionnairePay'), 
-      questionnaireTota: wx.getStorageSync('questionnaireTota'), 
-      questionList: wx.getStorageSync('questionList'),
-      questionContentCountList: wx.getStorageSync('questionContentCountList')
+      questionnaireTota: wx.getStorageSync('questionnaireTota')
     })
-    if (options.question != null) {
-      var question = JSON.parse(options.question)
-      this.data.questionList.push(question)
-      wx.setStorageSync('questionList', this.data.questionList)
+    if(options.type) {
+      this.setData({
+        questionList: wx.getStorageSync('questionList')
+      })
     }
-    if (options.questionContentCount != null) {
-      var questionContentCount = JSON.parse(options.questionContentCount)
-      this.data.questionContentCountList.push(questionContentCount)
-      wx.setStorageSync('questionContentCountList', this.data.questionContentCountList)
-    }
-    this.setData({
-      questionList: this.data.questionList,
-      questionContentCountList: this.data.questionContentCountList
-    })
-    console.log(this.data.questionList)
-    console.log(this.data.questionContentCountList)
   },
 
   /**
