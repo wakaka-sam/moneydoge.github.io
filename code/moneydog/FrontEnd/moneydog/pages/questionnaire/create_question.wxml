@@ -14,7 +14,7 @@
       <input placeholder="输入选项" bindinput='SCQChoice3'/>
       <input placeholder="输入选项" bindinput='SCQChoice4'/>
     </view>
-    <button type='primary' bindtap='confirmSCQ'>确认</button>
+    <button style='background-color:#78D8D8;' type='primary' bindtap='confirmSCQ'>确认</button>
   </view>
   </block>
   <!-->单选题创建end<-->
@@ -33,7 +33,7 @@
       <input placeholder="输入选项" bindinput='SCQChoice3'/>
       <input placeholder="输入选项" bindinput='SCQChoice4'/>
     </view>
-    <button type='primary' bindtap='confirmMCQ'>确认</button>
+    <button style='background-color:#78D8D8;' type='primary' bindtap='confirmMCQ'>确认</button>
   </view>
   </block>
   <!-->多选题创建end<-->
@@ -45,7 +45,7 @@
       <label>*标题：</label>
       <input placeholder="请输入标题" bindinput='SCQName'/>
     </view>
-    <button type='primary' bindtap='confirmCompletion'>确认</button>
+    <button style='background-color:#78D8D8;' type='primary' bindtap='confirmCompletion'>确认</button>
   </view>
   </block>
   <!-->填空题创建end<-->

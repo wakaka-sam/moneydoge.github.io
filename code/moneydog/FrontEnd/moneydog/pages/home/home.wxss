@@ -1,52 +1,51 @@
 /**index.wxss**/
+/*注册按钮*/
 .getInfoButton {
   position: fixed;
   top: 40%;
-  background-color: #87CEFA;
+  background-color: #78D8D8;
 }
 
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 200rpx;
-  height: 200rpx;
-  border-radius: 15%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
+/*快递、求助、跑腿、接单、问卷五个接单按钮的样式*/
 .button-area {
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: absolute;
+  top: 350rpx;
 }
 
 .button-row {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 94%;
   justify-content: center;
+  margin-left: 3%;
 }
 
-#wenjuan-area {
-  width: 100%;
-  align-content: center;
-  border: 2px solid black;
+.receipt-button {
+  margin: 10rpx 1.5% 10rpx 1.5%;
+  background: #fff;
+  text-align: center;
 }
 
+.receipt-buttonIcon {
+  width: 120rpx;
+  height: 120rpx;
+  background-color: #78D8D8;
+  border-radius: 30rpx;
+  box-sizing: border-box;
+}
+/*快递、求助、跑腿、接单、问卷五个接单按钮的样式end*/
+
+/*圆形问卷发布按钮的样式*/
 .wenjuan-button {
   position: absolute;
-  top:180rpx;
-  left: 180rpx;
+  top:175rpx;
+  left: 175rpx;
   z-index: 10;
-  border: 2rpx solid gainsboro;
-  background: white;
+  border: 10rpx solid white;
+  background: #78D8D8;
   width: 270rpx;
   height: 270rpx;
   border-radius: 270rpx;
@@ -60,65 +59,62 @@
 .wenjuan-button cover-view {
   margin-left: 95rpx;
 }
+/*圆形问卷发布按钮的样式end*/
 
-.publish-button {
-  width: 355rpx;
-  height: 160rpx;
-  margin: 10rpx;
-  background: #fff;
+/*快递、求助、跑腿、闲置发布按钮样式*/
+.button-area1 {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .publish-button1 {
-  width: 310rpx;
-  height: 310rpx;
-  background-color: #fff;/* #87CEFA;*/
+  width: 300rpx;
+  height: 300rpx;
+  background-color: #78D8D8;
   margin: 10rpx;
   padding-right: 100rpx;
   padding-bottom: 60rpx;
 }
 .publish-button2 {
-  width: 310rpx;
-  height: 310rpx;
-  background-color: #fff;/* #87CEFA;*/
+  width: 300rpx;
+  height: 300rpx;
+  background-color: #78D8D8;
   margin: 10rpx;
   padding-left: 100rpx;
   padding-bottom: 60rpx;
 }
 .publish-button3 {
-  width: 310rpx;
-  height: 310rpx;
-  background-color: #fff;/* #87CEFA;*/
+  width: 300rpx;
+  height: 300rpx;
+  background-color: #78D8D8;
   margin: 10rpx;
   padding-right: 100rpx;
   padding-top: 60rpx;
 }
 .publish-button4 {
-  width: 310rpx;
-  height: 310rpx;
-  background-color: #fff;/* #87CEFA;*/
+  width: 300rpx;
+  height: 300rpx;
+  background-color: #78D8D8;
   margin: 10rpx;
   padding-left: 100rpx;
   padding-top: 60rpx;
 }
 
-.search {
-  width:600rpx;
-  height: 50rpx;
-  border: 3rpx solid black;
-  position: absolute;
-  top: 1%;
-  padding: 10rpx;
-  display: flex;
-  flex-direction: row;
+.publish-buttonIcon{
+  width: 150rpx;
+  height: 150rpx;
+  box-sizing: border-box;
 }
 
-.search-icon {
-  width: 50rpx;
-  height: 50rpx;
-  position: absolute;
-  right: 20rpx;
+.publish-text {
+  color: white;
+  position: relative;
+  bottom: 50rpx;
 }
+/*快递、求助、跑腿、闲置发布按钮样式end*/
 
+/*一键发布圆形按钮样式*/
 .popup-button {
   width: 300rpx;
   height: 170rpx;
@@ -127,7 +123,7 @@
   position: absolute;
   bottom: 0rpx;
   left: 225rpx;
-  background-color: #87CEFA;
+  background-color: #78D8D8;
   color: white;
   display: flex;
   align-items: center;
@@ -143,26 +139,9 @@
   height: 70rpx;
   margin-top: 15rpx;
 }
+/*一键发布圆形按钮样式end*/
 
-.publish-buttonIcon {
-  width: 90rpx;
-  height: 90rpx;
-  position: absolute;
-  left: 30rpx;
-  top: 10rpx;
-}
-
-.publish-text {
-  position: absolute;
-  left: 170rpx;
-  top: 50rpx;
-}
-
-.receipt-buttonIcon {
-  width: 120rpx;
-  height: 120rpx;
-}
-
+/*发布弹窗样式*/
 .zan-dialog__mask {
   position: fixed;
   top: 0;
@@ -170,7 +149,7 @@
   right: 0;
   bottom: 0;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.4); /*设置阴影半透明背景*/
+  background: rgba(0, 0, 0, 0.3); /*设置阴影半透明背景*/
   display: none;
 }
 
@@ -178,14 +157,14 @@
   position: fixed;
   bottom: 200rpx;
   left: 50rpx;
-  width: 660rpx;/*弹窗布局宽*/
-  height: 650rpx;/*弹窗布局高，与下面弹出距离transform有关*/
+  width: 630rpx;/*弹窗布局宽*/
+  height: 640rpx;/*弹窗布局高，与下面弹出距离transform有关*/
   background: #fff;
   transform: translateY(300%);/*弹框弹出距离，与弹框布局高度有关，如300%表示弹起距离为3倍弹窗高度*/
   transition: all 0.4s ease;
   z-index: 12;
   border-radius: 20rpx;
-  box-shadow: 0px 3px 3px 2px gainsboro;/*弹框的悬浮阴影效果，如不需要可注释该行*/
+  box-shadow: 1px 1px 1px 1px gainsboro;/*弹框的悬浮阴影效果，如不需要可注释该行*/
 }
 
 .zan-dialog--show .zan-dialog__container {
@@ -195,3 +174,72 @@
 .zan-dialog--show .zan-dialog__mask {
   display: block;
 }
+/*发布弹窗样式end*/
+
+/*顶部滚动图片样式*/
+.image-group {  
+  display: flex;  
+  white-space: nowrap; 
+  width: 675rpx;
+  height: 300rpx;
+  border: 1rpx solid gainsboro;
+  position: absolute;
+  top: 30rpx;
+  border-radius: 20rpx;
+}
+
+.image-group image {  
+  display: inline-block;  
+  width: 100%;  
+  height: 100%;
+  border-radius: 20rpx;
+}
+/*顶部滚动图片样式end*/
+
+/*精选表白样式*/
+.biaobai-area {
+  width: 90%;
+  height: 370rpx;
+  border: 2rpx solid gainsboro;
+  border-radius: 20rpx;
+  position: absolute;
+  top: 560rpx;
+  padding: 2%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+}
+
+.home_biaobai {
+  width: 50%;
+  height: 90%;
+  margin-top: 5%;
+  border-radius: 5rpx;
+}
+
+.biaobai-area view {
+  width: 50%;
+  text-align: center;
+  padding-left: 2%;
+  display: flex;
+  flex-direction: column;
+}
+
+.biaobai-title {
+  color: orange;
+  text-align: center;
+}
+
+.biaobai-content{
+  border: 2rpx solid gainsboro;
+  color: gray;
+  margin-top: 2%;
+  padding: 4%;
+  width: 100%;
+  height: 80%;
+  border-radius: 5rpx;
+  font-size: 35rpx;
+  text-align: left;
+  box-sizing: border-box;
+}
+/*精选表白样式end*/
