@@ -120,7 +120,7 @@
       </view>
     </view>
     <view class='b'>
-      <image src="http://119.23.218.7:8080/{{item.photo_url}}" style='flex: 1;height: 50px;'></image>
+      <image src="{{item.photo_url}}" style='flex: 1;height: 50px;'></image>
       <view style='flex: 1.6;'>
         <view>备注</view>
         <view>截止时间</view>

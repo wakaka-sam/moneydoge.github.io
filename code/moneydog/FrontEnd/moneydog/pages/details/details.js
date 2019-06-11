@@ -108,7 +108,14 @@ Page({
           console.log(res)
           console.log(res.data.errcode,res.data.errmsg)
           if (res.data.errcode == 1) {
-            wx.navigateBack({delta: 1})
+            wx.showToast({
+              title: '填写成功',
+              icon: 'success',
+              duration: 2000
+            })
+            setTimeout(function () {
+              wx.navigateBack({delta: 1})
+            }, 3000)
           }
           else if(res.data.errcode == 0){
             wx.showToast({
