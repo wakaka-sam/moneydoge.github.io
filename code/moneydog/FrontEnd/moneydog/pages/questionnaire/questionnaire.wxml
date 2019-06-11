@@ -1,7 +1,7 @@
 <!--pages/questionnaire/questionnaire.wxml-->
 <view class='container'>
   <!-->tab选项<-->
-    <view class='ques-tab'>
+    <view hidden='{{hiddenTab}}' class='ques-tab'>
       <view bindtap="toggleDialog">
         <image class='item-images' src='../../images/Add.png'></image>
         <label>题目</label>
@@ -44,10 +44,11 @@
     <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
       <view class="zan-dialog__mask" bindtap="toggleDialog" />
       <view class="zan-dialog__container">
-        <button type='primary' bindtap='createSCQ'>单选题</button>
-        <button type='primary' bindtap='createMCQ'>多选题</button>
-        <button type='primary' bindtap='createCompletion'>填空题</button>
+        <button style='background-color:#78D8D8;' type='primary' bindtap='createSCQ'>单选题</button>
+        <button style='background-color:#78D8D8;' type='primary' bindtap='createMCQ'>多选题</button>
+        <button style='background-color:#78D8D8;' type='primary' bindtap='createCompletion'>填空题</button>
       </view>
     </view>
     <!-->弹窗选择题目类型end<-->
+    
 </view>

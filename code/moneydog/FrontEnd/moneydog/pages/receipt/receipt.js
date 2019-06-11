@@ -176,6 +176,10 @@ Page({
       success: function(res) {
         that.setData({exTradeList:res.data})
         var exTradeList = that.data.exTradeList
+        for (var i = 0; i < exTradeList.length; i++) {
+          exTradeList[i].arrive_time = that.convertUTCTimeToLocalTime(exTradeList[i].arrive_time)
+          exTradeList[i].issue_time = that.convertUTCTimeToLocalTime(exTradeList[i].issue_time)
+        }
         if(exTradeList.length > 5) {
           that.setData({lastId1: exTradeList[exTradeList.length-1].pid})
         }
@@ -194,6 +198,10 @@ Page({
       success: function (res) {
         that.setData({ erTradeList: res.data })
         var erTradeList = that.data.erTradeList
+        for (var i = 0; i < erTradeList.length; i++) {
+          erTradeList[i].ending_time = that.convertUTCTimeToLocalTime(erTradeList[i].ending_time)
+          erTradeList[i].issue_time = that.convertUTCTimeToLocalTime(erTradeList[i].issue_time)
+        }
         if(erTradeList.length > 5) {
           that.setData({lastId2: erTradeList[erTradeList.length-1].rid})
         }
@@ -209,6 +217,10 @@ Page({
       success: function (res) {
         that.setData({ heTradeList: res.data })
         var heTradeList = that.data.heTradeList
+        for (var i = 0; i < heTradeList.length; i++) {
+          heTradeList[i].ending_time = that.convertUTCTimeToLocalTime(heTradeList[i].ending_time)
+          heTradeList[i].issue_time = that.convertUTCTimeToLocalTime(heTradeList[i].issue_time)
+        }
         if(heTradeList.length > 5) {
           that.setData({lastId3: heTradeList[heTradeList.length-1].fid})
         }
@@ -224,6 +236,10 @@ Page({
       success: function (res) {
         that.setData({ seTradeList: res.data })
         var seTradeList = that.data.seTradeList
+        for (var i = 0; i < seTradeList.length; i++) {
+          seTradeList[i].ending_time = that.convertUTCTimeToLocalTime(seTradeList[i].ending_time)
+          seTradeList[i].issue_time = that.convertUTCTimeToLocalTime(seTradeList[i].issue_time)
+        }
         if(seTradeList.length > 5) {
           that.setData({lastId4: seTradeList[seTradeList.length-1].sid})
         }
@@ -263,7 +279,12 @@ Page({
         else {
           console.log('获取新订单')
           var newList = that.data.exTradeList
-          newList = newList.concat(res.data)
+          var res_data = res.data
+          for (var i = 0; i < res_data.length; i++) {
+            res_data[i].arrive_time = that.convertUTCTimeToLocalTime(res_data[i].arrive_time)
+            res_data[i].issue_time = that.convertUTCTimeToLocalTime(res_data[i].issue_time)
+          }
+          newList = newList.concat(res_data)
           console.log(res.data)
           that.setData({exTradeList: newList})
           that.setData({exTradeList: that.sortList(1, that.data.index)})
@@ -285,7 +306,12 @@ Page({
         }
         else {
           var newList = that.data.erTradeList
-          newList = newList.concat(res.data)
+          var res_data = res.data
+          for (var i = 0; i < res_data.length; i++) {
+            res_data[i].ending_time = that.convertUTCTimeToLocalTime(res_data[i].ending_time)
+            res_data[i].issue_time = that.convertUTCTimeToLocalTime(res_data[i].issue_time)
+          }
+          newList = newList.concat(res_data)
           that.setData({erTradeList: newList})
           that.setData({ erTradeList: that.sortList(2, that.data.index) })
         }
@@ -306,7 +332,12 @@ Page({
         }
         else {
           var newList = that.data.heTradeList
-          newList = newList.concat(res.data)
+          var res_data = res.data
+          for (var i = 0; i < res_data.length; i++) {
+            res_data[i].ending_time = that.convertUTCTimeToLocalTime(res_data[i].ending_time)
+            res_data[i].issue_time = that.convertUTCTimeToLocalTime(res_data[i].issue_time)
+          }
+          newList = newList.concat(res_data)
           that.setData({heTradeList: newList})
           that.setData({ heTradeList: that.sortList(3, that.data.index) })
         }
@@ -327,7 +358,12 @@ Page({
         }
         else {
           var newList = that.data.seTradeList
-          newList = newList.concat(res.data)
+          var res_data = res.data
+          for (var i = 0; i < res_data.length; i++) {
+            res_data[i].ending_time = that.convertUTCTimeToLocalTime(res_data[i].ending_time)
+            res_data[i].issue_time = that.convertUTCTimeToLocalTime(res_data[i].issue_time)
+          }
+          newList = newList.concat(res_data)
           that.setData({seTradeList: newList})
           that.setData({ seTradeList: that.sortList(4, that.data.index) })
         }
@@ -401,6 +437,27 @@ Page({
         })
       }
     })
+  },
+
+  //Date读取
+  convertUTCTimeToLocalTime: function (UTCDateString) {
+        if(!UTCDateString){
+          return '-';
+        }
+        function formatFunc(str) {    //格式化显示
+          return str > 9 ? str : '0' + str
+        }
+        var date2 = new Date(UTCDateString);     //这步是关键
+        var year = date2.getFullYear();
+        var mon = formatFunc(date2.getMonth() + 1);
+        var day = formatFunc(date2.getDate());
+        var hour = date2.getHours();
+        var noon = hour >= 12 ? 'PM' : 'AM';
+        hour = hour>=12?hour-12:hour;
+        hour = formatFunc(hour);
+        var min = formatFunc(date2.getMinutes());
+        var dateStr = year+'-'+mon+'-'+day+' '+noon +' '+hour+':'+min;
+        return dateStr;
   },
 
   /**

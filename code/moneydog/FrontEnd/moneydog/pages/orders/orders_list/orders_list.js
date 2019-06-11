@@ -94,6 +94,7 @@ Page({
       isSelected7: true
     })
     this.OnLoadReceiptOrders()
+    console.log(this.data.publishSeTradeList)
   },
   //确认完成
   confirmFinish: function(e) {
@@ -141,7 +142,7 @@ Page({
   },
   //长按删除
   deleteOrder: function (e) {
-    if(isSelected6 == true) {
+    if(this.data.isSelected6 == true) {
       console.log(e.currentTarget.dataset)
       this.setData({
         flag: !this.data.flag,

@@ -1,25 +1,18 @@
 /* pages/orders/menu.wxss */
 .button-area {
-  margin-top: 100rpx;
+  margin-top: 30rpx;
 }
 
 .publish-button {
-  width: 90%;
-  height: 160rpx;
-  margin: 0rpx 5% 10rpx 5%;
-  background: #fff;
+  width: 650rpx;
+  height: 225rpx;
+  margin: 0rpx 50rpx 20rpx 50rpx;
+  border-radius: 20rpx;
 }
 
 .publish-buttonIcon {
-  width: 150rpx;
-  height: 150rpx;
-  position: absolute;
-  left: 150rpx;
-  top: 5rpx;
+  width: 100%;
+  height: 100%;
+  border-radius: 20rpx;
 }
 
-.publish-text {
-  position: absolute;
-  left: 350rpx;
-  top: 40rpx;
-}
