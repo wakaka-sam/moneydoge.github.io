@@ -294,7 +294,6 @@ public class CreateController {
             System.out.println(e);
             return  null;
         }
-
     }
     //加载问卷
     @RequestMapping(value = "/LoadMyQuestionair",method = RequestMethod.GET)
