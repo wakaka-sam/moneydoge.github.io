@@ -41,7 +41,7 @@ public class CreateController {
     @ApiOperation(value = "发布者获取问卷填写统计：人数，内容统计等",notes = "errcode 0 失败，1 成功，成功可通过viewAllList 获取所有信息")
     public JSONObject viewAll(@RequestHeader("sessionId")String sessionId,@RequestParam("id")int id){
         String openid = getOpenidFromSession(sessionId);
-        String sql = "select name,description,content,content_count,num from questionair where qid = ? and uid = ?;";
+        String sql = "select name,description,content,content_count,num,state from questionair where qid = ? and uid = ?;";
         JSONObject jsonObject = new JSONObject();
 
         try{
@@ -117,11 +117,13 @@ public class CreateController {
         JSONObject jsonObject = new JSONObject();
         int t = 0;
         try {
-            t = jdbcTemplate.update("insert into questionairnote(uid,qid)values(?,?)",openid,id);
-        }catch (Exception e){
-            jsonObject.put("errocde",2);
+            t = jdbcTemplate.queryForObject("select 1 from questionairNote where uid = ? and qid = ?",new Object[]{openid,id},int.class);
+            jsonObject.put("errcode",2);
             jsonObject.put("errmsg","you have fill this questionair");
             return jsonObject;
+        }catch (Exception e){
+            System.out.println("进行填写");
+//            System.out.println(e);
         }
         System.out.println(con);
         //获取前端填写的问卷内容
@@ -137,6 +139,7 @@ public class CreateController {
 
         }catch (Exception e){
             num = -1;
+//            System.out.println("");
             System.out.println(e);
         }
         System.out.println( "222"+ctt);
@@ -179,6 +182,10 @@ public class CreateController {
             if(num != -1){
                 num += 1;
                 jdbcTemplate.update("update questionair set num = ? where qid = ?",num,id);
+                int total_num =  jdbcTemplate.queryForObject("select total_num from questionair where qid = ?;",new Object[]{id},int.class);
+                if(num == total_num){
+                    jdbcTemplate.update("update questionair set state = 2 where qid = ?;",id);
+                }
             }
             jsonObject.put("errmsg","fill suc");
         }catch (Exception e){
@@ -192,9 +199,11 @@ public class CreateController {
             try {
                 int pay = jdbcTemplate.queryForObject("select pay from questionair where qid = ?;",new Object[]{id},int.class);
                 JSONObject temp = CreateIssueBalanceDetail(pay,"填写问卷的报酬",openid,"");
+                jdbcTemplate.update("insert into questionairNote(uid,qid) values(?,?)",openid,id);
                 jsonObject.put("statecode",temp.getInteger("statecode"));
                 jsonObject.put("msg",temp.getString("msg"));
             }catch (Exception e){
+                System.out.println(e);
                 System.out.println("填写问卷");
                 jsonObject.put("statecode",4);
                 jsonObject.put("msg","服务端出错");
@@ -233,6 +242,7 @@ public class CreateController {
             }
 
         }catch (Exception e){
+            System.out.println(e);
             jsonObject.put("statecode",4);
             jsonObject.put("msg","服务器错误");
         }
@@ -265,6 +275,7 @@ public class CreateController {
             jsonObject.put("statecode",temp.getInteger("statecode"));
             jsonObject.put("msg",temp.getString("msg"));
         }catch (Exception e){
+            System.out.println(e);
             jsonObject.put("statecode",4);
             jsonObject.put("msg","服务器错误");
         }
@@ -276,14 +287,26 @@ public class CreateController {
     public List<LoadQuestion> OnLoadQuestionair(){
         try {
             int id = jdbcTemplate.queryForObject("SELECT COUNT(qid) AS NumberOfProducts FROM questionair;", int.class);
-
+            System.out.println(id);
             return jdbcTemplate.query("select qid,name,description,pay from questionair where qid <= ? and state = 0 and num < total_num order by qid desc limit 15 ;",new Object[]{id},new BeanPropertyRowMapper(LoadQuestion.class));
         }catch (Exception e){
             System.out.println("加载问卷错误");
             System.out.println(e);
             return  null;
         }
-
+    }
+    //加载问卷
+    @RequestMapping(value = "/LoadMyQuestionair",method = RequestMethod.GET)
+    public List<LoadQuestion> LoadMyQuestionair(@RequestHeader("sessionId")String sessionId){
+        String openid = getOpenidFromSession(sessionId);
+        try {
+//            int id = jdbcTemplate.queryForObject("SELECT COUNT(qid) AS NumberOfProducts FROM questionair;", int.class);
+            return jdbcTemplate.query("select qid,name,description,pay,state,num from questionair where uid = ? and state != 3 order by qid desc ;",new Object[]{openid},new BeanPropertyRowMapper(LoadQuestion.class));
+        }catch (Exception e){
+            System.out.println("加载问卷错误");
+            System.out.println(e);
+            return  null;
+        }
     }
     //上拉问卷
     @RequestMapping(value = "/downLoadQuestionair",method = RequestMethod.GET)
@@ -297,6 +320,7 @@ public class CreateController {
             return  null;
         }
     }
+
 
     @RequestMapping(value = "/getQuestionairContent",method = RequestMethod.GET)
     public List<question> getQuestionairContent(@RequestParam("id")int id){
@@ -353,12 +377,12 @@ public class CreateController {
         // session_key
         // }
         RestTemplate restTemplate = new RestTemplate();
-        String appid = "wx08dea5e778f278de&";
-        String secret = "77fc034ff68fe7799e4e8723466a50d7&";
+        String appid = "wxd128011688abed28&";
+        String secret = "44663739b9268649d3740990f49a2677&";
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid
                 + "&secret=" + secret
                 + "&js_code=" + code
-                + "&grant_type=authorization_code";
+                + "&grant_ty pe=authorization_code";
         JSONObject jsonObject = new JSONObject();
 
         HttpHeaders headers = new HttpHeaders();
@@ -384,6 +408,7 @@ public class CreateController {
                 return jsonObject;
             }
         } catch (Exception e) {
+            System.out.println(e);
         }
         String openid = "";
         String session_key = "";
@@ -391,6 +416,7 @@ public class CreateController {
             openid = res.getString("openid");
             session_key = res.getString("session_key");
         } catch (Exception e) {
+            System.out.println(e);
         }
         jsonObject.put("errcode", errcode);
         jsonObject.put("errmsg", errmsg);
@@ -493,7 +519,6 @@ public class CreateController {
             jsonObject.put("errmsg","余额错误");
             return jsonObject;
         }
-//        String thid = jsonObject.getString("thid");
         return createService.CreateFor_help(openid,title, content, phone, wechat, ending_time, pay);
     }
 
