@@ -32,26 +32,26 @@
 
 <view class="qu-popup" hidden="{{flag1}}" catchtouchmove="true" bindtap='close_qu_popup'>
   <view class='qu-popup-container'>
-    <label>qid：{{}}</label>
+    <view class='qid'>qid：{{orderid}}</view>
     <view class="qu-popup-choice">
       <view bindtap='show_content'>
-        <image></image>
+        <image style='padding: 15%;' src='../../../images/xiangqing.png'></image>
         <label>详情</label>
       </view>
       <view bindtap='show_result'>
-        <image></image>
+        <image style='padding: 7%;' src='../../../images/jieguo.png'></image>
         <label>结果</label>
       </view>
       <view bindtap='end_questionnaire'>
-        <image></image>
+        <image style='padding: 15%;' src='../../../images/zhongzhi.png'></image>
         <label>终止</label>
       </view>
       <view bindtap='delete_questionnaire'>
-        <image></image>
+        <image style='padding: 15%;' src='../../../images/shanchu.png'></image>
         <label>删除</label>
       </view>
     </view>
-    <label class="qu-popup-btn" bindtap='close_quPopup'>关闭</label>
+    <view class="qu-popup-btn" bindtap='close_quPopup'>关闭</view>
   </view>
 </view>
 
@@ -82,7 +82,7 @@
       <label wx:if="{{isSelected6 && item.state!=2}}" class='order-state'>{{item.state==0 ? '未被接单' : '已被接单'}}</label>
       <label wx:if="{{isSelected6 && item.state==2}}" class='order-state1'>确认完成</label>
       <label wx:if="{{isSelected7}}" class='order-state1'>{{item.state==1 ? '已接单' : '已完成'}}</label>
-      <button wx:if="{{isSelected6 && item.state!=2}}" class='accept-button' catchtap='confirmFinish' data-type='0' data-id='{{index}}' data-orderid='{{item.pid}}'>完成{{item.state}}</button>
+      <button wx:if="{{isSelected6 && item.state!=2}}" class='accept-button' catchtap='confirmFinish' data-type='0' data-id='{{index}}' data-orderid='{{item.pid}}'>完成</button>
     </view>
   </view>
 </block>
@@ -156,7 +156,7 @@
         <view class='price'>￥{{item.pay}}</view>
       </view>
     </view>
-    <image class='secondhand_image' src="../../../images/闲置.jpg"></image>
+    <image class='secondhand_image' src="{{item.photo_url}}"></image>
     <view class='b'>
       <view class='left-container'>
         <view>备注</view>
