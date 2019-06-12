@@ -50,7 +50,7 @@
   right: 0;
   bottom: 0;
   z-index: 10;
-  background: rgba(0, 0, 0, 0.4); /*设置阴影半透明背景*/
+  background: rgba(0, 0, 0, 0.3); /*设置阴影半透明背景*/
   display: none;
 }
 

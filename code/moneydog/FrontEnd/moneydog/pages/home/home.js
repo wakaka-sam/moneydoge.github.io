@@ -5,9 +5,14 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    searchUrl: '/images/search-icon.png',
-    showDialog: false //弹窗
+    canIUse: wx.canIUse('button.open-type.getUserInfo'), 
+    imgUrls: [
+      '../../images/scroll-image1.jpeg',
+      '../../images/scroll-image2.jpg',
+      '../../images/kuaidi_menu.png'
+    ],
+    showDialog: false, //弹窗
+    biaobai_text: null
   },
   //事件处理函数
   bindViewTap: function() {
@@ -26,6 +31,13 @@ Page({
     })
   },
   onLoad: function () {
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3336/LoveWall/getLoveWall',
+      success: function (res) {
+        that.setData({ biaobai_text: res.data.data[0].detail })
+      }
+    })
     wx.hideTabBar({})
     if (app.globalData.userInfo) {
       this.setData({

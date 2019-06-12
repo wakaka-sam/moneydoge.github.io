@@ -7,6 +7,7 @@ public class question {
     private String content_count;
     private int num;
     private int qid;
+    private int state;
 
     public String getName() {
         return name;
@@ -54,5 +55,13 @@ public class question {
 
     public void setQid(int qid) {
         this.qid = qid;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 }
