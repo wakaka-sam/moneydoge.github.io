@@ -47,11 +47,49 @@
 }
 .questionnaireDescription {
   margin: 18px 0px 33px 0px;
+  color: gainsboro;
 }
 .question-view {
   padding: 15px;
   margin-bottom: 18px;
-  border: 1px solid rgb(187, 187, 187);
+}
+.radio-group {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border:2rpx solid gainsboro;
+  border-radius:10rpx;
+}
+.radio-group radio {
+  padding: 20rpx;
+  width: 95%;
+  border-width: 0rpx 0rpx 1rpx 0rpx;
+  border-style: solid;
+  border-color: gainsboro;
+}
+.checkbox-group {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border: 2rpx solid gainsboro;
+  border-radius: 10rpx;
+}
+.checkbox-group checkbox {
+  padding: 20rpx;
+  width: 95%;
+  border-width: 0rpx 0rpx 1rpx 0rpx;
+  border-style: solid;
+  border-color: gainsboro;
+}
+.question-view input {
+  height: 80rpx;
+  border: 2rpx solid gainsboro;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border-radius: 10rpx;
 }
 
 .zan-dialog__mask {
