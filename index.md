@@ -25,7 +25,7 @@
 
   - 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
 
-  - 8.4 部署说明
+  - 8.4 [部署说明](page/deploy_file.md)
 - 9.资料分享链接
   - [GitHub上创建组织](https://www.cnblogs.com/haore147/p/4219673.html)
   - [微信小程序开发相关技术博客视频链接](page/technique_learning.md)
