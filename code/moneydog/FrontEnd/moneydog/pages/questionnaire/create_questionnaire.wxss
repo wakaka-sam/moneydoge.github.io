@@ -1,0 +1,48 @@
+/* pages/questionnaire/create_questionnaire.wxss */
+.wenjuan-welcome {
+  width: 600rpx;
+  height: 150rpx;
+  vertical-align: top;
+  position: absolute;
+  top: 0%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 30rpx;
+}
+
+#welcome-text {
+  padding-right: 80rpx;
+}
+
+#goutou-img {
+  width: 150rpx;
+  height: 150rpx;
+  position: absolute;
+  right: 0rpx;
+}
+
+.wenjuan-info {
+  width: 600rpx;
+  margin-top: 100rpx;
+}
+
+.wenjuan-info textarea {
+  width: 100%;
+  height: 150rpx;
+  border: 2rpx solid gainsboro;
+  margin-bottom: 40rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
+}
+
+.wenjuan-info input {
+  width: 100%;
+  border: 2rpx solid gainsboro;
+  margin-bottom: 40rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
+}
+
+.wenjuan-info button {
+  margin-top: 60rpx;
+}

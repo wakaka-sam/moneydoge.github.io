@@ -1,7 +1,7 @@
 .top-block{
   display:flex;
   justify-content: center;
-  background-color: aqua;
+  background-color:#19ADAD;
   border-radius: 2%;
   margin: 2px;
 }
@@ -44,7 +44,6 @@
   flex-direction: column;
   align-items: center;
 }
-
 
 .size-card{
   border: solid 2px rgb(218, 215, 215);

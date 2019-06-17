@@ -77,3 +77,67 @@
   border-bottom: 1px solid #efefef;
   padding: 10rpx;
 }
+
+.singleTrade {
+  font-family: PingFangSC-regular;
+  font-weight: bolder;
+  margin: 3px;
+  background-color: white;
+  border: 1px solid rgb(187,187,187);
+  width: 97.5%;
+  border-radius: 10rpx;
+}
+
+.b {
+  padding: 9px 9px 0 9px;
+  display: flex;
+  justify-content: flex-start;
+  line-height:1.5;
+}
+
+.b .left-container {
+  flex: 1;
+}
+
+.b .right-container {
+  /*小程序的overflow:hidden;要固定长度*/
+  width: 230px;
+  flex: 2;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.a {
+  padding: 15px 9px 9px 9px;
+  border-bottom: 1px solid #BBBBBB;
+  display: flex;
+  justify-content: flex-start;
+}
+.a .name{
+  flex:6;
+  font-size: 20px;
+}
+.a .price{
+  flex: 1;
+  color: red;
+}
+.single-bottom {
+  display: flex;
+  justify-content: flex-end;
+}
+.accept-button {
+  display: inline-block;
+  margin: 0;
+  width: 80px;
+  height: 27px;
+  line-height: 2;
+  background-color: #F27A7A;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.goods_img {
+  width: 250rpx;
+  height: 250rpx;
+  margin: 10rpx;
+}

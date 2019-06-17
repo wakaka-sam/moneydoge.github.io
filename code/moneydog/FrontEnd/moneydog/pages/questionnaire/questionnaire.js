@@ -3,30 +3,12 @@ Page({
   data: {
     questionnaireName: null,
     questionnaireDesc: null,
-    isCreate: false,
+    questionnairePay: 0,
+    questionnaireTota: 0,
     showDialog: false, //弹窗
-    isCreateSCQ: false,
-    isCreateMCQ: false,
-    isCreateCompletion: false,
-    questionItem: {question: null, choices: []},
-    choices: [{ name: null, value: null }, { name: null, value: null }, { name: null, value: null }, { name: null, value: null }],
-    s_questionList: [
-      { question: '题目1', choices: [{ name: 'CHN', value: '中国'}, { name: 'BRA', value: '巴西' }]}
-    ],
-    m_questionList: [
-      { question: '题目2', choices: [{ name: 'CHN', value: '中国' }, { name: 'BRA', value: '巴西' }]}
-    ],
-    c_questionList: [
-      { question: '题目3'}
-    ]
-  },
-  //创建问卷
-  createQuestionnaire:function() {
-    this.setData({
-      isCreate: true,
-      questionnaireName: this.data.questionnaireName,
-      questionnaireDesc: this.data.questionnaireDesc
-    })
+    questionItem: { type: -1, title: '', a: '', b: '', c: '', d: ''},
+    questionList: [],
+    contentCount: []
   },
   //选择题目类型弹窗
   toggleDialog() {
@@ -34,37 +16,16 @@ Page({
       showDialog: !this.data.showDialog
     })
   },
-  questionnaireName: function(e) {
-    this.data.questionnaireName = e.detail.value
-  },
-  questionnaireDesc: function(e) {
-    this.data.questionnaireDesc = e.detail.value
-  },
-  SCQName: function(e) {
-    this.data.questionItem.question = e.detail.value
-  },
-  SCQChoice1: function (e) {
-    if(e.detail.value)
-      this.data.choices[0] = { name: e.detail.value, value: e.detail.value }
-  },
-  SCQChoice2: function (e) {
-    if (e.detail.value)
-      this.data.choices[1] = { name: e.detail.value, value: e.detail.value }
-  },
-  SCQChoice3: function (e) {
-    if (e.detail.value)
-      this.data.choices[2] = { name: e.detail.value, value: e.detail.value }
-  },
-  SCQChoice4: function (e) {
-    if (e.detail.value)
-      this.data.choices[3] = { name: e.detail.value, value: e.detail.value }
-  },
   //创建单选题
   createSCQ() {
     this.setData({
       isCreateSCQ: true,
       showDialog: false
     })
+    wx.navigateTo({
+      url: 'create_question?type=0',
+    })
+    wx.setStorageSync('questionList', this.data.questionList)
   },
   //创建多选题
   createMCQ() {
@@ -72,6 +33,10 @@ Page({
       isCreateMCQ: true,
       showDialog: false
     })
+    wx.navigateTo({
+      url: 'create_question?type=1',
+    })
+    wx.setStorageSync('questionList', this.data.questionList)
   },
   //创建填空题
   createCompletion() {
@@ -79,77 +44,62 @@ Page({
       isCreateCompletion: true,
       showDialog: false
     })
-  },
-  //确认单选题
-  confirmSCQ() {
-    for (var index in this.data.choices) {
-      if (this.data.choices[index].value!=null)
-        this.data.questionItem.choices.push(this.data.choices[index])
-    }
-    this.data.s_questionList.push(this.data.questionItem)
-    this.setData({
-      isCreateSCQ: false,
-      s_questionList: this.data.s_questionList,
-      questionItem: { question: null, choices: [] },
-      choices: [{ name: null, value: null }, { name: null, value: null }, { name: null, value: null }, { name: null, value: null }]
+    wx.navigateTo({
+      url: 'create_question?type=2',
     })
+    wx.setStorageSync('questionList', this.data.questionList)
   },
-  //确认多选题
-  confirmMCQ() {
-    for (var index in this.data.choices) {
-      if (this.data.choices[index].value != null)
-        this.data.questionItem.choices.push(this.data.choices[index])
-    }
-    this.data.m_questionList.push(this.data.questionItem)
-    this.setData({
-      isCreateMCQ: false,
-      m_questionList: this.data.m_questionList,
-      questionItem: { question: null, choices: [] },
-      choices: [{ name: null, value: null }, { name: null, value: null }, { name: null, value: null }, { name: null, value: null }]
-    })
-  },
-  //确认填空题
-  confirmCompletion() {
-    if(this.data.questionItem.question != null)
-      this.data.c_questionList.push({ question: this.data.questionItem.question })
-    this.setData({
-      isCreateCompletion: false,
-      c_questionList: this.data.c_questionList,
-      questionItem: { question: null, choices: [] }
-    })
-  },
+  //保存问卷
   saveQuestionnaire() {
-    var s_questionList = this.data.s_questionList
-    var m_questionList = this.data.m_questionList
-    var c_questionList = this.data.c_questionList
+    var that = this
     var data = { 
-      questionnaireName: this.data.questionnaireName,
-      questionnaireDesc: this.data.questionnaireDesc,
-      s_questionList, 
-      m_questionList, 
-      c_questionList
+      name: this.data.questionnaireName,
+      description: this.data.questionnaireDesc,
+      pay: this.data.questionnairePay,
+      content: JSON.stringify(this.data.questionList),
+      content_count: JSON.stringify({ content_count: this.data.contentCount }),
+      total_num: this.data.questionnaireTota
     }
-    var datastr = JSON.stringify(data)
-    console.log(datastr)
-    /*wx.request({
-      url: '',
+    console.log(data)
+    var t1 = JSON.stringify(this.data.questionList)
+    var t2 = JSON.stringify({ content_count: this.data.contentCount })
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/questionair',
       data: {
-        str: datastr
+        name: this.data.questionnaireName,
+        description: this.data.questionnaireDesc,
+        pay: 4,
+        content: t1,
+        content_count: t2,
+        total_num: this.data.questionnaireTota
       },
-      method: 'POST',
-      header: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
+      method: 'POST', 
+      header: { sessionId: wx.getStorageSync('SessionId'), "Content-Type": "application/x-www-form-urlencoded" },
       success: function (res) {
-        console.log(res)
+        console.log(res);
       }
-    })*/
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      questionnaireName: wx.getStorageSync('questionnaireName'),
+      questionnaireDesc: wx.getStorageSync('questionnaireDesc'),
+      questionnairePay: wx.getStorageSync('questionnairePay'), 
+      questionnaireTota: wx.getStorageSync('questionnaireTota'), 
+      questionList: wx.getStorageSync('questionList')
+    })
+    if (options.question != null) {
+      var question = JSON.parse(options.question)
+      this.data.questionList.push(question)
+      wx.setStorageSync('questionList', this.data.questionList)
+    }
+    this.setData({
+      questionList: this.data.questionList
+    })
+    console.log(this.data.questionList)
   },
 
   /**

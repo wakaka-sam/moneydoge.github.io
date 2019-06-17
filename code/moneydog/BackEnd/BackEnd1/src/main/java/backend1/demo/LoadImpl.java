@@ -82,10 +82,10 @@ public class LoadImpl implements LoadMapper {
     public JSONObject LoadMyCreation(String openid) {
         JSONObject jsonObject = new JSONObject();
 
-        String expressageSql = "select pid,express_loc,arrive_time,loc,num,pay,state,remark,issue_time from moneydog.expressage where uid1 = ?";
-        String errandSql = "select rid,title,content,ending_time,pay,state,issue_time from moneydog.errand where uid1 = ?";
-        String second_handSql = "select sid,object_name,content,ending_time,photo_url,pay,state,issue_time from moneydog.second_hand where uid1 = ?";
-        String for_helpSql = "select fid,title,content,ending_time,pay,state,issue_time from moneydog.for_help where uid1 = ?";
+        String expressageSql = "select pid,express_loc,arrive_time,loc,num,pay,state,remark,issue_time from moneydog.expressage where uid1 = ? and state != 6;";
+        String errandSql = "select rid,title,content,ending_time,pay,state,issue_time from moneydog.errand where uid1 = ? and state != 6;";
+        String second_handSql = "select sid,object_name,content,ending_time,photo_url,pay,state,issue_time from moneydog.second_hand where uid1 = ? and state != 6;";
+        String for_helpSql = "select fid,title,content,ending_time,pay,state,issue_time from moneydog.for_help where uid1 = ? and state != 6;";
 
         jsonObject.put("expressages", "");
         jsonObject.put("errands", "");
@@ -122,10 +122,10 @@ public class LoadImpl implements LoadMapper {
     public JSONObject LoadMyReceiving(String openid) {
         JSONObject jsonObject = new JSONObject();
 
-        String expressageSql = "select  pid,express_loc,arrive_time,loc,num,pay,state,remark,issue_time from moneydog.expressage where uid2 = ?";
-        String errandSql = "select rid,title,content,ending_time,pay,state,issue_time from moneydog.errand where uid2 = ?";
-        String second_handSql = "select sid,object_name,content,ending_time,photo_url,pay,state,issue_time from moneydog.second_hand where uid2 = ?";
-        String for_helpSql = "select fid,title,content,ending_time,pay,state,issue_time from moneydog.for_help where uid2 = ?";
+        String expressageSql = "select  pid,express_loc,arrive_time,loc,num,pay,state,remark,issue_time from moneydog.expressage where uid2 = ? and state != 6;";
+        String errandSql = "select rid,title,content,ending_time,pay,state,issue_time from moneydog.errand where uid2 = ? and state != 6;";
+        String second_handSql = "select sid,object_name,content,ending_time,photo_url,pay,state,issue_time from moneydog.second_hand where uid2 = ? and state != 6;";
+        String for_helpSql = "select fid,title,content,ending_time,pay,state,issue_time from moneydog.for_help where uid2 = ? and state != 6;";
 
 
         jsonObject.put("expressages", "");

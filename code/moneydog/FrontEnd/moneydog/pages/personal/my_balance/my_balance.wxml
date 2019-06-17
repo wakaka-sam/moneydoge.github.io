@@ -3,13 +3,13 @@
       <text>账户余额（闲币）</text>
     </view>
     <view class = "s-num">
-      <text style="font-size:100rpx">{{money}}</text>
+      <text style="font-size:100rpx">{{power}}</text>
     </view>
 </view>
 
 
 <view class = "mid-block">
-  <view class = "line-item">
+  <view class = "line-item" bindtap='goTobill'>
     <view>
       <image src = "../../../images/balance_his.png" class = "l-icon"></image>
     </view>
@@ -21,7 +21,7 @@
     </view>
   </view>
 
-  <view class = "line-item">
+  <view class = "line-item" bindtap='showCard'>
     <view>
       <image src = "../../../images/my_card.png" class = "l-icon"></image>
     </view>

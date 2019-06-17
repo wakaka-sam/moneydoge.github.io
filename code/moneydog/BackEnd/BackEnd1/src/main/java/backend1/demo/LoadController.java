@@ -32,6 +32,7 @@ public class LoadController {
         }
         return jdbcTemplate.query(sql,new Object[]{id},new BeanPropertyRowMapper(Contact.class));
     }
+
     @RequestMapping(method = RequestMethod.GET, value = "/downLoadExpressage")
     public List<expressage> downLoadExpressage(@RequestParam("id") int pid) {
         return loadSerivce.downLoadExpressage(pid);
@@ -72,8 +73,9 @@ public class LoadController {
         return loadSerivce.OnLoadSecond_hand();
     }
 
+
     @RequestMapping(method = RequestMethod.GET, value = "/Creation")
-    JSONObject LoadMyCreation( @RequestHeader("sessionId") String sessionId) {
+    public JSONObject LoadMyCreation( @RequestHeader("sessionId") String sessionId) {
         String temp = stringRedisTemplate.opsForValue().get(sessionId);
         JSONObject jsonObject = (JSONObject)JSON.parse(temp);
         String openid = jsonObject.getString("openid");
@@ -81,11 +83,13 @@ public class LoadController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/Receiving")
-    JSONObject LoadMyReceiving(@RequestHeader("sessionId") String sessionId) {
+    public JSONObject LoadMyReceiving(@RequestHeader("sessionId") String sessionId) {
         String temp = stringRedisTemplate.opsForValue().get(sessionId);
         JSONObject jsonObject = (JSONObject)JSON.parse(temp);
         String openid = jsonObject.getString("openid");
         return loadSerivce.LoadMyReceiving(openid);
     }
+
+
 
 }

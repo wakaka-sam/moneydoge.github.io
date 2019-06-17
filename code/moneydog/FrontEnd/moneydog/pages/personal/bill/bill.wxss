@@ -1,0 +1,25 @@
+.top{
+  display: flex;
+  justify-content: center;
+}
+.item-colum{
+  display: flex;
+  flex-direction: column;
+  padding-left: 5px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 5px;
+}
+.devide-line{
+  border:1px solid lightgray;
+}
+.text-price{
+  color:red;
+}
+.textview{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+
