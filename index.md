@@ -12,7 +12,7 @@
   - 6.5 [System Sequence Diagram（功能模型）](./page/System Sequence Diagram.md)
   - 6.6 Supplementary Requirements（补充需求）
 - 7.Design（设计）
-  - 7.1 UI design（界面设计）
+  - [7.1 UI design（界面设计)](page/7.1UI-design.md)
   - 7.2 Database design（数据库设计）
   - 7.3 Interface API design（接口 API 设计）
 	- [zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
@@ -45,3 +45,5 @@
 - X4 Tech/Work Report
   - [16340303-zdx](page/zdx_note.md)
 - X5 Final Report
+  * [16340018-chg](page/Chenhg.md))
+
