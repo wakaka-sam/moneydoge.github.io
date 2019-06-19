@@ -119,8 +119,8 @@
         <view class='price'>￥{{item.pay}}</view>
       </view>
     </view>
+    <image src="{{item.photo_url}}" style='width: 250rpx; height: 250rpx; margin: 10rpx;'></image>
     <view class='b'>
-      <image src="{{item.photo_url}}" style='flex: 1;height: 50px;'></image>
       <view style='flex: 1.6;'>
         <view>备注</view>
         <view>截止时间</view>
