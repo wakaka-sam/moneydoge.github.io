@@ -13,9 +13,10 @@
   - 6.6 Supplementary Requirements（补充需求）
 - 7.Design（设计）
   - 7.1 UI design（界面设计）
-  - 7.2 Database design（数据库设计）
+  - [7.2 Database design（数据库设计）](./page/ljh_page/数据库.md)
   - 7.3 Interface API design（接口 API 设计）
 	- [zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
+  - [ljh的后端接口及接口测试文档](./page/ljh_page/API.md)
   - 7.4 Architecture design（架构设计）
   - 7.5 Usecase design（用例设计）
 - 8.生产规范与指南
