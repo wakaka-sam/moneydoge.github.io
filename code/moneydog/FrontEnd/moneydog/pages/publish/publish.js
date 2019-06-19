@@ -1,4 +1,6 @@
 // pages/publish.js
+
+const util = require('../../utils/util.js')//调用该块获取当前时间
 Page({
 
   /**
@@ -42,6 +44,7 @@ Page({
     x_pay:'',
     x_phone:'',
     x_wechat:'',
+   // console.log("awsl:" + util.formatTime2(new Date()))
 
     //日期选择器的初始数值
     startDate:'2019/01/01',
@@ -105,6 +108,12 @@ Page({
       x_pay: '',
       x_phone: '',
       x_wechat: '',
+
+      startDate: util.formatTime2(new Date()),
+      selectDate: util.formatTime2(new Date()),
+      selectDate1: util.formatTime2(new Date()),
+      selectDate2: util.formatTime2(new Date()),
+      selectDate3: util.formatTime2(new Date())
     })
     console.log(that.data.id)
   },
@@ -417,8 +426,14 @@ Page({
             }
           })
         } else if (res.data.errcode == 2){
-          wx.showToast({
+          wx.showToast({//服务器返回值为errcode等于2时，并不会接受数据，不用担心其错误数据显示在列表中
             title: "余额不足，请充值！",
+            icon: 'none',
+            duration: 2000,
+          })
+        } else if(res.data.status == 400){//bad request,一般是报酬输入不是int类型
+          wx.showToast({//服务器返回值为errcode等于2时，并不会接受数据，不用担心其错误数据显示在列表中
+            title: "报酬应为整数！请修改！",
             icon: 'none',
             duration: 2000,
           })
@@ -474,6 +489,7 @@ Page({
 
 //以下是闲置的物品的数据上传
   gotodeupload4: function () {
+//boolean is_continue = false;
     var that = this;
     var date3 = new Date(that.data.x_ending_time);//STRING转Date
     console.log("x_ending_time" + that.data.x_ending_time);
