@@ -14,15 +14,15 @@ Page({
     qid: 0,//问卷id
     name: '调查问卷',
     description: '饭堂满意度',
-    content: [
+    content: [/*
       {"type":0,"title":"对饭堂的满意度", "a":"不满意","b":'一般',"c":'较满意',"d":'满意'},
       {"type":1,"title":"喜欢窗口", "a":"不满意","b":'一般',"c":'较满意',"d":'满意'},
-      {"type":2,"title":"对饭堂的建议","a":"","b":'',"c":'',"d":''}],
-    content_count: [
+      {"type":2,"title":"对饭堂的建议","a":"","b":'',"c":'',"d":''}*/],
+    content_count: [/*
       {type:0,a:0,b:0,c:0,d:0,fill:''},
       {type:1,a:0,b:0,c:0,d:0,fill:''},
       {type:2,a:0,b:0,c:0,d:0,fill:''}
-    ],
+    */],
     imgurl: 'a58e416d-64fd-444e-854b-9d36e3ae27291.jpg'
   },
 
