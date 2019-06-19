@@ -1,7 +1,7 @@
 .top-block{
   display:flex;
   justify-content: center;
-  background-color:#19ADAD;
+  background-color:#78D8D8;
   border-radius: 2%;
   margin: 2px;
 }
@@ -54,5 +54,5 @@
 
 .ident-info{
   width: 100px;
-  background-color: red;
+  background-color: lightcoral;
 }
