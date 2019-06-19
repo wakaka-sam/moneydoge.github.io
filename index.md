@@ -7,9 +7,9 @@
 - [6.Requirement specification（需求规格说明）](page/product_requirement.md)
   - 6.1 Usecase Diagram（用例图）
   - 6.2 Use Cases（用例+活动图）
-  - 6.3 [Domain Model（领域模型）](./imgsrc/领域模型.png)
+  - 6.3 [Domain Model（领域模型）](./page/DomainModel.md)
   - 6.4 State Model（状态模型）
-  - 6.5 System Sequence Diagram（功能模型）
+  - 6.5 [System Sequence Diagram（功能模型）](./page/System Sequence Diagram.md)
   - 6.6 Supplementary Requirements（补充需求）
 - 7.Design（设计）
   - 7.1 UI design（界面设计）
