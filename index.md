@@ -6,7 +6,7 @@
 - [5.Product Backlog （产品特性）](page/product_backlog)
 - [6.Requirement specification（需求规格说明）](page/product_requirement.md)
   - 6.1 Usecase Diagram（用例图）
-  - 6.2 Use Cases（用例+活动图）
+  - 6.2 [Use Cases（用例+活动图）](./page/用例说明.md)
   - 6.3 [Domain Model（领域模型）](./page/DomainModel.md)
   - 6.4 State Model（状态模型）
   - 6.5 [System Sequence Diagram（功能模型）](./page/System Sequence Diagram.md)
@@ -15,7 +15,7 @@
   - 7.1 UI design（界面设计）
   - [7.2 Database design（数据库设计）](./page/ljh_page/数据库.md)
   - 7.3 Interface API design（接口 API 设计）
-	  - [zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
+    - [zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
     - [ljh的后端接口及接口测试文档](./page/ljh_page/API.md)
   - 7.4 Architecture design（架构设计）
   - 7.5 Usecase design（用例设计）
