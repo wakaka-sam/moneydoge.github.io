@@ -22,7 +22,7 @@
   margin-bottom: 10rpx;
   width: 30%;
   height: 80rpx;
-  background-color: #87CEFA;
+  background-color: #78D8D8;
   border-radius: 4px;
   font-size: 14px;
   z-index: 0;
@@ -49,7 +49,7 @@
   width: 20%;
   border-radius: 0px;
   text-align: center;
-  background-color: #87CEFA;
+  background-color: #78D8D8;
   padding: 15rpx;
 }
 .normal {
@@ -62,7 +62,7 @@
   width: 50%;
   border-radius: 0px;
   text-align: center;
-  background-color: #87CEFA;
+  background-color: #78D8D8;
   padding: 15rpx;
 }
 .normal1 {
@@ -75,7 +75,7 @@
   width: 25%;
   border-radius: 0px;
   text-align: center;
-  background-color: #87CEFA;
+  background-color: #78D8D8;
   padding: 15rpx;
 }
 .normal2 {
@@ -86,8 +86,6 @@
 }
 
 .singleTrade {
-  font-family: PingFangSC-regular;
-  font-weight: bolder;
   margin: 3px;
   background-color: white;
   border: 1px solid rgb(187,187,187);
@@ -142,7 +140,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 11;
 }
 .popup-container {
@@ -203,8 +201,6 @@
 }
 
 .question-view {
-  font-family: PingFangSC-regular;
-  font-weight: bolder;
   margin: 3px;
   background-color: white;
   border: 1px solid rgb(187,187,187);
@@ -218,14 +214,37 @@
   width: 66%;
   display: flex;
   flex-direction: column;
-  margin: 10rpx 2% 10rpx 2%;
+  margin: 10rpx 2% 10rpx 5%;
+}
+
+.qu_name {
+  font-family: DFKai-SB;
+}
+
+.qu_state {
+  color: #A9A9A9;
+  font-size: 30rpx;
+  width: 100%;
 }
 
 .q_right {
-  width: 26%;
+  width: 20%;
   display: flex;
   flex-direction: column;
-  margin: 10rpx 2% 10rpx 2%;
+  margin: 10rpx 5% 10rpx 2%;
+}
+
+.qu_num {
+  color: #78D8D8;
+  width: 100%;
+  text-align: center;
+}
+
+.qu_num_text {
+  color: #A9A9A9;
+  font-size: 30rpx;
+  width: 100%;
+  text-align: center;
 }
 
 .qu-popup {
@@ -234,7 +253,7 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
   z-index: 11;
 }
 
@@ -251,6 +270,12 @@
   background: #fff;
   z-index: 12;
   text-align: center;
+  color: rgb(130, 130, 130);
+}
+
+.qid {
+  padding: 10rpx;
+  background-color: rgb(240, 240, 240);
 }
 
 .qu-popup-choice {
@@ -260,7 +285,8 @@
   flex-direction: row;
   border-width: 2rpx 0rpx 2rpx 0rpx;
   border-style: solid;
-  border-color: gainsboro;
+  border-color: gray;
+  background-color: rgb(240, 240, 240);
   padding: 20rpx 0rpx 20rpx 0rpx;
 }
 
@@ -276,12 +302,14 @@
   width: 80%;
   margin: 0rpx 10% 0rpx 10%;
   height: 150rpx;
-  border: 2rpx solid black;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 10rpx;
 }
 
 .qu-popup-btn {
-  height: 100rpx;
   width: 100%;
   font-size: 40rpx;
-  padding: 15rpx;
+  padding: 10rpx;
+  background-color: rgb(240, 240, 240);
 }

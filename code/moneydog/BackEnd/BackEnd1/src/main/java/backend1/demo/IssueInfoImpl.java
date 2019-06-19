@@ -15,7 +15,7 @@ public class IssueInfoImpl implements IssueInfoMapper {
     @Override
     public int CreateUser(String openid, String nickName, String avatarUrl, String gender) {
         try{
-            return jdbcTemplate.update("insert into moneydog.user(openid,nikname,avatarUrl,gender,state)values (?,?,?,?,0)", openid, nickName, avatarUrl, gender);
+            return jdbcTemplate.update("insert into moneydog.user(openid,nikname,avatarUrl,gender,state,school,wechat,phoneNum,realname,falsename,balance,image_url)values (?,?,?,?,0,'','','','','',0,'')", openid, nickName, avatarUrl, gender);
         }catch (Exception e){
             System.out.println("创建用户");
             System.out.println(e);
@@ -84,19 +84,17 @@ public class IssueInfoImpl implements IssueInfoMapper {
         JSONObject jsonObject = new JSONObject();
         try {
             t = jdbcTemplate.update("insert into moneydog.errand(uid1,title,content,phone,wechat,ending_time,pay,state) values (?,?,?,?,?,?,?,0)", id, title, content, phone, wechat, ending_time, pay);
-
         }catch (Exception e){
             System.out.println("创建跑腿");
             System.out.println(e);
         }
-           if (t == 0) {
+        if (t == 0) {
             msg = "Create Unsuccessfully!";
         }
         jsonObject.put("errcode", t);
         jsonObject.put("errmsg", msg);
         return jsonObject;
     }
-
     @Override
     public JSONObject CreateSecond_hand(String openid,String object_name, String content, String phone, String wechat, Date ending_time, int pay, String photo_url) {
         String id = openid;

@@ -1,28 +1,23 @@
 <!--pages/orders/menu.wxml-->
 <view class='button-area'>
-      <!--快递接单-->
-      <button class='publish-button' bindtap='goToExpressage_ordersPage'>
-        <image class='publish-buttonIcon' src="../../images/kuaidi.png"></image>
-        <view class='publish-text'>快递</view>
-      </button>
-      <!--跑腿接单-->
-      <button class='publish-button' bindtap='goToErrand_ordersPage'>
-        <image class='publish-buttonIcon' src="../../images/paotui.png"></image>
-        <view class='publish-text'>跑腿</view>
-      </button>
-      <!--求助接单-->
-      <button class='publish-button' bindtap='goToSeekhelp_ordersPage'>
-        <image class='publish-buttonIcon' src="../../images/qiuzhu.png"></image>
-        <view class='publish-text'>求助</view>
-      </button>
-      <!--闲置接单-->
-      <button class='publish-button' bindtap='goToSecondhand_ordersPage'>
-        <image class='publish-buttonIcon' src="../../images/xianzhi.png"></image>
-        <view class='publish-text'>闲置</view>
-      </button>
-      <!--问卷-->
-        <button class='publish-button' bindtap='goToQuetionnaire_ordersPage'>
-          <image class='publish-buttonIcon' src="../../images/wenjuan.png"></image>
-          <view class='publish-text'>问卷</view>
-        </button>
+  <!--快递订单-->
+  <view class='publish-button' bindtap='goToExpressage_ordersPage'>
+    <image class='publish-buttonIcon' src="../../images/kuaidi_menu.png">快递</image>
+  </view>
+  <!--跑腿订单-->
+  <view class='publish-button' bindtap='goToErrand_ordersPage'>
+    <image class='publish-buttonIcon' src="../../images/paotui_menu.png"></image>
+  </view>
+  <!--求助订单-->
+  <view class='publish-button' bindtap='goToSeekhelp_ordersPage'>
+    <image class='publish-buttonIcon' src="../../images/qiuzhu_menu.png"></image>
+  </view>
+  <!--闲置订单-->
+  <view class='publish-button' bindtap='goToSecondhand_ordersPage'>
+    <image class='publish-buttonIcon' src="../../images/xianzhi_menu.png"></image>
+  </view>
+  <!--问卷订单-->
+  <view class='publish-button' bindtap='goToQuetionnaire_ordersPage'>
+    <image class='publish-buttonIcon' src="../../images/wenjuan_menu.png"></image>
+  </view>
 </view>

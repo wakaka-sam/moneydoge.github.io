@@ -5,7 +5,8 @@
     "pages/orders/orders_menu",
     "pages/orders/orders_list/orders_list",
     "pages/orders/orders_content/order_content",
-    "pages/orders/orders_content/questionnaire-anlyse",
+    "pages/orders/orders_content/questionnaire_result/questionnaire-anlyse",
+    "pages/orders/orders_content/questionnaire_result/completion_results",
     "pages/confession/confession",
     "pages/personal/personal",
     "pages/publish/publish",
@@ -23,14 +24,14 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#78D8D8",
     "navigationBarTitleText": "闲钱汪",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",
   "tabBar": {
     "color": "#a9b7b7",
-    "selectedColor": "#1E90FF",
+    "selectedColor": "#78D8D8",
     "borderStyle": "white",
     "list": [
       {

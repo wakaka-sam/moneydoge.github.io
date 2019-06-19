@@ -1,4 +1,6 @@
 // pages/publish.js
+
+const util = require('../../utils/util.js')//调用该块获取当前时间
 Page({
 
   /**
@@ -42,6 +44,7 @@ Page({
     x_pay:'',
     x_phone:'',
     x_wechat:'',
+   // console.log("awsl:" + util.formatTime2(new Date()))
 
     //日期选择器的初始数值
     startDate:'2019/01/01',
@@ -105,6 +108,12 @@ Page({
       x_pay: '',
       x_phone: '',
       x_wechat: '',
+
+      startDate: util.formatTime2(new Date()),
+      selectDate: util.formatTime2(new Date()),
+      selectDate1: util.formatTime2(new Date()),
+      selectDate2: util.formatTime2(new Date()),
+      selectDate3: util.formatTime2(new Date())
     })
     console.log(that.data.id)
   },
@@ -242,7 +251,7 @@ Page({
     console.log("sessionID_test:" + that.data.sessionID)
     console.log("daodashijian:" + that.data.k_arrive_time)
     wx.request({
-      url: "http://172.18.32.138:8080/Create/Expressage",
+      url: "https://moneydog.club:3030/Create/Expressage",
       header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -259,10 +268,20 @@ Page({
       },
       
       success: function (res) {
-        console.log(that.data.sessionID);
-
-        wx.navigateBack({
-          delta: 1  //小程序关闭当前页面返回上一页面
+        console.log("s" + that.data.sessionID);
+        console.log("快递:" + res.data);
+        wx.showToast({
+          title: '快递发布成功',
+          icon: 'success',
+          duration: 2000,
+          success: function () {
+            setTimeout(function () {
+              //要延时执行的代码
+              wx.switchTab({
+                url: '../home/home'
+              })
+            }, 2000) //延迟时间
+          }
         })
       },
     })
@@ -306,7 +325,7 @@ Page({
     var date1 = new Date(that.data.q_ending_time);//STRING转Date
     console.log("q_ending_time:"+that.data.q_ending_time);
     wx.request({
-      url: "http://172.18.32.138:8080/Create/For_help",
+      url: "https://moneydog.club:3030/Create/For_help",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -318,17 +337,26 @@ Page({
         wechat: that.data.q_wechat,
       },
       success: function (res) {
-        console.log(res.data);
+        wx.showToast({
+          title: '求助发布成功',
+          icon: 'success',
+          duration: 2000,
+          success: function () {
+            setTimeout(function () {
+              //要延时执行的代码
+              wx.switchTab({
+                url: '../home/home'
+              })
+            }, 2000) //延迟时间
+          }
+        })
+        console.log("求助返回：" + res.data);
         console.log(that.data.q_title);
         console.log(that.data.q_content);
         console.log(that.data.q_ending_time);
         console.log(that.data.q_pay);
         console.log(that.data.q_phone);
         console.log(that.data.q_wechat);
-
-        wx.navigateBack({
-          delta: 1  //小程序关闭当前页面返回上一页面
-        })
       },
     })
   },
@@ -370,7 +398,7 @@ Page({
     var date2 = new Date(that.data.p_ending_time);//STRING转Date
     console.log("p_ending_time" + that.data.p_ending_time);
     wx.request({
-      url: "http://172.18.32.138:8080/Create/Errand",
+      url: "https://moneydog.club:3030/Create/Errand",
       header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
       method: "POST",
       data: {
@@ -382,17 +410,41 @@ Page({
         wechat: that.data.p_wechat,
       },
       success: function (res) {
-        console.log(res.data);
+        console.log("跑腿返回：" + res.data)
+        if(res.data.errcode == 1){
+          wx.showToast({
+            title: '跑腿发布成功',
+            icon: 'success',
+            duration: 2000,
+            success: function () {
+              setTimeout(function () {
+                //要延时执行的代码
+                wx.switchTab({
+                  url: '../home/home'
+                })
+              }, 2000) //延迟时间
+            }
+          })
+        } else if (res.data.errcode == 2){
+          wx.showToast({//服务器返回值为errcode等于2时，并不会接受数据，不用担心其错误数据显示在列表中
+            title: "余额不足，请充值！",
+            icon: 'none',
+            duration: 2000,
+          })
+        } else if(res.data.status == 400){//bad request,一般是报酬输入不是int类型
+          wx.showToast({//服务器返回值为errcode等于2时，并不会接受数据，不用担心其错误数据显示在列表中
+            title: "报酬应为整数！请修改！",
+            icon: 'none',
+            duration: 2000,
+          })
+        }
+        console.log(res.data);//应该是只有扣钱的需要验证
         console.log(that.data.p_title);
         console.log(that.data.p_content);
         console.log(that.data.p_ending_time);
         console.log(that.data.p_pay);
         console.log(that.data.p_phone);
         console.log(that.data.p_wechat);
-
-        wx.navigateBack({
-          delta: 1  //小程序关闭当前页面返回上一页面
-        })
       },
     })
   },
@@ -437,12 +489,14 @@ Page({
 
 //以下是闲置的物品的数据上传
   gotodeupload4: function () {
+//boolean is_continue = false;
     var that = this;
     var date3 = new Date(that.data.x_ending_time);//STRING转Date
     console.log("x_ending_time" + that.data.x_ending_time);
+    console.log("src1:"+ that.data.src_of_pic);
     wx.uploadFile({
-      url: "http://119.23.218.7:8080/File/Upload",
-      filePath:that.data.src_of_pic,
+      url: 'http://119.23.218.7:8080/File/Upload',
+      filePath: that.data.src_of_pic,
       name: "img",
       header:{
         sessionId: that.data.sessionID,
@@ -452,40 +506,54 @@ Page({
         "user":"test"
       },
       success:function (res){
-        res.data.imageUrl
-        console.log(that.data.src_of_pic);
-        wx.request({
-          url: "http://172.18.32.138:8080/Create/Second_hand",
-          header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
-          method: "POST",
-          data: {
-            object_name: that.data.x_object_name,
-            content: that.data.x_content,
-            ending_time: date3,
-            pay: that.data.x_pay,
-            phone: that.data.x_phone,
-            wechat: that.data.x_wechat,
-            photo_url: that.data.src_of_pic
-          },
-          success: function (res) {
-            console.log(that.data.x_object_name);
-            console.log(that.data.x_content);
-            console.log(that.data.x_ending_time);
-            console.log(that.data.x_pay);
-            console.log(that.data.x_phone);
-            console.log(that.data.x_wechat);
-            var t = JSON.parse(res.data);
-            console.log(t.imageUrl)
-            var url = 'http://119.23.218.7:8080/' + t.src_of_pic;
-            that.setData({
-              src_of_pic: url,
-            })
-            console.log("aaa"+this.data.src_of_pic)
-            wx.navigateBack({
-              delta: 1  //小程序关闭当前页面返回上一页面
-            })
-          },
-        })
+        console.log("return:"+ res.data);//这个有返回也需要判定验证
+        if (res.data.errcode == 1){
+          var image_url_t = JSON.parse(res.data);
+          var url = 'http://119.23.218.7:8080/' + image_url_t.imageUrl;
+          console.log("上传的url:" + url);
+          wx.request({
+            url: "https://moneydog.club:3030/Create/Second_hand",
+            header: { sessionId: that.data.sessionID, "Content-Type": "application/x-www-form-urlencoded"},//请求时要加上sessionID
+            method: "POST",
+            data: {
+              object_name: that.data.x_object_name,
+              content: that.data.x_content,
+              ending_time: date3,
+              pay: that.data.x_pay,
+              phone: that.data.x_phone,
+              wechat: that.data.x_wechat,
+              photo_url: url
+            },
+            success: function (res) {
+              wx.showToast({
+                title: '闲置发布成功',
+                icon: 'success',
+                duration:2000,
+                success:function(){
+                  setTimeout(function () {
+                    //要延时执行的代码
+                    wx.switchTab({
+                      url: '../home/home'
+                    })
+                  }, 2000) //延迟时间
+                }
+              })
+            
+              console.log(that.data.x_object_name);
+              console.log(that.data.x_content);
+              console.log(that.data.x_ending_time);
+              console.log(that.data.x_pay);
+              console.log(that.data.x_phone);
+              console.log(that.data.x_wechat);
+            },
+          })
+      }else{
+          wx.showToast({
+            title: '出现错误，请检查！',
+            icon: 'none',
+            duration: 2000,
+          })
+      }
       }
     })
    

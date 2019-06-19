@@ -1,0 +1,47 @@
+<!--pages/orders/orders_content/questionnaire-anlyse.wxml-->
+<view class='container'>
+    <view id='question-area'>
+    <view class='question-view'>
+      <label class='questionnaire-title'>统计结果</label>
+    </view>
+    <view class='question-view' wx:for="{{jointResult}}" wx:key="{{item.id}}">
+      <label>第{{index+1}}题：{{item.question.title}}：{{item.question.type == 0 ? '[单选题]' : ''}}{{item.question.type == 1 ? '[多选题]' : ''}}{{item.question.type == 2 ? '[填空题]' : ''}}</label>
+      <view wx:if="{{item.question.type == 0 || item.question.type == 1}}" class="choice-group">
+        <view class='choice-row'>
+          <view class='choice-content'>选项</view>
+          <view class='choice-num'>小计</view>
+          <view class='choice-scale'>比例</view>
+        </view>
+        <view class='choice-row' wx:if='{{item.question.a}}'>
+          <view class='choice-content'>{{item.question.a}}</view>
+          <view class='choice-num'>{{item.result.a}}</view>
+          <view class='choice-scale'>{{questionnaireTota == 0 ? 0 : item.result.a/questionnaireTota*100}}%</view>
+        </view>
+        <view class='choice-row' wx:if='{{item.question.b}}'>
+          <view class='choice-content'>{{item.question.b}}</view>
+          <view class='choice-num'>{{item.result.b}}</view>
+          <view class='choice-scale'>{{questionnaireTota == 0 ? 0 : item.result.b/questionnaireTota*100}}%</view>
+        </view>
+        <view class='choice-row' wx:if='{{item.question.c}}'>
+          <view class='choice-content'>{{item.question.c}}</view>
+          <view class='choice-num'>{{item.result.c}}</view>
+          <view class='choice-scale'>{{questionnaireTota == 0 ? 0 : item.result.c/questionnaireTota*100}}%</view>
+        </view>
+        <view class='choice-row' wx:if='{{item.question.d}}'>
+          <view class='choice-content'>{{item.question.d}}</view>
+          <view class='choice-num'>{{item.result.d}}</view>
+          <view class='choice-scale'>{{questionnaireTota == 0 ? 0 : item.result.d/questionnaireTota*100}}%</view>
+        </view>
+        <view class='choice-row'>
+          <view class='choice-content'>本题有效填写人次</view>
+          <view class='choice-num'>{{questionnaireTota}}</view>
+          <view class='choice-scale'></view>
+        </view>
+      </view>
+      <text wx:if="{{item.question.type == 2}}" data-id='{{index}}' bindtap='showCompletionResult'>查看详细信息</text>
+    </view>
+    <view class='question-area-bottom'></view>
+    </view>
+    <!--问卷内容显示end-->
+</view>
+

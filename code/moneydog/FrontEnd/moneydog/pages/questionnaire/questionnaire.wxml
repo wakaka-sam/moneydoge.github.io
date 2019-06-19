@@ -1,8 +1,7 @@
 <!--pages/questionnaire/questionnaire.wxml-->
 <view class='container'>
-  <!-->问卷内容显示<-->
-    <!-->tab选项<-->
-    <view class='ques-tab'>
+  <!-->tab选项<-->
+    <view hidden='{{hiddenTab}}' class='ques-tab'>
       <view bindtap="toggleDialog">
         <image class='item-images' src='../../images/Add.png'></image>
         <label>题目</label>
@@ -19,8 +18,6 @@
     <view class='question-view'>
       <label class='questionnaire-title'>{{questionnaireName}}</label>
       <label class='questionnaire-describe'>{{questionnaireDesc}}</label>
-      <!--<label class='questionnaire-pay'>报酬：{{questionnairePay}}元/份</label>
-      <label class='questionnaire-pay'>预期填写份数：{{questionnaireTota}}</label>-->
     </view>
     <view class='question-view' wx:for="{{questionList}}" wx:key="{{item.id}}">
       <label>{{index+1}}. {{item.title}}</label>
@@ -38,19 +35,20 @@
       </checkbox-group>
       <input wx:if="{{item.type == 2}}"></input>
     </view>
+    <!--底部留白以防止问卷内容被tab挡住-->
     <view class='question-area-bottom'></view>
     </view>
     <!--问卷内容显示end-->
 
     <!-->弹窗选择题目类型<-->
     <view class="zan-dialog {{ showDialog ? 'zan-dialog--show' : '' }}">
-    <view class="zan-dialog__mask" bindtap="toggleDialog" />
-    <view class="zan-dialog__container">
-        <button type='primary' bindtap='createSCQ'>单选题</button>
-        <button type='primary' bindtap='createMCQ'>多选题</button>
-        <button type='primary' bindtap='createCompletion'>填空题</button>
+      <view class="zan-dialog__mask" bindtap="toggleDialog" />
+      <view class="zan-dialog__container">
+        <button style='background-color:#78D8D8;' type='primary' bindtap='createSCQ'>单选题</button>
+        <button style='background-color:#78D8D8;' type='primary' bindtap='createMCQ'>多选题</button>
+        <button style='background-color:#78D8D8;' type='primary' bindtap='createCompletion'>填空题</button>
+      </view>
     </view>
-  </view>
-  <!-->弹窗选择题目类型end<-->
-  <!-->问卷内容显示end<-->
+    <!-->弹窗选择题目类型end<-->
+    
 </view>

@@ -1,0 +1,80 @@
+/* pages/orders/orders_content/questionnaire-anlyse.wxss */
+.container{
+  padding: 0px;
+}
+
+#question-area {
+  background-color: white;
+  width: 100%;
+  font-size: 30rpx;
+}
+
+.question-view {
+  width: 100%;
+  padding: 10rpx 5% 10rpx 5%;
+  margin-bottom: 10rpx;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.choice-group{
+  width: 90%;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  flex-direction: column;
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border: 2rpx solid gainsboro;
+  border-radius: 10rpx;
+}
+
+.choice-row {
+  width: 95%;
+  border-width: 0rpx 0rpx 1rpx 0rpx;
+  border-style: solid;
+  border-color: gainsboro;
+  display: flex;
+  flex-direction: row;
+}
+
+.question-view text {
+  width: 40%;
+  color: rgb(63, 139, 238);
+  border: 2rpx solid rgb(63, 139, 238);
+  margin: 20rpx 0rpx 20rpx 0rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  padding: 10rpx;
+}
+
+.questionnaire-title {
+  width: 90%;
+  color: rgb(63, 139, 238);
+  font-size: 40rpx;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin: 0rpx;
+}
+
+.choice-content {
+  width: 50%;
+  padding: 10rpx;
+  text-align: center;
+}
+
+.choice-num {
+  width: 25%;
+  border-width: 0rpx 1rpx 0rpx 1rpx;
+  border-style: solid;
+  border-color: rgb(148, 146, 146);
+  padding: 10rpx;
+  text-align: center;
+}
+
+.choice-scale {
+  width: 25%;
+  padding: 10rpx;
+  text-align: center;
+}

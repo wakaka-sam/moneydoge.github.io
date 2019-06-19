@@ -81,19 +81,45 @@ Page({
   gotoupload5:function(){
     var that = this;
     console.log(that.data.content);
-    wx.request({
-      url: "https://moneydog.club:3336/LoveWall/createWall",
-      header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded" },//请求时要加上sessionID
-      method: "POST",
-      data: {
-        detail:that.data.content,
-      },
-
-      success: function (res) {
-        wx.navigateBack({
-          delta: 1  //小程序关闭当前页面返回上一页面
-        })
-      },
-    })
+    var content_t = that.data.content;
+    content_t = content_t.replace(/\s*/g, "");///清除content_t中的空格
+    console.log(content_t.toString.length);
+    if (content_t) {//不符合要求的内容不能上传
+      wx.request({
+        url: "https://moneydog.club:3336/LoveWall/createWall",
+        header: { sessionId: that.data.sessionID.toString(), "Content-Type": "application/x-www-form-urlencoded" },//请求时要加上sessionID
+        method: "POST",
+        data: {
+          detail: that.data.content,
+        },
+        success: function (res) {
+          //console.log("表白:" + that.data.content);
+          //先试一试内容与空格比较
+          //空格的数量是个问题
+          //试试清除输入的空格
+          //哈哈哈哈哈好了
+          //应该放前面，不符合不能上传
+          wx.showToast({
+            title: '表白发布成功',
+            icon: 'success',
+            duration: 2000,
+            success: function () {
+              setTimeout(function () {
+                //要延时执行的代码
+                wx.switchTab({
+                  url: '../confession/confession'
+                })
+              }, 2000) //延迟时间
+            }
+          })
+        },
+      })
+    }else{
+      wx.showToast({
+        title: '不能发布空内容',
+        icon: 'none',
+        duration: 2000,
+      })
+    }
   }
 })

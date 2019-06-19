@@ -5,9 +5,14 @@ Page({
   data: {
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    searchUrl: '/images/search-icon.png',
-    showDialog: false //弹窗
+    canIUse: wx.canIUse('button.open-type.getUserInfo'), 
+    imgUrls: [
+      '../../images/scroll-image1.jpeg',
+      '../../images/scroll-image2.jpg',
+      '../../images/kuaidi_menu.png'
+    ],
+    showDialog: false, //弹窗
+    biaobai_text: null
   },
   //事件处理函数
   bindViewTap: function() {
@@ -15,29 +20,6 @@ Page({
       url: '../logs/logs'
     })
   },
-  //跳转到快递代拿接单界面
-  goToReceiptPage1: function() {
-    wx.navigateTo({
-      url: '../receipt/receipt?id=1',
-    })
-  },
-
-  goToPublishPage2: function () {
-    wx.navigateTo({
-      url: '../publish/publish?id=2',//跳转的时候传值，在跳转到的页面的js的page处理id
-    })
-  },
-  goToPublishPage3: function () {
-    wx.navigateTo({
-      url: '../publish/publish?id=3',//跳转的时候传值，在跳转到的页面的js的page处理id
-    })
-  },
-  goToPublishPage4: function () {
-    wx.navigateTo({
-      url: '../publish/publish?id=4',//跳转的时候传值，在跳转到的页面的js的page处理id
-    })
-  },
-
   goToWenjuanPage: function() {
     wx.navigateTo({
       url: '../questionnaire/create_questionnaire',
@@ -49,6 +31,13 @@ Page({
     })
   },
   onLoad: function () {
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3336/LoveWall/getLoveWall',
+      success: function (res) {
+        that.setData({ biaobai_text: res.data.data[0].detail })
+      }
+    })
     wx.hideTabBar({})
     if (app.globalData.userInfo) {
       this.setData({
@@ -79,6 +68,12 @@ Page({
         }
       })
     }
+  },
+  //跳转到快递代拿接单界面
+  goToReceiptPage1: function () {
+    wx.navigateTo({
+      url: '../receipt/receipt?id=1',
+    })
   },
   //跳转到跑腿接单界面
   goToReceiptPage2: function () {
@@ -161,7 +156,7 @@ Page({
         },
       })
     } else {
-      console.log('获取用户登录失败：' + res.errMsg);
+      console.log('获取用户登录失败');
     }
   }
 })

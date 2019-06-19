@@ -3,7 +3,7 @@
 <view class='container'>
   <view class='wenjuan-welcome'>
     <label id='welcome-text'>欢迎来到问卷系统！</label>
-    <image id='goutou-img' src="../../images/qiuzhu.png"></image>
+    <image id='goutou-img' src="../../images/goutou-img.jpg"></image>
   </view>
   <view class='wenjuan-info'>
     <label>问卷名称：</label>
@@ -14,7 +14,7 @@
     <input bindinput='questionnairePay'></input>
     <label>预期填写份数：</label>
     <input bindinput='questionnaireTota'></input>
-    <button type='primary' bindtap='createQuestionnaire'>创建问卷</button>
+    <button style='background-color:#78D8D8;' type='primary' bindtap='createQuestionnaire'>创建问卷</button>
   </view>
 </view>
 <!-->问卷创建end<-->

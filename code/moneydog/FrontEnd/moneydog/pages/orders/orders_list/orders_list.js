@@ -94,6 +94,7 @@ Page({
       isSelected7: true
     })
     this.OnLoadReceiptOrders()
+    console.log(this.data.publishSeTradeList)
   },
   //确认完成
   confirmFinish: function(e) {
@@ -141,7 +142,7 @@ Page({
   },
   //长按删除
   deleteOrder: function (e) {
-    if(isSelected6 == true) {
+    if(this.data.isSelected6 == true) {
       console.log(e.currentTarget.dataset)
       this.setData({
         flag: !this.data.flag,
@@ -165,25 +166,62 @@ Page({
         wx.setStorageSync('questionnaireTota', res.data.viewAllList.num)
         wx.setStorageSync('questionList', JSON.parse(res.data.viewAllList.content))
         wx.navigateTo({
-          url: '../../questionnaire/questionnaire',
+          url: '../../questionnaire/questionnaire?type=1',
         })
       }
     })
-    /*wx.navigateTo({
-      url: 'questionnaire',
-    })*/
   },
   //显示问卷结果
   show_result: function (e) {
-
+    var that = this
+    wx.request({
+      url: "https://moneydog.club:3030/Create/viewAll",
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function (res) {
+        //console.log(res.data)
+        wx.setStorageSync('questionnaireTota', res.data.viewAllList.num)
+        wx.setStorageSync('questionList', JSON.parse(res.data.viewAllList.content))
+        wx.setStorageSync('questionContentCountList', (JSON.parse(res.data.viewAllList.content_count)).content_count)
+      }
+    })
+    wx.navigateTo({
+      url: '../orders_content/questionnaire_result/questionnaire-anlyse',
+    })
   },
   //终止问卷
   end_questionnaire: function (e) {
-
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/EndQuestion',
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function(res) {
+        //console.log(res)
+        that.OnLoadQuestionnaires()
+      }
+    })
+    this.close_qu_popup()
   },
   //删除问卷
   delete_questionnaire: function (e) {
-
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3030/Create/DeleteQuestionair',
+      header: { sessionId: that.data.sessionId },
+      data: { id: that.data.orderid },
+      success: function (res) {
+        //console.log(res)
+        that.OnLoadQuestionnaires()
+      }
+    })  
+    that.close_qu_popup()
+  },
+  //关闭问卷选项弹窗
+  close_qu_popup: function() {
+    this.setData({
+      flag1: true
+    })
   },
   //加载发布订单
   OnLoadPublishOrders: function () {
@@ -192,7 +230,7 @@ Page({
       url: "https://moneydog.club:3030/Load/Creation",
       header: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           publishExTradeList: res.data.expressages,//发布的快递订单
           publishErTradeList: res.data.errands,//发布的跑腿订单
@@ -213,7 +251,7 @@ Page({
       url: "https://moneydog.club:3030/Load/Receiving",
       header: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           receiptExTradeList: res.data.expressages,//接收的快递订单
           receiptErTradeList: res.data.errands,//接收的跑腿订单
@@ -227,14 +265,14 @@ Page({
       }
     }))
   },
-  //加载我发布问卷
+  //加载我发布的问卷
   OnLoadQuestionnaires: function () {
     var that = this
     return new Promise((resolve, rej) => wx.request({
       url: "https://moneydog.club:3030/Create/LoadMyQuestionair",
-      data: { sessionId: that.data.sessionId },
+      header: { sessionId: that.data.sessionId },
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         that.setData({
           publishQuTradeList: res.data
         })
@@ -280,7 +318,7 @@ Page({
       that.select3()
     else if (id == 4)
       that.select4()
-    else
+    else 
       that.select5()
     
     that.OnLoadPublishOrders()

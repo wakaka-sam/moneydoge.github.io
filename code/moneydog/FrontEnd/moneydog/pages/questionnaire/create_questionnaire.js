@@ -7,8 +7,8 @@ Page({
   data: {
     questionnaireName: null,
     questionnaireDesc: null,
-    questionnairePay: 0,
-    questionnaireTota: 0
+    questionnairePay: null,
+    questionnaireTota: null
   },
   questionnaireName: function (e) {
     this.data.questionnaireName = e.detail.value
@@ -24,14 +24,56 @@ Page({
   },
   //创建问卷
   createQuestionnaire: function () {
-    wx.setStorageSync('questionnaireName', this.data.questionnaireName)
-    wx.setStorageSync('questionnaireDesc', this.data.questionnaireDesc)
-    wx.setStorageSync('questionnairePay', this.data.questionnairePay)
-    wx.setStorageSync('questionnaireTota', this.data.questionnaireTota)
-    wx.setStorageSync('questionList', [])
-    wx.navigateTo({
-      url: 'questionnaire',
-    })
+    var title = ''
+    var tag = 0
+    //判断问卷名是否为空
+    if(this.data.questionnaireName == null && tag == 0) {
+      title = '问卷名'
+      tag = 1
+    } else if (this.data.questionnaireName == null && tag == 1) {
+      title += '、问卷名'
+    }
+    //判断问卷描述是否为空
+    if (this.data.questionnaireDesc == null && tag == 0) {
+      title = '问卷描述'
+      tag = 1
+    } else if (this.data.questionnaireDesc == null && tag == 1) {
+      title += '、问卷描述'
+    }
+    //判断问卷报酬是否为空
+    if (this.data.questionnairePay == null && tag == 0) {
+      title = '问卷报酬'
+      tag = 1
+    } else if (this.data.questionnairePay == null && tag == 1) {
+      title += '、问卷报酬'
+    }
+    //判断预期填写份数是否为空
+    if (this.data.questionnaireTota == null && tag == 0) {
+      title = '预期填写份数'
+      tag = 1
+    } else if (this.data.questionnaireTota == null && tag == 1) {
+      title += '、预期填写份数'
+    }
+    //其中一个为空，出现提示
+    if (title != '') {
+      title += '不能为空'
+      wx.showToast({
+        title: title,
+        icon: 'none'
+      })
+    }
+    //全部都不为空，可成功创建进入问卷题目添加页面
+    else {
+      wx.setStorageSync('questionnaireName', this.data.questionnaireName)
+      wx.setStorageSync('questionnaireDesc', this.data.questionnaireDesc)
+      wx.setStorageSync('questionnairePay', this.data.questionnairePay)
+      wx.setStorageSync('questionnaireTota', this.data.questionnaireTota)
+      wx.setStorageSync('questionList', [])
+      wx.setStorageSync('questionContentCountList', [])
+      wx.redirectTo({
+        url: 'questionnaire',
+      })
+    }
   },
 
   /**
