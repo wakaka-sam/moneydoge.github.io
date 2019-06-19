@@ -61,9 +61,10 @@ public class HistoryController {
             statecode = 1;
             msg = "创建对应的历史订单记录成功";
             User temp = temp1.get(0);
+            changeBalance(uid,price);
             if(price < 0 ) price *= -1;
             jdbcTemplate.update("insert into moneydog.history(thid,uid,type,price,detail,time,finish)values (?,?,?,?,?,?,?)", thid,uid,type,price,detail,d,0);
-            changeBalance(uid,price);
+
         }
 
 

@@ -1,7 +1,7 @@
 .top-block{
   padding-top: 20px;
   padding-bottom: 30px;
-  background-color: #19ADAD;
+  background-color: #78D8D8;
   margin: 2px;
   border-radius: 2%;
 }
@@ -50,12 +50,12 @@ margin-right: 2px;
 }
 
 .l-button{
-  background-color: red;
+  background-color: lightcoral;
   margin-right: 10px;
   width: 100px;
 }
 .r-button{
-  background-color: green;
+  background-color: lightgreen;
   margin-left: 10px;
   width: 100px;
 }
