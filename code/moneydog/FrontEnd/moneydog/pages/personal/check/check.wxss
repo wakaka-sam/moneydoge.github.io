@@ -19,7 +19,7 @@
 .button1{
   display: flex;
   justify-content: center;
-  background-color: greenyellow;
+  background-color: lightgreen;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100px;
@@ -27,7 +27,7 @@
 .button2{
   display: flex;
   justify-content: center;
-  background-color: red;
+  background-color: lightcoral;
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100px;
