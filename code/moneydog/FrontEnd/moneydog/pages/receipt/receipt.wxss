@@ -10,7 +10,7 @@
   width: 20%;
   border-radius: 0px;
   text-align: center;
-  background-color: #87CEFA;
+  background-color: #78D8D8;
   padding: 15rpx;
 }
 .normal {
@@ -127,11 +127,11 @@
 }
 .accept-button {
   display: inline-block;
-  margin: 0;
+  margin: 10rpx;
   width: 80px;
   height: 27px;
   line-height: 2;
-  background-color: #F27A7A;
+  background-color: #78D8D8;
   border-radius: 4px;
   font-size: 14px;
 }

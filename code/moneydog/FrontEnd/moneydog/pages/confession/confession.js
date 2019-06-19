@@ -4,14 +4,14 @@ Page({
    * 初始数据
    */
   data: {
-  	confessionList: [
+  	confessionList: [/*
   		{"detail":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
   		{"detail":"哇，你妈妈好爱你呀！"},
   		{"detail":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
   		{"detail":"哇，你妈妈好爱你呀！"},
   		{"detail":"初二一班的李子明同学，你妈妈拿了两罐旺仔牛奶给你。"},
   		{"detail":"哇，你妈妈好爱你呀！"}
-  	]
+  	*/]
   },
   writeConfession: function () {
   	wx.navigateTo({

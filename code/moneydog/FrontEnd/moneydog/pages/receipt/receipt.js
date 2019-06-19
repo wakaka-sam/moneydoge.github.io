@@ -19,7 +19,7 @@ Page({
     lastId3: -1,//订单号，并存起来，
     lastId4: -1,//默认值-1，当得到所
     lastId5: -1,//有订单后也置为-1
-    exTradeList: [
+    exTradeList: [/*
       {
         "express_loc":"明德园6号",
         "arrive_time":"2019-05-03",
@@ -41,11 +41,11 @@ Page({
         "remark": "none",
         "issue_time": "2019-05-4",
         "state": 0
-      }],
+      }*/],
     erTradeList: [],
     heTradeList: [],
     seTradeList: [],
-    quTradeList: [{
+    quTradeList: [/*{
       "qid": 1,
       "name": "调查问卷",
       "description": "饭堂满意度",
@@ -56,7 +56,7 @@ Page({
       "name": "调查问卷",
       "description": "饭堂满意度",
       "pay": 1
-    }]
+    }*/]
   },
   /**
    * 页面切换
