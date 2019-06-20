@@ -6,7 +6,7 @@
 - [5.Product Backlog （产品特性）](page/product_backlog)
 - [6.Requirement specification（需求规格说明）](page/product_requirement.md)
   - 6.1 Usecase Diagram（用例图）
-  - 6.2 [Use Cases（用例+活动图）](./page/用例说明.md)
+  - 6.2 [Use Cases（用例+活动图）](./page/Use_cases_details.md)
   - 6.3 [Domain Model（领域模型）](./page/DomainModel.md)
   - 6.4 State Model（状态模型）
   - 6.5 [System Sequence Diagram（功能模型）](./page/System Sequence Diagram.md)
@@ -47,5 +47,4 @@
 - X4 Tech/Work Report
   - [16340303-zdx](page/zdx_note.md)
 - X5 Final Report
-  * [16340018-chg](page/Chenhg.md))
-
+  * [16340018-chg](page/Chenhg.md)
