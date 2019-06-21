@@ -21,8 +21,8 @@
   - 7.4 Architecture design（架构设计）
   - 7.5 Usecase design（用例设计）
 - 8.生产规范与指南
-  - 8.1 [XX 代码规范](page/code_formal.md)
-
+  - 8.1 [XX 代码规范](code_formal.md)
+  
   - 8.2 [REST API 设计规范](page/REST_API _formal.md)
 
   - 8.3 [架构设计、详细设计（BCE方法）到应用程序框架映射指南](page/8.3part.md)
