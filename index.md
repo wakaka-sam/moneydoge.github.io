@@ -12,18 +12,20 @@
   - 6.5 [System Sequence Diagram（功能模型）](./page/System Sequence Diagram.md)
   - 6.6 Supplementary Requirements（补充需求）
 - 7.Design（设计）
-  - 7.1 UI design（界面设计）
-  - 7.2 Database design（数据库设计）
+  - [7.1 UI design（界面设计)](page/7.1UI-design.md)
+  - [7.2 Database design（数据库设计）](./page/ljh_page/数据库.md)
+
   - 7.3 Interface API design（接口 API 设计）
-	- [zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
+    - [zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
+    - [ljh的后端接口及接口测试文档](./page/ljh_page/API.md)
   - 7.4 Architecture design（架构设计）
   - 7.5 Usecase design（用例设计）
 - 8.生产规范与指南
-  - 8.1 [XX 代码规范](page/code_formal.md)
+  - 8.1 XX 代码规范
 
   - 8.2 [REST API 设计规范](page/REST_API _formal.md)
 
-  - 8.3 [架构设计、详细设计（BCE方法）到应用程序框架映射指南](part/8.3part.md)
+  - 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
 
   - 8.4 [部署说明](page/deploy_file.md)
 - 9.资料分享链接
@@ -46,4 +48,3 @@
   - [16340303-zdx](page/zdx_note.md)
 - X5 Final Report
   * [16340018-chg](page/Chenhg.md)
-
