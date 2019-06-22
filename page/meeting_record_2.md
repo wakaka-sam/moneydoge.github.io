@@ -73,5 +73,5 @@
 
 
 
-![思维导图](../imgsrc/meeting_record_3.png)
+![思维导图](../imgsrc/cxp_img/activity_diagram.png)
 
