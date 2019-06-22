@@ -69,9 +69,9 @@ createIssue</panel_attributes>
     <id>UMLClass</id>
     <coordinates>
       <x>210</x>
-      <y>460</y>
-      <w>100</w>
-      <h>70</h>
+      <y>440</y>
+      <w>120</w>
+      <h>100</h>
     </coordinates>
     <panel_attributes>&lt;&lt;controller&gt;&gt;
 load controller
@@ -208,21 +208,21 @@ state
       <x>240</x>
       <y>320</y>
       <w>30</w>
-      <h>160</h>
+      <h>140</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
       <x>250</x>
-      <y>520</y>
+      <y>530</y>
       <w>30</w>
-      <h>210</h>
+      <h>200</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
-    <additional_attributes>10.0;190.0;10.0;10.0</additional_attributes>
+    <additional_attributes>10.0;180.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
