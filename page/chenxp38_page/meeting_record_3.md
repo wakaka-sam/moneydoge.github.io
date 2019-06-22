@@ -56,5 +56,5 @@
 
 # 6.思维导图
 
-![思维导图](../imgsrc/cxp_img/meeting_record_3.png)
+![思维导图](../../imgsrc/cxp_img/meeting_record_3.png)
 

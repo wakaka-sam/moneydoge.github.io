@@ -10,7 +10,7 @@
   - 6.3 [Domain Model（领域模型）](./page/DomainModel.md)
   - 6.4 [State Model（状态模型）](./page/State_Model.md)
   - 6.5 [System Sequence Diagram（功能模型）](./page/System Sequence Diagram.md)
-  - 6.6 Supplementary Requirements（补充需求）
+  - 6.6 [Supplementary Requirements（补充需求）](./page/chenxp38_page/Supplementary_Requirements.md)
 - 7.Design（设计）
   - [7.1 UI design（界面设计)](page/7.1UI-design.md)
   - [7.2 Database design（数据库设计）](./page/ljh_page/数据库.md)
