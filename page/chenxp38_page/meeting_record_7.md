@@ -49,7 +49,7 @@
 
 # 5.思维导图
 
-![思维导图](../../imgsrc/cxp_img/meeting_record_6.png)
+![思维导图](../../imgsrc/cxp_img/meeting_record_7.png)
 
 
 
