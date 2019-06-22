@@ -27,6 +27,16 @@ Page({
         that.setData({confessionList: res.data.data})
       }
     })
+  },
+  onPullDownRefresh: function () {
+    var that = this
+    wx.request({
+      url: 'https://moneydog.club:3336/LoveWall/getLoveWall',
+      success: function(res) {
+        console.log(res.data.data)
+        that.setData({confessionList: res.data.data})
+      }
+    })
   }
 })
 
