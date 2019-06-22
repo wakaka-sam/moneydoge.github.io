@@ -33,8 +33,8 @@
   - [微信小程序开发相关技术博客视频链接](page/technique_learning.md)
 - 10.贡献率计算
   - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
+  - 项目最终贡献表
 - 11.成品展示
-- 
 - X1 meeting-records
 
   - [inception meeting(2019/03/22)](page/inception_meeting.md)
@@ -46,6 +46,8 @@
 - X3 auditing-records
 - X4 Tech/Work Report
   - [16340303-zdx](page/zdx_note.md)
+  - [16340140-ljhnhlh](./page/ljh_page/blog.md)
 - X5 Final Report
   * [16340018-chg](page/Chenhg.md)
   * [16340303-zdx](page/zdx_final_report.md)
+  * [16340140-ljhnhlh](./page/ljh_page/FinalReport.md)
