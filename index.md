@@ -33,6 +33,7 @@
   - [微信小程序开发相关技术博客视频链接](page/technique_learning.md)
 - 10.贡献率计算
   - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
+  - [项目最终贡献表](./page/chenxp38_page/contribution_table.md)
 - 11.成品展示
 - X1 meeting-records
 
