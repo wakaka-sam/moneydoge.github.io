@@ -2,16 +2,17 @@ package backend1.demo;
 
 import java.util.Date;
 
-public class expressage {
-    public String express_loc;
-    public Date arrive_time;
-    public int num;
-    public int pay;
-    public String loc;
-    public int pid;
-    public String remark;
-    public Date issue_time;
-    public int state;
+public class expressage{
+
+    private String express_loc;
+    private int num;
+    private String loc;
+    private int pid;
+    private String remark;
+    private int pay;
+    private Date issue_time;
+    private Date arrive_time;
+    private int state;
 
     public void setState(int state) {
         this.state = state;
