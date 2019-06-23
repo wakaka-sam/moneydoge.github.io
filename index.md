@@ -55,6 +55,7 @@
 - X4 Tech/Work Report
   - [16340303-zdx](page/zdx_note.md)
   - [16340140-ljhnhlh](./page/ljh_page/blog.md)
+  - [16340139-Linjz](./page/ljz_page/Linjz_blog.md)
 - X5 Final Report
   * [16340140-ljhnhlh](./page/ljh_page/FinalReport.md)
   * [16340038_chenxp38](./page/chenxp38_page/Final_report_16340038_chenxp38.md)
