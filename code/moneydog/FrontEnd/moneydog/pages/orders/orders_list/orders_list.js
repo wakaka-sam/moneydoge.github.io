@@ -288,9 +288,11 @@ Page({
     var trade = e.currentTarget.dataset
     var json = trade.json
     var id = trade.id
-    console.log(id, json)
+    wx.setStorageSync('detailJson', json)
+    console.log(wx.getStorageSync('detailJson'))
+    console.log('跳转id:', id)
     wx.navigateTo({
-      url: '../../details/details?id=' + id + '&json=' + JSON.stringify(json),
+      url: '../../details/details?id=' + id
     })
   },
   showPopup: function(e) {
