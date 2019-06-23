@@ -3,7 +3,7 @@
 - [2.Team profile（团队组建）](page/team_profile.md)
 - [3.Investigation（项目前期调研）](./page/chenxp38_page/Investigation.md)
 - [4.Vision（项目愿景）](page/vision.md)
-- [5.Product Backlog （产品特性）](page/product_backlog)
+- [5.Product Backlog （产品特性）](page/Product Backlog.md)
 - [6.Requirement specification（需求规格说明）](page/product_requirement.md)
   - 6.1 Usecase Diagram（用例图）
   - 6.2 [Use Cases（用例+活动图）](./page/chenxp38_page/Use_cases_details.md)
@@ -16,16 +16,16 @@
   - [7.2 Database design（数据库设计）](./page/ljh_page/数据库.md)
 
   - 7.3 Interface API design（接口 API 设计）
-    - [zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
-    - [ljh的后端接口及接口测试文档](./page/ljh_page/API.md)
+    - 7.3.1[zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
+    - 7.3.2[ljh的后端接口及接口测试文档](./page/ljh_page/API.md)
   - 7.4 Architecture design（架构设计）
-  - 7.5 Usecase design（用例设计）
+  - 7.5 [Usecase design（用例设计）](./page/ljh_page/用例设计.md)
 - 8.生产规范与指南
-  - 8.1 XX 代码规范
-
+  - 8.1 [XX 代码规范](page/code_formal.md)
+  
   - 8.2 [REST API 设计规范](page/REST_API _formal.md)
 
-  - 8.3 架构设计、详细设计（BCE方法）到应用程序框架映射指南
+  - 8.3 [架构设计、详细设计（BCE方法）到应用程序框架映射指南](page/8.3part.md)
 
   - 8.4 [部署说明](page/deploy_file.md)
 - 9.资料分享链接
@@ -34,6 +34,9 @@
 - 10.贡献率计算
   - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
   - [项目最终贡献表](./page/chenxp38_page/contribution_table.md)
+
+  - 项目最终贡献表
+
 - 11.成品展示
 - X1 meeting-records
 
@@ -52,7 +55,11 @@
 - X3 auditing-records
 - X4 Tech/Work Report
   - [16340303-zdx](page/zdx_note.md)
+  - [16340140-ljhnhlh](./page/ljh_page/blog.md)
 - X5 Final Report
+  * [16340140-ljhnhlh](./page/ljh_page/FinalReport.md)
   * [16340018-chg](page/Chenhg.md)
   * [16340038_chenxp38](./page/chenxp38_page/Final_report_16340038_chenxp38.md)
+  * [16340303-zdx](page/zdx_final_report.md)
+  * [16340145-linzhk5](page/lzk_page/final_report.md)
 
