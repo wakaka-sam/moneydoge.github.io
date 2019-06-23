@@ -19,7 +19,7 @@ Page({
     lastId3: -1,//订单号，并存起来，
     lastId4: -1,//默认值-1，当得到所
     lastId5: -1,//有订单后也置为-1
-    exTradeList: [
+    exTradeList: [/*
       {
         "express_loc":"明德园6号",
         "arrive_time":"2019-05-03",
@@ -41,11 +41,11 @@ Page({
         "remark": "none",
         "issue_time": "2019-05-4",
         "state": 0
-      }],
+      }*/],
     erTradeList: [],
     heTradeList: [],
     seTradeList: [],
-    quTradeList: [{
+    quTradeList: [/*{
       "qid": 1,
       "name": "调查问卷",
       "description": "饭堂满意度",
@@ -56,7 +56,7 @@ Page({
       "name": "调查问卷",
       "description": "饭堂满意度",
       "pay": 1
-    }]
+    }*/]
   },
   /**
    * 页面切换
@@ -286,7 +286,7 @@ Page({
           }
           newList = newList.concat(res_data)
           console.log(res.data)
-          that.setData({exTradeList: newList})
+          that.setData({exTradeList: newList, lastId1: res.data[res.data.length-1].pid})
           that.setData({exTradeList: that.sortList(1, that.data.index)})
         }
       }
@@ -305,6 +305,7 @@ Page({
           that.setData({lastId2: -1})
         }
         else {
+          console.log('获取新订单')
           var newList = that.data.erTradeList
           var res_data = res.data
           for (var i = 0; i < res_data.length; i++) {
@@ -312,7 +313,7 @@ Page({
             res_data[i].issue_time = that.convertUTCTimeToLocalTime(res_data[i].issue_time)
           }
           newList = newList.concat(res_data)
-          that.setData({erTradeList: newList})
+          that.setData({erTradeList: newList, lastId2: res.data[res.data.length-1].rid})
           that.setData({ erTradeList: that.sortList(2, that.data.index) })
         }
       }
@@ -331,6 +332,7 @@ Page({
           that.setData({lastId3: -1})
         }
         else {
+          console.log('获取新订单')
           var newList = that.data.heTradeList
           var res_data = res.data
           for (var i = 0; i < res_data.length; i++) {
@@ -338,7 +340,7 @@ Page({
             res_data[i].issue_time = that.convertUTCTimeToLocalTime(res_data[i].issue_time)
           }
           newList = newList.concat(res_data)
-          that.setData({heTradeList: newList})
+          that.setData({heTradeList: newList, lastId3: res.data[res.data.length-1].fid})
           that.setData({ heTradeList: that.sortList(3, that.data.index) })
         }
       }
@@ -357,6 +359,7 @@ Page({
           that.setData({lastId4: -1})
         }
         else {
+          console.log('获取新订单')
           var newList = that.data.seTradeList
           var res_data = res.data
           for (var i = 0; i < res_data.length; i++) {
@@ -364,7 +367,7 @@ Page({
             res_data[i].issue_time = that.convertUTCTimeToLocalTime(res_data[i].issue_time)
           }
           newList = newList.concat(res_data)
-          that.setData({seTradeList: newList})
+          that.setData({seTradeList: newList, lastId4: res.data[res.data.length-1].sid})
           that.setData({ seTradeList: that.sortList(4, that.data.index) })
         }
       }
@@ -384,9 +387,10 @@ Page({
           that.setData({lastId5: -1})
         }
         else {
+          console.log('获取新订单')
           var newList = that.data.quTradeList
           newList = newList.concat(res.data)
-          that.setData({quTradeList: newList})
+          that.setData({quTradeList: newList, lastId5: res.data[res.data.length-1].qid})
           that.setData({ quTradeList: that.sortList(5,that.data.index) })
         }
       }
