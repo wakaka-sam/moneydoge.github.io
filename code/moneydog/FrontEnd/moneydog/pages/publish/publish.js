@@ -507,7 +507,10 @@ Page({
       },
       success:function (res){
         console.log("return:"+ res.data);//这个有返回也需要判定验证
-        if (res.data.errcode == 1){
+        var data_t = JSON.parse(res.data);
+        var res_t = JSON.parse(res.statusCode);
+        console.log(res_t, "resp:" + data_t.errcode);
+        if (data_t.errcode == 1){
           var image_url_t = JSON.parse(res.data);
           var url = 'http://119.23.218.7:8080/' + image_url_t.imageUrl;
           console.log("上传的url:" + url);
