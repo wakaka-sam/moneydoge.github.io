@@ -108,10 +108,10 @@
       </view>
     </view>
     <view class='single-bottom'>
-      <label wx:if="{{isSelected6 && !isFinish}}" class='order-state'>{{item.state==0 ? '未被接单' : '已被接单'}}</label>
-      <label wx:if="{{isSelected6 && isFinish}}" class='order-state1'>确认完成</label>
+      <label wx:if="{{isSelected6 && item.state!=2}}" class='order-state'>{{item.state==0 ? '未被接单' : '已被接单'}}</label>
+      <label wx:if="{{isSelected6 && item.state==2}}" class='order-state1'>确认完成</label>
       <label wx:if="{{isSelected7}}" class='order-state1'>{{item.state==1 ? '已接单' : '已完成'}}</label>
-      <button wx:if="{{isSelected6 && !isFinish}}" class='accept-button' catchtap='confirmFinish' data-type='1' data-id='{{index}}' data-orderID='{{item.rid}}'>完成</button>
+      <button wx:if="{{isSelected6 && item.state!=2}}" class='accept-button' catchtap='confirmFinish' data-type='1' data-id='{{index}}' data-orderID='{{item.rid}}'>完成</button>
     </view>
   </view>
 </block>
@@ -138,10 +138,10 @@
       </view>
     </view>
     <view class='single-bottom'>
-      <label wx:if="{{isSelected6 && !isFinish}}" class='order-state'>{{item.state==0 ? '未被接单' : '已被接单'}}</label>
-      <label wx:if="{{isSelected6 && isFinish}}" class='order-state1'>确认完成</label>
+      <label wx:if="{{isSelected6 && item.state!=2}}" class='order-state'>{{item.state==0 ? '未被接单' : '已被接单'}}</label>
+      <label wx:if="{{isSelected6 && item.state==2}}" class='order-state1'>确认完成</label>
       <label wx:if="{{isSelected7}}" class='order-state1'>{{item.state==1 ? '已接单' : '已完成'}}</label>
-      <button wx:if="{{isSelected6 && !isFinish}}" class='accept-button' catchtap='confirmFinish' data-type='2' data-id='{{index}}' data-orderID='{{item.fid}}'>完成</button>
+      <button wx:if="{{isSelected6 && item.state!=2}}" class='accept-button' catchtap='confirmFinish' data-type='2' data-id='{{index}}' data-orderID='{{item.fid}}'>完成</button>
     </view>
   </view>
 </block>
@@ -168,10 +168,10 @@
       </view>
     </view>
     <view class='single-bottom'>
-      <label wx:if="{{isSelected6 && !isFinish}}" class='order-state'>{{item.state==0 ? '未被接单' : '已被接单'}}</label>
-      <label wx:if="{{isSelected6 && isFinish}}" class='order-state1'>确认完成</label>
+      <label wx:if="{{isSelected6 && item.state!=2}}" class='order-state'>{{item.state==0 ? '未被接单' : '已被接单'}}</label>
+      <label wx:if="{{isSelected6 && item.state==2}}" class='order-state1'>确认完成</label>
       <label wx:if="{{isSelected7}}" class='order-state1'>{{item.state==1 ? '已接单' : '已完成'}}</label>
-      <button wx:if="{{isSelected6 && !isFinish}}" class='accept-button' catchtap='confirmFinish' data-type='3' data-id='{{index}}' data-orderID='{{item.sid}}'>完成</button>
+      <button wx:if="{{isSelected6 && item.state!=2}}" class='accept-button' catchtap='confirmFinish' data-type='3' data-id='{{index}}' data-orderID='{{item.sid}}'>完成</button>
     </view>
   </view>
 </block>
