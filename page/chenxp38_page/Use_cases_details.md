@@ -93,6 +93,7 @@
 
 ### 活动图
 
-![活动图](../imgsrc/cxp_img/activity_diagram.png)
-=======
->>>>>>> 70ca5babeb4c033831b1304cfc1667895037edea
+![](../../imgsrc/cxp_img/activity_diagram.png)
+
+>>>>>
+
