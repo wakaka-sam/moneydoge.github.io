@@ -35,7 +35,7 @@
   - [项目最终贡献表](./page/chenxp38_page/contribution_table.md)
 - 11.成品展示
   - [B站视频演示](https://www.bilibili.com/video/av56724944)
-  - [百度云分享（提取码：f1zj）](https://pan.baidu.com/share/init?surl=qnJJzGmuI_RAWOJBSaNW2g#list/path=%2F)
+  - [百度云分享（提取码：f1zj）](https://pan.baidu.com/s/1qnJJzGmuI_RAWOJBSaNW2g)
 - X1 meeting-records
 
   - [inception meeting(2019/03/22)](./page/chenxp38_page/inception_meeting.md)
