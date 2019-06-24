@@ -14,16 +14,14 @@
 - 7.Design（设计）
   - [7.1 UI design（界面设计)](page/7.1UI-design.md)
   - [7.2 Database design（数据库设计）](./page/ljh_page/数据库.md)
-
   - 7.3 Interface API design（接口 API 设计）
     - 7.3.1[zdx的后端接口部分](https://moneydog.club:3336/swagger-ui.html)
     - 7.3.2[ljhnhlh的后端接口及接口测试文档](./page/ljh_page/API.md)
   - 7.4 [Architecture design（架构设计）](./page/Architecture_design.md)
   - 7.5 [Usecase design（用例设计）](./page/ljh_page/用例设计.md)
-  
 - 8.生产规范与指南
   - 8.1 [XX 代码规范](page/code_formal.md)
-  
+
   - 8.2 [REST API 设计规范](page/REST_API _formal.md)
 
   - 8.3 [架构设计、详细设计（BCE方法）到应用程序框架映射指南](page/8.3part.md)
@@ -35,8 +33,9 @@
 - 10.贡献率计算
   - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
   - [项目最终贡献表](./page/chenxp38_page/contribution_table.md)
-
 - 11.成品展示
+  - [B站视频演示](https://www.bilibili.com/video/av56724944)
+  - [百度云分享（提取码：f1zj）](https://pan.baidu.com/share/init?surl=qnJJzGmuI_RAWOJBSaNW2g#list/path=%2F)
 - X1 meeting-records
 
   - [inception meeting(2019/03/22)](./page/chenxp38_page/inception_meeting.md)
