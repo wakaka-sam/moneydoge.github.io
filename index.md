@@ -53,7 +53,7 @@
 - X2 [kanban](https://github.com/ljhnhlh/ljhnhlh.github.io/projects)
 - X3 auditing-records
 - X4 Tech/Work Report
-  - [16340303-zdx](page/zdx_note.md)
+  - [16340303-Wakaka001](page/zdx_note.md)
   - [16340140-ljhnhlh](./page/ljh_page/blog.md)
   - [16340139-Linjz](./page/ljz_page/Linjz_blog.md)
 - X5 Final Report
