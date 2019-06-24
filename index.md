@@ -53,14 +53,13 @@
 - X2 [kanban](https://github.com/ljhnhlh/ljhnhlh.github.io/projects)
 - X3 auditing-records
 - X4 Tech/Work Report
-  - [16340303-zdx](page/zdx_note.md)
+  - [16340303-Wakaka001](page/zdx_note.md)
   - [16340140-ljhnhlh](./page/ljh_page/blog.md)
   - [16340139-Linjz](./page/ljz_page/Linjz_blog.md)
 - X5 Final Report
   * [16340140-ljhnhlh](./page/ljh_page/FinalReport.md)
   * [16340038_chenxp38](./page/chenxp38_page/Final_report_16340038_chenxp38.md)
   * [16340018-Chenhg8](page/Chenhg.md)
-  * [16340303-zdx](page/zdx_final_report.md)
+  * [16340303-Wakaka001](page/zdx_final_report.md)
   * [16340145-linzhk5](page/lzk_page/final_report.md)
   * [16340139-Linjz](./page/ljz_page/FinalReport.md)
-
