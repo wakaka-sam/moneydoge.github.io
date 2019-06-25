@@ -1,10 +1,10 @@
 # 目录
-- [1.About（项目规划）](page/about.md)
-- [2.Team profile（团队组建）](page/team_profile.md)
-- [3.Investigation（项目前期调研）](./page/chenxp38_page/Investigation.md)
-- [4.Vision（项目愿景）](page/vision.md)
-- [5.Product Backlog （产品特性）](page/Product Backlog.md)
-- [6.Requirement specification（需求规格说明）](page/product_requirement.md)
+- 1.[About（项目规划）](page/about.md)
+- 2.[Team profile（团队组建）](page/team_profile.md)
+- 3.[Investigation（项目前期调研）](./page/chenxp38_page/Investigation.md)
+- 4.[Vision（项目愿景）](page/vision.md)
+- 5.[Product Backlog （产品特性）](page/Product Backlog.md)
+- 6.[Requirement specification（需求规格说明）](page/product_requirement.md)
   - 6.1 [Usecase Diagram（用例图）](./page/Usecase_Diagram.md)
   - 6.2 [Use Cases（用例+活动图）](./page/chenxp38_page/Use_cases_details.md)
   - 6.3 [Domain Model（领域模型）](./page/DomainModel.md)
@@ -34,7 +34,11 @@
   - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
   - [项目最终贡献表](./page/chenxp38_page/contribution_table.md)
 - 11.成品展示
-  - [B站视频演示](https://www.bilibili.com/video/av56724944)
+  - [页面介绍](https://www.bilibili.com/video/av56724944/?p=1)
+  - [问卷业务介绍](https://www.bilibili.com/video/av56724944/?p=4)
+  - [闲置业务介绍](https://www.bilibili.com/video/av56724944/?p=3)
+  - [快递业务介绍业务介绍](https://www.bilibili.com/video/av56724944/?p=2)
+  - [额外业务：表白墙](https://www.bilibili.com/video/av56724944/?p=5)
   - [百度云分享（提取码：f1zj）](https://pan.baidu.com/s/1qnJJzGmuI_RAWOJBSaNW2g)
 - X1 meeting-records
 
