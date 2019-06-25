@@ -34,7 +34,11 @@
   - [个人贡献每周记录](https://docs.qq.com/sheet/DV1JYc2FLV2Rxc1hK?opendocxfrom=admin&tab=BB08J2)
   - [项目最终贡献表](./page/chenxp38_page/contribution_table.md)
 - 11.成品展示
-  - [B站视频演示](https://www.bilibili.com/video/av56724944)
+  - [页面介绍](https://www.bilibili.com/video/av56724944/?p=1)
+  - [问卷业务介绍](https://www.bilibili.com/video/av56724944/?p=4)
+  - [闲置业务介绍](https://www.bilibili.com/video/av56724944/?p=3)
+  - [快递业务介绍业务介绍](https://www.bilibili.com/video/av56724944/?p=2)
+  - [额外业务：表白墙](https://www.bilibili.com/video/av56724944/?p=5)
   - [百度云分享（提取码：f1zj）](https://pan.baidu.com/s/1qnJJzGmuI_RAWOJBSaNW2g)
 - X1 meeting-records
 
