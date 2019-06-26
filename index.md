@@ -54,7 +54,7 @@
   - [inception meeting_10(2019/06/09)](./page/chenxp38_page/meeting_record_10.md)
   - [inception meeting_11(2019/06/19)](./page/chenxp38_page/meeting_record_11.md)
 - X2 [kanban](https://github.com/ljhnhlh/ljhnhlh.github.io/projects)
-- X3 auditing-records
+- X3 [auditing-records](./page/auditing-records.md)
 - X4 Tech/Work Report
   - [16340303-Wakaka001](page/zdx_note.md)
   - [16340140-ljhnhlh](./page/ljh_page/blog.md)
