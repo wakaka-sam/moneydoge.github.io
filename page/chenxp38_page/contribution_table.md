@@ -8,7 +8,7 @@
 |  其他                 | 30%       |10%||||60%|
 |  汇总                 | 20.5%       |17.5%|16.5%|14.5% |14.5% |16.5%|
 
-![贡献表](../../imgsrc/cxp_img/contribution_table.png)
+![贡献表](../../imgsrc/cxp_img/contribution_table2.png)
 
 
 
