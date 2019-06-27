@@ -12,6 +12,7 @@
 | 16340018 | Chenhg8   | 需求审计 | https://github.com/sysu-swsad-2019/Document/issues/1 |
 | 16340145 | linzhk5   | 需求审计 | https://github.com/sysu-swsad-2019/SWSAD/issues/23 |
 
+
 ## 2、设计审计
 
 |   学号   | github-id | 标题       | issue url                                          |
@@ -19,6 +20,7 @@
 | 16340140 | ljhnhlh   | 设计审计：UI设计页面与产品界面差别较大 | https://github.com/hhhghh/Dashboard/issues/13 |
 | 16340018 | Chenhg8   | UI设计审计 | https://github.com/sysu-swsad-2019/SWSAD/issues/20 |
 | 16340145 | linzhk5   | 设计审计 | https://github.com/sysu-swsad-2019/SWSAD/issues/22 |
+|16340038|chenxp38|设计审计|https://github.com/sysuswsad/mission_craft/issues/8|
 
 ## 审计评分标准
 
