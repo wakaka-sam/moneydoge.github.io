@@ -11,6 +11,7 @@
 | 16340140 | ljhnhlh   | 需求审计 | https://github.com/hhhghh/Dashboard/issues/12 |
 | 16340018 | Chenhg8   | 需求审计 | https://github.com/sysu-swsad-2019/Document/issues/1 |
 | 16340145 | linzhk5   | 需求审计 | https://github.com/sysu-swsad-2019/SWSAD/issues/23 |
+|16340038|chenxp38|需求审计|https://github.com/sysuswsad/mission_craft/issues/9|
 
 
 ## 2、设计审计
