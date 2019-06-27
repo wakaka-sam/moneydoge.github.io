@@ -12,6 +12,7 @@
 | 16340018 | Chenhg8   | 需求审计 | https://github.com/sysu-swsad-2019/Document/issues/1 |
 | 16340145 | linzhk5   | 需求审计 | https://github.com/sysu-swsad-2019/SWSAD/issues/23 |
 |16340038|chenxp38|需求审计|https://github.com/sysuswsad/mission_craft/issues/9|
+|16340139|Linjz|需求审计|https://github.com/software-system-analysis-and-design/SE-308/issues/1|
 
 
 ## 2、设计审计
@@ -22,6 +23,7 @@
 | 16340018 | Chenhg8   | UI设计审计 | https://github.com/sysu-swsad-2019/SWSAD/issues/20 |
 | 16340145 | linzhk5   | 设计审计 | https://github.com/sysu-swsad-2019/SWSAD/issues/22 |
 |16340038|chenxp38|设计审计|https://github.com/sysuswsad/mission_craft/issues/8|
+|16340139|Linjz|设计审计|https://github.com/sysuswsad/mission_craft/issues/10|
 
 ## 审计评分标准
 
